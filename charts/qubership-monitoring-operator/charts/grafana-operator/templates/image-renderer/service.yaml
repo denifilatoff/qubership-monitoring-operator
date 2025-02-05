@@ -1,0 +1,31 @@
+{{- if .Values.imageRenderer.install }}
+{{- $image := include "grafana.imageRenderer.image" . }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.imageRenderer.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.imageRenderer.name }}
+    app.kubernetes.io/instance: {{ cat .Values.imageRenderer.name "-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: grafana
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/version: {{ splitList ":" $image | last }}
+    {{- if .Values.imageRenderer.labels }}
+      {{- toYaml .Values.imageRenderer.labels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.imageRenderer.annotations }}
+  annotations:
+    {{- toYaml .Values.imageRenderer.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  ports:
+    - name: web
+      protocol: TCP
+      port: {{ .Values.imageRenderer.port }}
+      targetPort: web
+  selector:
+    app.kubernetes.io/name: {{ .Values.imageRenderer.name }}
+  clusterIP: None
+  type: ClusterIP
+  sessionAffinity: None
+{{- end }}

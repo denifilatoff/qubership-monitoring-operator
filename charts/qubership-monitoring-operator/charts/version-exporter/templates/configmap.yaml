@@ -1,0 +1,19 @@
+{{- if and .Values.install }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/component: version-exporter
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "version-exporter.instance" . }}
+    app.kubernetes.io/version: {{ template "version-exporter.version" . }}
+data:
+  {{- if .Values.exporterConfig }}
+  exporterConfig.yaml: |-
+    {{- toYaml .Values.exporterConfig | nindent 4 }}
+  {{- else }}
+  exporterConfig.yaml: ""
+  {{- end }}
+{{- end }}

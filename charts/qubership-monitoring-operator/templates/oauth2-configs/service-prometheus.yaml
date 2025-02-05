@@ -1,0 +1,26 @@
+{{- if .Values.prometheus }}
+{{- if .Values.prometheus.install }}
+{{- if and .Values.auth .Values.oAuthProxy }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-oauth2-proxy
+  labels:
+    app.kubernetes.io/name: prometheus-oauth2-proxy
+    app.kubernetes.io/component: oauth2-proxy
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: {{ cat "prometheus-oauth2-proxy-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+spec:
+  clusterIP: None
+  ports:
+    - name: oauth-proxy
+      port: 9092
+      protocol: TCP
+      targetPort: oauth-proxy
+  selector:
+    app.kubernetes.io/name: prometheus
+{{- end }}
+{{- end }}
+{{- end }}

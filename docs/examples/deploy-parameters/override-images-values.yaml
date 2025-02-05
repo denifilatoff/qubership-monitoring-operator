@@ -1,0 +1,70 @@
+# This is a YAML-formatted file.
+# All parameters specify only as example
+
+alertManager:
+  install: false
+  image: prom/alertmanager:latest
+oAuthProxy:
+  image: oauth2-proxy/oauth2-proxy:latest
+grafana:
+  image: grafana/grafana:latest
+  operator:
+    image: grafana-operator/grafana-operator:latest
+prometheus:
+  install: false
+  image: prometheus-operator/prometheus-config-reloader:latest
+  operator:
+    image: prometheus-operator/prometheus-operator:latest
+monitoringOperator:
+  image: product/prod.platform.system.monitoring_monitoring-operator:latest
+kubeStateMetrics:
+  image: kube-state-metrics/kube-state-metrics:latest
+nodeExporter:
+  image: prom/node-exporter:latest
+graphite_remote_adapter:
+  install: true
+  image: product/prod.platform.system.monitoring_graphite-remote-adapter:latest
+certExporter:
+  install: true
+  image: joeelliott/cert-exporter:latest
+networkLatencyExporter:
+  install: true
+  image: product/prod.platform.system.monitoring_exporters_network-latency-exporter:latest
+blackboxExporter:
+  install: true
+  image: prom/blackbox-exporter:latest
+cloudEventsExporter:
+  install: true
+  image: product/prod.platform.logging_cloud-events-reader:latest
+pushgateway:
+  install: true
+  image: prom/pushgateway:latest
+prometheusAdapter:
+  image: product/prod.platform.system.monitoring_k8s-scaling_prometheus-adapter:latest
+  operator:
+    image: product/prod.platform.system.monitoring_k8s-scaling_prometheus-adapter-operator:latest
+promxy:
+  install: true
+  image: jacksontj/promxy:latest
+versionExporter:
+  install: true
+  image: product/prod.platform.system.monitoring_exporters_version-exporter:latest
+stackdriverExporter:
+  install: true
+  image: prometheuscommunity/stackdriver-exporter:latest
+jsonExporter:
+  install: true
+  image: prometheuscommunity/json-exporter:latest
+victoriametrics:
+  vmOperator:
+    image: victoriametrics/operator:latest
+  vmAgent:
+    image: victoriametrics/vmagent:latest
+  vmSingle:
+    image: victoriametrics/victoria-metrics:latest
+  vmAlertManager:
+    image: victoriametrics/victoria-metrics:latest
+  vmAlert:
+    image: victoriametrics/vmalert:latest
+  vmAuth:
+    image: victoriametrics/vmauth:latest

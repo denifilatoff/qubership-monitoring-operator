@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.monitoringOperator.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.monitoringOperator.name }}
+    app.kubernetes.io/component: monitoring-operator
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "monitoring.instance" . }}
+    app.kubernetes.io/version: {{ template "monitoring.operator.version" . }}
+    {{- if .Values.monitoringOperator.labels }}
+      {{- toYaml .Values.monitoringOperator.labels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.monitoringOperator.annotations }}
+  annotations:
+    {{- toYaml .Values.monitoringOperator.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ .Values.monitoringOperator.name }}
+  template:
+    metadata:
+      labels:
+        name: {{ .Values.monitoringOperator.name }}
+        app.kubernetes.io/name: {{ .Values.monitoringOperator.name }}
+        app.kubernetes.io/component: monitoring-operator
+        app.kubernetes.io/part-of: monitoring
+        app.kubernetes.io/instance: {{ template "monitoring.instance" . }}
+        app.kubernetes.io/version: {{ template "monitoring.operator.version" . }}
+        app.kubernetes.io/managed-by: Helm
+        {{- if .Values.monitoringOperator.labels }}
+          {{- toYaml .Values.monitoringOperator.labels | nindent 8 }}
+        {{- end }}
+      {{- if .Values.monitoringOperator.annotations }}
+      annotations:
+        {{- toYaml .Values.monitoringOperator.annotations | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ .Values.monitoringOperator.serviceAccount.name }}
+      securityContext:
+        {{ include "monitoring.operator.securityContext" . }}
+      {{- if .Values.monitoringOperator.priorityClassName }}
+      priorityClassName: {{ .Values.monitoringOperator.priorityClassName | quote }}
+      {{- end }}
+      tolerations: {{- toYaml .Values.monitoringOperator.tolerations | nindent 8 }}
+      nodeSelector: {{- toYaml .Values.monitoringOperator.nodeSelector | nindent 8 }}
+      containers:
+        - name: monitoring-operator
+          image: {{ template "monitoring.operator.image" . }}
+          command: ["/manager"]
+          args:
+            - '--privilegedRights={{ .Values.global.privilegedRights }}'
+            {{- if .Values.monitoringOperator.pprof }}
+            - '--pprof-enable={{ .Values.monitoringOperator.pprof.install }}'
+            - '--pprof-address=:{{ .Values.monitoringOperator.pprof.service.port }}'
+            {{- end }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          {{- with .Values.monitoringOperator.pprof }}
+            {{- if .install }}
+              {{- if and .containerPort .service.portName }}
+          - containerPort: {{ .containerPort }}
+            name: {{ .service.portName }}
+            protocol: TCP
+              {{- end }}
+            {{- end }}
+          {{- end }}
+          resources:
+            {{ include "monitoring.operator.resources" . }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL

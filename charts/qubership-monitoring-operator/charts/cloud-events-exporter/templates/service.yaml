@@ -1,0 +1,25 @@
+{{- if .Values.install }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ template "cloudEventsExporter.fullname" . }}
+    app.kubernetes.io/component: cloud-events-exporter
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "cloudEventsExporter.instance" . }}
+    app.kubernetes.io/version: {{ template "cloudEventsExporter.version" . }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: health
+      protocol: TCP
+      name: health
+    - name: metrics
+      port: {{ .Values.port | default 9999 }}
+      protocol: TCP
+      targetPort: metrics
+  selector:
+    app.kubernetes.io/name: {{ template "cloudEventsExporter.fullname" . }}
+{{- end }}

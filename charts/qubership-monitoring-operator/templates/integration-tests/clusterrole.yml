@@ -1,0 +1,36 @@
+{{- if and .Values.integrationTests.install .Values.global.privilegedRights }}
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ template "integrationTests.rbac.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "integrationTests.rbac.fullname" . }}
+    app.kubernetes.io/component: platform-monitoring-tests
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "monitoring.instance" . }}
+    app.kubernetes.io/version: {{ template "integrationTests.version" . }}
+rules:
+  - apiGroups:
+      - "integreatly.org"
+    resources:
+      - grafanadashboards
+      - grafanadashboards/status
+      - grafanas
+      - grafanas/status
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+      - "update"
+      - "patch"
+      - "delete"
+      - "create"
+  - apiGroups:
+      - "custom.metrics.k8s.io"
+    resources:
+      - "*"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+{{- end }}

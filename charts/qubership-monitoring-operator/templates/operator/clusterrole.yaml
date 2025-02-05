@@ -1,0 +1,573 @@
+{{- if and .Values.role.install .Values.global.privilegedRights }}
+apiVersion: {{ template "rbac.apiVersion" . }}
+kind: ClusterRole
+metadata:
+  name: {{ template "monitoring.operator.rbac.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "monitoring.operator.rbac.fullname" . }}
+    app.kubernetes.io/component: monitoring-operator
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "monitoring.instance" . }}
+    app.kubernetes.io/version: {{ template "monitoring.operator.version" . }}
+rules:
+  - apiGroups:
+      - "rbac.authorization.k8s.io"
+    resources:
+      - clusterrolebindings
+      - clusterroles
+      - rolebindings
+      - roles
+    verbs:
+      - 'create'
+      - 'delete'
+      - 'get'
+      - 'list'
+      - 'patch'
+      - 'update'
+      - 'watch'
+  - nonResourceURLs:
+      - /metrics
+    verbs:
+      - 'get'
+
+  - apiGroups:
+      - "config.openshift.io"
+    resources:
+      - clusterversions
+    verbs:
+      - 'get'
+
+  - apiGroups:
+      - "monitoring.qubership.org"
+    resources:
+      - platformmonitorings
+      - platformmonitorings/finalizers
+      - platformmonitorings/status
+    verbs:
+      - 'create'
+      - 'delete'
+      - 'get'
+      - 'list'
+      - 'update'
+      - 'watch'
+
+  - apiGroups:
+      - ""
+    resources:
+      - endpointslices
+      - namespaces
+      - nodes
+      - nodes/metrics
+      - nodes/proxy
+      - limitranges
+      - persistentvolumes
+      - replicationcontrollers
+      - resourcequotas
+    verbs:
+      - 'get'
+      - 'list'
+      - 'watch'
+      - 'update'
+
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - services
+      - services/finalizers
+      - endpoints
+      - persistentvolumeclaims
+      - events
+      - configmaps
+      - configmaps/finalizers
+      - secrets
+      - secrets/finalizers
+      - serviceaccounts
+      - serviceaccounts/finalizers
+    verbs:
+      - 'create'
+      - 'delete'
+      - 'get'
+      - 'list'
+      - 'update'
+      - 'watch'
+      - 'patch'
+  - apiGroups:
+      - "apps"
+    resourceNames:
+      - {{ .Values.monitoringOperator.name }}
+    resources:
+      - deployments/finalizers
+    verbs:
+      - 'update'
+
+  - apiGroups:
+      - "apps"
+    resources:
+      - deployments
+      - deployments/finalizers
+      - daemonsets
+      - replicasets
+      - statefulsets
+      - statefulsets/finalizers
+      - statefulsets/status
+    verbs:
+      - 'create'
+      - 'delete'
+      - 'get'
+      - 'list'
+      - 'update'
+      - 'patch'
+      - 'watch'
+
+  - apiGroups:
+      - "apiregistration.k8s.io"
+    resources:
+      - apiservices
+    verbs:
+      - 'create'
+      - 'delete'
+      - 'get'
+      - 'list'
+      - 'update'
+      - 'watch'
+
+  - apiGroups:
+      - "route.openshift.io"
+    resources:
+      - routes
+    verbs:
+      - 'create'
+      - 'delete'
+      - 'get'
+      - 'list'
+      - 'update'
+      - 'watch'
+
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+
+ # Node Exporter: Authentication:
+  - apiGroups:
+      - "authentication.k8s.io"
+    resources:
+      - tokenreviews
+    verbs:
+      - 'create'
+  # Authorization:
+  - apiGroups:
+      - "authorization.k8s.io"
+    resources:
+      - subjectaccessreviews
+    verbs:
+      - 'create'
+  # Security:
+  - apiGroups:
+    - "security.openshift.io"
+    resources:
+      - securitycontextconstraints
+    verbs:
+      - 'create'
+      - 'get'
+      - 'list'
+      - 'watch'
+  {{- if $.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy" }}
+  - apiGroups:
+      - "policy"
+    resources:
+      - podsecuritypolicies
+    verbs:
+      - 'create'
+      - 'get'
+      - 'list'
+      - 'watch'
+  {{- end }}
+  {{- if $.Capabilities.APIVersions.Has "security.openshift.io/v1/SecurityContextConstraints" }}
+  - apiGroups:
+      - "security.openshift.io"
+    resources:
+      - securitycontextconstraints
+    resourceNames:
+      - node-exporter
+    verbs:
+      - 'delete'
+      - 'update'
+      - 'use'
+  {{- end }}
+  {{- if $.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy" }}
+  - apiGroups:
+      - "policy"
+    resources:
+      - podsecuritypolicies
+    resourceNames:
+      - node-exporter
+    verbs:
+      - 'delete'
+      - 'update'
+      - 'use'
+      - 'patch'
+  {{- end }}
+  {{- if $.Capabilities.APIVersions.Has "security.openshift.io/v1/SecurityContextConstraints" }}
+  - apiGroups:
+      - "security.openshift.io"
+    resources:
+      - securitycontextconstraints
+    resourceNames:
+      - victoriametrics-operator
+    verbs:
+      - 'use'
+      - 'update'
+  {{- end }}
+  {{- if $.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy" }}
+  - apiGroups:
+      - "policy"
+    resources:
+      - podsecuritypolicies
+    resourceNames:
+      - victoriametrics-operator
+    verbs:
+      - 'use'
+      - 'update'
+      - 'patch'
+  {{- end }}
+
+  # Prometheus Operator: Monitoring:
+  - apiGroups:
+      - "monitoring.coreos.com"
+    resources:
+      - alertmanagers
+      - alertmanagers/finalizers
+      - alertmanagers/status
+      - alertmanagerconfigs
+      - alertmanagerconfigs/finalizers
+      - alertmanagerconfigs/status
+      - prometheuses
+      - prometheuses/finalizers
+      - prometheuses/status
+      - prometheusrules
+      - prometheusrules/finalizers
+      - prometheusrules/status
+      - prometheusagents
+      - prometheusagents/status
+      - thanosrulers
+      - thanosrulers/finalizers
+      - thanosrulers/status
+      - podmonitors
+      - podmonitors/finalizers
+      - podmonitors/status
+      - probes
+      - probes/finalizers
+      - probes/status
+      - servicemonitors
+      - servicemonitors/finalizers
+      - servicemonitors/status
+      - scrapeconfigs
+    verbs:
+      - 'patch'
+      - 'create'
+      - 'delete'
+      - 'get'
+      - 'list'
+      - 'update'
+      - 'watch'
+  # ApiExtensions:
+  - apiGroups:
+      - "apiextensions.k8s.io"
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - 'create'
+      - 'delete'
+      - 'get'
+      - 'list'
+      - 'update'
+      - 'watch'
+
+  # Kube-state-metrics: Certificates:
+  - apiGroups:
+      - "certificates.k8s.io"
+    resources:
+      - certificatesigningrequests
+    verbs:
+      - 'list'
+      - 'watch'
+  # Policy:
+  - apiGroups:
+      - "policy"
+    resources:
+      - poddisruptionbudgets
+      - poddisruptionbudgets/finalizers
+    verbs:
+      - 'get'
+      - 'list'
+      - 'watch'
+      - 'create'
+      - 'update'
+      - 'patch'
+  # Batch: get Jobs
+  - apiGroups:
+      - "batch"
+    resources:
+      - cronjobs
+      - jobs
+    verbs:
+      - 'list'
+      - 'watch'
+  - apiGroups:
+      - "extensions"
+    resources:
+      - daemonsets
+      - deployments
+      - replicasets
+    verbs:
+      - 'list'
+      - 'watch'
+  # Storage: get list StorageClasses
+  - apiGroups:
+      - "storage.k8s.io"
+    resources:
+      - volumeattachments
+      - storageclasses
+    verbs:
+      - 'get'
+      - 'list'
+      - 'watch'
+  # Autoscailing: vertical and horizontal
+  - apiGroups:
+      - "autoscaling.k8s.io"
+    resources:
+      - verticalpodautoscalers
+    verbs:
+      - 'list'
+      - 'watch'
+  - apiGroups:
+      - "autoscaling"
+    resources:
+      - horizontalpodautoscalers
+    verbs:
+      - 'list'
+      - 'watch'
+      - 'get'
+      - 'update'
+      - 'delete'
+
+  # Grafana Operator
+  - apiGroups:
+        - ""
+    resources:
+      - pods
+      - services
+      - endpoints
+      - persistentvolumeclaims
+      - configmaps
+      - secrets
+      - serviceaccounts
+    verbs:
+      - get
+      - list
+      - create
+      - update
+      - delete
+      - deletecollection
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - update
+      - patch
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+      - daemonsets
+      - replicasets
+      - statefulsets
+    verbs:
+      - get
+      - list
+      - create
+      - update
+      - delete
+      - deletecollection
+      - watch
+  - apiGroups:
+      - route.openshift.io
+    resources:
+      - routes
+      - routes/custom-host
+    verbs:
+      - get
+      - list
+      - create
+      - update
+      - delete
+      - deletecollection
+      - watch
+      - create
+  - apiGroups:
+      - extensions
+    resources:
+      - ingresses
+      - ingresses/finalizers
+    verbs:
+      - get
+      - list
+      - create
+      - update
+      - delete
+      - deletecollection
+      - patch
+      - watch
+  - apiGroups:
+      - integreatly.org
+    resources:
+      - grafanas
+      - grafanas/status
+      - grafanas/finalizers
+      - grafananotificationchannels
+      - grafananotificationchannels/status
+      - grafanadashboards
+      - grafanadashboards/status
+      - grafanadatasources
+      - grafanadatasources/status
+      - grafanafolders
+      - grafanafolders/status
+    verbs:
+      - get
+      - list
+      - create
+      - update
+      - delete
+      - deletecollection
+      - watch
+      - patch
+  # Permissions to handle Ingresses
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - networkpolicies
+      - ingresses
+    verbs:
+      - get
+      - list
+      - create
+      - update
+      - delete
+      - watch
+  - apiGroups:
+      - "admissionregistration.k8s.io"
+    resources:
+      - validatingwebhookconfigurations
+      - mutatingwebhookconfigurations
+    verbs:
+      - 'list'
+      - 'watch'
+
+  # VictoriaMetrics operator
+  - verbs:
+      - create
+      - get
+      - update
+    apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+  - verbs:
+      - create
+      - delete
+      - deletecollection
+      - get
+      - list
+      - patch
+      - update
+      - watch
+    apiGroups:
+      - operator.victoriametrics.com
+    resources:
+      - vmagents
+      - vmagents/finalizers
+      - vmalertmanagerconfigs
+      - vmalertmanagerconfigs/finalizers
+      - vmalertmanagers
+      - vmalertmanagers/finalizers
+      - vmalerts
+      - vmalerts/finalizers
+      - vmauths
+      - vmauths/finalizers
+      - vmclusters
+      - vmclusters/finalizers
+      - vmnodescrapes
+      - vmnodescrapes/finalizers
+      - vmpodscrapes
+      - vmpodscrapes/finalizers
+      - vmprobes
+      - vmprobes/finalizers
+      - vmprobscrapes
+      - vmprobscrapes/finalizers
+      - vmrules
+      - vmrules/finalizers
+      - vmscrapeconfigs
+      - vmscrapeconfigs/finalizers
+      - vmservicescrapes
+      - vmservicescrapes/finalizers
+      - vmsingles
+      - vmsingles/finalizers
+      - vmstaticscrapes
+      - vmstaticscrapes/finalizers
+      - vmusers
+      - vmusers/finalizers
+      - vlogs
+      - vlogs/finalizers
+  - verbs:
+      - create
+      - delete
+      - deletecollection
+      - get
+      - list
+      - watch
+      - update
+      - patch
+    apiGroups:
+      - operator.victoriametrics.com
+    resources:
+      - vmagents/status
+      - vmalertmanagerconfigs/status
+      - vmalertmanagers/status
+      - vmalerts/status
+      - vmauths/status
+      - vmclusters/status
+      - vmnodescrapes/status
+      - vmpodscrapes/status
+      - vmprobes/status
+      - vmprobscrapes/status
+      - vmrules/status
+      - vmscrapeconfigs/status
+      - vmservicescrapes/status
+      - vmsingles/status
+      - vmstaticscrapes/status
+      - vmusers/status
+      - vlogs/status
+  - verbs:
+      - get
+    apiGroups:
+      - route.openshift.io
+      - image.openshift.io
+    resources:
+      - routers/metrics
+      - registry/metrics
+  - verbs:
+      - get
+      - watch
+      - list
+    nonResourceURLs:
+      - /metrics
+      - /metrics/resources
+{{- end }}

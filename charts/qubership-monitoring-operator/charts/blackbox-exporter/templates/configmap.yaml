@@ -1,0 +1,17 @@
+{{- if and .Values.install .Values.config (eq .Values.configExistingSecretName "") }}
+apiVersion: v1
+kind: {{ if .Values.secretConfig -}} Secret {{- else -}} ConfigMap {{- end }}
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/instance: {{ cat .Values.name "-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: blackbox-exporter
+    app.kubernetes.io/part-of: monitoring
+    {{- $image := include "blackboxExporter.image" . }}
+    app.kubernetes.io/version: {{ splitList ":" $image | last }}
+{{ if .Values.secretConfig -}}
+stringData: {{- else -}} data: {{- end }}
+  blackbox.yaml: |
+    {{ toYaml .Values.config | nindent 4 }}
+{{- end }}

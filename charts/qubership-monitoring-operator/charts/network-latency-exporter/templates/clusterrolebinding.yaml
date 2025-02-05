@@ -1,0 +1,20 @@
+{{- if and .Values.install .Values.global.privilegedRights .Values.rbac.createClusterRoleBinding }}
+apiVersion: {{ template "rbac.apiVersion" . }}
+kind: ClusterRoleBinding
+metadata:
+  name: {{ template "networkLatencyExporter.rbac.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "networkLatencyExporter.rbac.fullname" . }}
+    app.kubernetes.io/component: network-latency-exporter
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "networkLatencyExporter.instance" . }}
+    app.kubernetes.io/version: {{ template "networkLatencyExporter.version" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.serviceAccount.name }}
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ template "networkLatencyExporter.rbac.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

@@ -1,0 +1,15 @@
+{{- if and .Values.install .Values.rbac.createClusterRole .Values.global.privilegedRights }}
+apiVersion: {{ template "rbac.apiVersion" . }}
+kind: ClusterRole
+metadata:
+  name: {{ template "cloudwatch-exporter.rbac.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "cloudwatch-exporter.rbac.fullname" . }}
+    app.kubernetes.io/component: cloudwatch-exporter
+    app.kubernetes.io/part-of: monitoring
+rules:
+  - apiGroups: [""]
+    resources: ["secrets","configmaps"]
+    resourceNames: ["{{ .Values.name }}"]
+    verbs: ["get"]
+{{- end }}

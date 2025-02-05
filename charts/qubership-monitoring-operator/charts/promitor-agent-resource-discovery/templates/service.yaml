@@ -1,0 +1,36 @@
+{{- if .Values.install }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/instance: {{ cat .Values.name "-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: promitor-agent-resource-discovery
+    app.kubernetes.io/part-of: monitoring
+    {{- $image := include "promitor.agentResourceDiscovery.image" . }}
+    app.kubernetes.io/version: {{ splitList ":" $image | last }}
+    {{- if .Values.service.labels }}
+      {{ toYaml .Values.service.labels | nindent 4 }}
+    {{- end }}
+{{- if and (eq .Values.service.type "LoadBalancer") .Values.service.azureLoadBalancer }}
+  annotations:
+{{- if or (.Values.service.azureLoadBalancer.dnsPrefix) (.Values.service.azureLoadBalancer.exposeInternally) }}
+  {{- if .Values.service.azureLoadBalancer.dnsPrefix }}
+    service.beta.kubernetes.io/azure-dns-label-name: {{ .Values.service.azureLoadBalancer.dnsPrefix }}
+  {{- end }}
+  {{- if .Values.service.azureLoadBalancer.exposeInternally }}
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  {{- end }}
+{{- end }}
+{{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ .Values.name }}
+{{- end }}

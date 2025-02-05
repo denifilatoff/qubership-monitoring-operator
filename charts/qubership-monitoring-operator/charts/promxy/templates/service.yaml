@@ -1,0 +1,24 @@
+{{- if .Values.install }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/instance: {{ cat .Values.name "-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: promxy
+    app.kubernetes.io/part-of: monitoring
+    {{- $image := include "promxy.image" . }}
+    app.kubernetes.io/version: {{ splitList ":" $image | last }}
+spec:
+  ports:
+    - name: web
+      protocol: TCP
+      port: {{ .Values.port }}
+      targetPort: web
+  selector:
+    app.kubernetes.io/name: {{ .Values.name }}
+  clusterIP: None
+  type: ClusterIP
+  sessionAffinity: None
+{{- end }}

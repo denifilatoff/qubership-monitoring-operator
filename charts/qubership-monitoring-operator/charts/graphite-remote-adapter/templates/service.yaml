@@ -1,0 +1,22 @@
+{{- if .Values.install }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/instance: {{ cat .Values.name "-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: graphite-remote-adapter
+    app.kubernetes.io/part-of: monitoring
+    {{- $image := include "graphiteRemoteAdapter.image" . }}
+    app.kubernetes.io/version: {{ splitList ":" $image | last }}
+spec:
+  type: ClusterIP
+  ports:
+  - name: web
+    port: {{ .Values.servicePort }}
+    protocol: TCP
+    targetPort: 9201
+  selector:
+    app.kubernetes.io/name: {{ .Values.name }}
+{{- end }}

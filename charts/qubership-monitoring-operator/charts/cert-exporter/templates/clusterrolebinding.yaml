@@ -1,0 +1,20 @@
+{{- if and .Values.install .Values.global.privilegedRights }}
+apiVersion: {{ template "rbac.apiVersion" . }}
+kind: ClusterRoleBinding
+metadata:
+  name: {{ template "certExporter.rbac.fullname" $ }}
+  labels:
+    app.kubernetes.io/name: {{ template "certExporter.rbac.fullname" $ }}
+    app.kubernetes.io/component: cert-exporter
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "certExporter.instance" $ }}
+    app.kubernetes.io/version: {{ template "certExporter.version" $ }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.name }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ template "certExporter.rbac.fullname" $ }}
+{{- end }}

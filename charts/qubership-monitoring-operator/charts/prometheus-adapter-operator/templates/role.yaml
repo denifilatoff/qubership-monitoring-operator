@@ -1,0 +1,73 @@
+{{- if .Values.install }}
+apiVersion: {{ template "rbac.apiVersion" . }}
+kind: Role
+metadata:
+  name: prometheus-adapter-operator
+  labels:
+    app.kubernetes.io/name: prometheus-adapter-operator
+    app.kubernetes.io/instance: {{ template "prometheusAdapter.instance" . }}
+    {{- include "prometheusAdapter.commonLabels" . | nindent 4 }}
+rules:
+  # Permissions for leader election
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - events
+      - services
+      - serviceaccounts
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - update
+      - patch
+      - delete
+  - verbs:
+      - create
+      - get
+      - update
+    apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+      - deployments/finalizers
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - update
+      - patch
+      - delete
+
+  - apiGroups:
+      - monitoring.qubership.org
+    resources:
+      - customscalemetricrules
+      - customscalemetricrules/status
+      - customscalemetricrules/finalizers
+      - prometheusadapters
+      - prometheusadapters/status
+      - prometheusadapters/finalizers
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - update
+      - patch
+      - delete
+  
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterrolebindings
+    verbs:
+      - create
+{{- end }}

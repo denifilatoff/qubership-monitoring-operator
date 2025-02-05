@@ -1,0 +1,28 @@
+{{- if .Values.install }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/component: version-exporter
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "version-exporter.instance" . }}
+    app.kubernetes.io/version: {{ template "version-exporter.version" . }}
+    {{- if .Values.service.labels }}
+      {{ toYaml .Values.service.labels | indent 4 }}
+    {{- end }}
+  {{- if .Values.service.annotations }}
+  annotations:
+  {{ toYaml .Values.service.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.containerPort }}
+      protocol: TCP
+      name: {{ .Values.service.portName }}
+  selector:
+    app.kubernetes.io/name: {{ .Values.name }}
+{{- end }}

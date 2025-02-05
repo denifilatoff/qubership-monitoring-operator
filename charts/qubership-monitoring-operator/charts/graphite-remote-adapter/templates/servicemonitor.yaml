@@ -1,0 +1,24 @@
+{{- if and .Values.install .Values.servicemonitor.install }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/instance: {{ cat $.Release.Namespace "-" .Values.name "-" $.Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/part-of: monitoring
+    {{- $image := include "graphiteRemoteAdapter.image" . }}
+    app.kubernetes.io/version: {{ splitList ":" $image | last }}
+spec:
+  endpoints:
+    - interval: 30s
+      port: web
+  jobLabel: {{ .Values.name }}
+  selector:
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values:
+          - {{ .Values.name }}
+{{- end }}

@@ -1,0 +1,126 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/component: victoriametrics
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/managed-by: monitoring-operator
+  name: monitoring-victoriametrics-operator
+# Permissions to create downstream custom resources
+rules:
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - rolebindings
+      - roles
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - update
+      - watch
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - create
+      - update
+      - delete
+      - watch
+  - verbs:
+      - create
+      - get
+      - update
+    apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+  - verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+    apiGroups:
+      - ''
+    resources:
+      - pods
+      - events
+      - secrets
+      - secrets/finalizers
+      - services
+      - services/finalizers
+      - configmaps
+      - configmaps/finalizers
+      - persistentvolumeclaims
+  - verbs:
+      - create
+      - delete
+      - get
+      - list
+      - update
+      - patch
+      - watch
+    apiGroups:
+      - apps
+    resources:
+      - deployments
+      - deployments/finalizers
+      - statefulsets
+      - statefulsets/finalizers
+      - statefulsets/status
+  - verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+    apiGroups:
+      - operator.victoriametrics.com
+    resources:
+      - vmagents
+      - vmagents/finalizers
+      - vmagents/status
+      - vmalertmanagers
+      - vmalertmanagers/finalizers
+      - vmalertmanagers/status
+      - vmalertmanagerconfigs
+      - vmalertmanagerconfigs/finalizers
+      - vmalerts
+      - vmalerts/finalizers
+      - vmalerts/status
+      - vmclusters
+      - vmclusters/finalizers
+      - vmclusters/status
+      - vmpodscrapes
+      - vmprobscrapes/finalizers
+      - vmrules
+      - vmrules/finalizers
+      - vmservicescrapes
+      - vmservicescrapes/finalizers
+      - vmprobes
+      - vmprobes/finalizers
+      - vmsingles
+      - vmsingles/finalizers
+      - vmsingles/status
+      - vmnodescrapes
+      - vmnodescrapes/finalizers
+      - vmstaticscrapes
+      - vmstaticscrapes/finalizers
+      - vmscrapeconfigs
+      - vmscrapeconfigs/finalizers
+      - vmscrapeconfigs/status
+      - vmauths
+      - vmauths/finalizers
+      - vmauths/status
+      - vmusers
+      - vmusers/finalizers
+      - vmusers/status

@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: json-exporter-self-service-monitor
+  labels:
+    app.kubernetes.io/name: json-exporter-self-service-monitor
+    app.kubernetes.io/instance: {{ cat "json-exporter-self-service-monitor-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/part-of: monitoring
+    {{- $image := include "jsonExporter.image" . }}
+    app.kubernetes.io/version: {{ splitList ":" $image | last }}
+spec:
+  endpoints:
+    - interval: {{ .Values.serviceMonitor.interval | default .Values.serviceMonitor.defaults.interval }}
+      scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout | default .Values.serviceMonitor.defaults.scrapeTimeout }}
+      path: /metrics
+      port: {{ .Values.service.name }}
+      scheme: {{ .Values.serviceMonitor.scheme }}
+  jobLabel: json-exporter-self
+  selector:
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values:
+          - {{ .Values.name }}

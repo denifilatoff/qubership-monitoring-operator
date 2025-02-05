@@ -1,0 +1,39 @@
+{{- if .Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy" }}
+{{- if and .Values.install .Values.rbac.setupSecurityContext .Values.global.privilegedRights }}
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ template "networkLatencyExporter.rbac.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "networkLatencyExporter.rbac.fullname" . }}
+    app.kubernetes.io/component: network-latency-exporter
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "networkLatencyExporter.instance" . }}
+    app.kubernetes.io/version: {{ template "networkLatencyExporter.version" . }}
+spec:
+  privileged: {{ default false .Values.rbac.privileged }}
+  hostPID: false
+  hostIPC: false
+  hostNetwork: false
+  volumes:
+    - 'configMap'
+    - 'secret'
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: false
+  runAsUser:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+      - min: 1
+        max: 65535
+  allowPrivilegeEscalation: {{ default false .Values.rbac.privileged }}
+  seLinux:
+    rule: 'RunAsAny'
+  allowedCapabilities: []
+{{- end }}
+{{- end }}

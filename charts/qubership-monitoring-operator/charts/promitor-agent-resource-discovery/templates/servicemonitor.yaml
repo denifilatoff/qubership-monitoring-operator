@@ -1,0 +1,32 @@
+{{- if and ( .Capabilities.APIVersions.Has "monitoring.coreos.com/v1/ServiceMonitor" ) ( .Values.install ) ( .Values.serviceMonitor.enabled ) }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/instance: {{ cat .Release.Namespace "-" .Values.name "-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/part-of: monitoring
+    {{- $image := include "promitor.agentResourceDiscovery.image" . }}
+    app.kubernetes.io/version: {{ splitList ":" $image | last }}
+    {{- if .Values.serviceMonitor.labels }}
+      {{ toYaml .Values.serviceMonitor.labels | nindent 4 }}
+    {{- end }}
+spec:
+  endpoints:
+  - targetPort: http
+    {{- if .Values.serviceMonitor.interval }}
+    interval: {{ .Values.serviceMonitor.interval }}
+    {{- end }}
+    {{- if .Values.serviceMonitor.timeout }}
+    scrapeTimeout: {{ .Values.serviceMonitor.timeout }}
+    {{- end }}
+    {{- if .Values.serviceMonitor.metricRelabelings }}
+    metricRelabelings:
+      {{ toYaml .Values.serviceMonitor.metricRelabelings | nindent 6 }}
+    {{- end }}
+  jobLabel: {{ .Values.name }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.name }}
+{{- end }}
