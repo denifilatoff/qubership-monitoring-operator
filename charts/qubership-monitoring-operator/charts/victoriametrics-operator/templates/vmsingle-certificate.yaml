@@ -1,0 +1,38 @@
+{{- if .Values.tlsEnabled }}
+{{- if and (not .Values.vmSingle.tlsConfig.existingSecret) .Values.vmSingle.tlsConfig.generateCerts .Values.vmSingle.tlsConfig.generateCerts.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vmsingle-tls-certificate
+  labels:
+    app.kubernetes.io/name: vmsingle-tls-certificate
+    app.kubernetes.io/instance: {{ cat "vmsingle-tls-certificate-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: vmSingle
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+spec:
+  secretName: {{ default "vmsingle-tls-secret" .Values.vmSingle.tlsConfig.generateCerts.secretName }}
+  duration: {{ default 365 .Values.vmSingle.tlsConfig.generateCerts.duration | mul 24 }}h
+  renewBefore: {{ default 15 .Values.vmSingle.tlsConfig.generateCerts.renewBefore | mul 24 }}h
+  commonName: vmsingle-crt
+  isCA: false
+  privateKey:
+    rotationPolicy: Always
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  dnsNames:
+    - localhost
+    - vmsingle-k8s
+    - vmsingle-k8s.{{ .Release.Namespace }}.svc
+  {{- if .Values.vmSingle.ingress.install }}
+    - {{ .Values.vmSingle.ingress.host }}
+  {{- end }}
+  ipAddresses:
+    - 127.0.0.1
+  issuerRef:
+    name: {{ .Values.clusterIssuerName }}
+    kind: ClusterIssuer
+    group: cert-manager.io
+{{- end }}
+{{- end }}

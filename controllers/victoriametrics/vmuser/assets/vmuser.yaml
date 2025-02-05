@@ -1,0 +1,12 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMUser
+metadata:
+  labels:
+    name: vmuser
+    app.kubernetes.io/name: vmuser
+    app.kubernetes.io/component: victoriametrics
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/managed-by: monitoring-operator
+  name: k8s
+spec:
+

@@ -1,0 +1,23 @@
+{{- if .Values.install }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/component: cloudwatch-exporter
+    app.kubernetes.io/part-of: monitoring
+    {{- if .Values.service.labels }}
+      {{ toYaml .Values.service.labels | nindent 4 }}
+    {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: container-port
+      protocol: TCP
+      name: {{ .Values.service.portName }}
+  selector:
+    app.kubernetes.io/name: {{ .Values.name }}
+{{- end }}

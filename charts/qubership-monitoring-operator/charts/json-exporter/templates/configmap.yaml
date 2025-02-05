@@ -1,0 +1,21 @@
+{{- if .Values.install }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/instance: {{ cat .Values.name "-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: json-exporter
+    app.kubernetes.io/part-of: monitoring
+    {{- $image := include "jsonExporter.image" . }}
+    app.kubernetes.io/version: {{ splitList ":" $image | last }}
+data:
+  allow-snippet-annotations: "false"
+  {{- if .Values.config }}
+  config.yml: |
+    {{ .Values.config | nindent 4 }}
+  {{- else }}
+  config.yml: ""
+  {{- end }}
+{{- end }}

@@ -1,0 +1,20 @@
+{{- if .Values.install }}
+kind: RoleBinding
+apiVersion: {{ template "rbac.apiVersion" . }}
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/component: version-exporter
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "version-exporter.instance" . }}
+    app.kubernetes.io/version: {{ template "version-exporter.version" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccount.name }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: {{ .Values.name }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

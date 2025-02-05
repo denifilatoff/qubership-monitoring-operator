@@ -1,0 +1,48 @@
+{{- if .Values.install }}
+apiVersion: {{ template "rbac.apiVersion" . }}
+kind: Role
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/component: version-exporter
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "version-exporter.instance" . }}
+    app.kubernetes.io/version: {{ template "version-exporter.version" . }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - services
+      - services/finalizers
+      - endpoints
+      - persistentvolumeclaims
+      - events
+      - configmaps
+      - secrets
+      - serviceaccounts
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - "apps"
+    resources:
+      - deployments
+      - deployments/finalizers
+      - daemonsets
+      - replicasets
+      - statefulsets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - "apiregistration.k8s.io"
+    resources:
+      - apiservices
+    verbs:
+      - get
+      - list
+      - watch
+{{- end }}

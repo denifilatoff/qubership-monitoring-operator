@@ -1,0 +1,18 @@
+{{- if and .Values.install .Values.clusterRoleBinding.install .Values.global.privilegedRights }}
+apiVersion: {{ template "rbac.apiVersion" . }}
+kind: ClusterRoleBinding
+metadata:
+  name: {{ template "prometheusAdapter.rbac.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "prometheusAdapter.rbac.fullname" . }}
+    app.kubernetes.io/instance: {{ template "prometheusAdapter.instance" . }}
+    {{- include "prometheusAdapter.commonLabels" . | nindent 4 }}
+subjects:
+  - kind: ServiceAccount
+    name: prometheus-adapter-operator
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ template "prometheusAdapter.rbac.fullname" . }}
+{{- end }}

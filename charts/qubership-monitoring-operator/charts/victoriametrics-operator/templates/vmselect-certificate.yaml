@@ -1,0 +1,35 @@
+{{- if .Values.tlsEnabled }}
+{{- if and (not .Values.vmCluster.vmSelectTlsConfig.existingSecret) .Values.vmCluster.vmSelectTlsConfig.generateCerts .Values.vmCluster.vmSelectTlsConfig.generateCerts.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vmselect-tls-certificate
+  labels:
+    app.kubernetes.io/name: vmselect-tls-certificate
+    app.kubernetes.io/instance: {{ cat "vmselect-tls-certificate-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: vmSelect
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+spec:
+  secretName: {{ default "vmselect-tls-secret" .Values.vmCluster.vmSelectTlsConfig.generateCerts.secretName }}
+  duration: {{ default 365 .Values.vmCluster.vmSelectTlsConfig.generateCerts.duration | mul 24 }}h
+  renewBefore: {{ default 15 .Values.vmCluster.vmSelectTlsConfig.generateCerts.renewBefore | mul 24 }}h
+  commonName: vmselect-crt
+  isCA: false
+  privateKey:
+    rotationPolicy: Always
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  dnsNames:
+    - localhost
+    - vmselect-k8s
+    - vmselect-k8s.{{ .Release.Namespace }}.svc
+  ipAddresses:
+    - 127.0.0.1
+  issuerRef:
+    name: {{ .Values.clusterIssuerName }}
+    kind: ClusterIssuer
+    group: cert-manager.io
+{{- end }}
+{{- end }}

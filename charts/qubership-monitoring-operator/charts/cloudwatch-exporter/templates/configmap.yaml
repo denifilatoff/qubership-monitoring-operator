@@ -1,0 +1,13 @@
+{{- if .Values.install }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/component: cloudwatch-exporter
+    app.kubernetes.io/part-of: monitoring
+data:
+  config.yml: |
+    {{ tpl .Values.config . | nindent 4 }}
+{{- end }}

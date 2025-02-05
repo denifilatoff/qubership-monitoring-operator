@@ -1,0 +1,28 @@
+{{- if .Values.monitoringOperator.pprof.install }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ template "monitoring.name" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "monitoring.name" . }}
+    app.kubernetes.io/component: monitoring-operator
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "monitoring.instance" . }}
+    app.kubernetes.io/version: {{ template "monitoring.operator.version" . }}
+    {{- if .Values.monitoringOperator.pprof.service.labels }}
+      {{ toYaml .Values.monitoringOperator.pprof.service.labels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.monitoringOperator.pprof.service.annotations }}
+  annotations:
+    {{ toYaml .Values.monitoringOperator.pprof.service.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.monitoringOperator.pprof.service.type }}
+  ports:
+    - name: {{ .Values.monitoringOperator.pprof.service.portName }}
+      port: {{ .Values.monitoringOperator.pprof.service.port }}
+      targetPort: {{ .Values.monitoringOperator.pprof.containerPort }}
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ template "monitoring.name" . }}
+{{- end }}

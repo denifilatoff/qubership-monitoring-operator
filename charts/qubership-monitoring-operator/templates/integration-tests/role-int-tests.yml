@@ -1,0 +1,122 @@
+{{- if .Values.integrationTests.install }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.integrationTests.name }}-int-tests
+  labels:
+    app.kubernetes.io/name: {{ .Values.integrationTests.name }}-int-tests
+    app.kubernetes.io/component: platform-monitoring-tests
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "monitoring.instance" . }}
+    app.kubernetes.io/version: {{ template "integrationTests.version" . }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - services
+      - configmaps
+      - configmap
+      - secrets
+      - serviceaccounts
+    verbs:
+      - '*'
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+      - replicasets
+      - statefulsets
+      - daemonsets
+    verbs:
+      - '*'
+  - apiGroups:
+      - extensions
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - route.openshift.io
+    resources:
+      - routes
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - monitoring.coreos.com
+    resources:
+      - servicemonitors
+    verbs:
+      - 'patch'
+      - 'create'
+      - 'list'
+      - 'update'
+      - 'get'
+      - 'delete'
+      - 'watch'
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+  - apiGroups:
+      - ''
+    resources:
+      - namespaces
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - ""
+    resources:
+      - pods/status
+    verbs:
+      - get
+  - apiGroups:
+      - monitoring.qubership.org
+    resources:
+      - platformmonitorings
+    verbs:
+      - get
+      - list
+      - watch
+      - patch
+      - update
+  - apiGroups:
+      - monitoring.qubership.org
+      - autoscaling
+      - pods/prometheus_example_app_load
+    resources:
+      - customscalemetricrules
+      - horizontalpodautoscalers
+    verbs:
+      - get
+      - create
+      - list
+      - patch
+      - update
+      - delete
+      - watch
+  - apiGroups:
+      - autoscaling
+    resources:
+      - horizontalpodautoscalers/status
+    verbs:
+      - list
+      - get
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - horizontalpodautoscalers
+    verbs:
+      - create
+{{- end }}

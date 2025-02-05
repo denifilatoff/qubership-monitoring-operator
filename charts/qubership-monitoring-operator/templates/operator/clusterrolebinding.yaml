@@ -1,0 +1,20 @@
+{{- if and .Values.role.install .Values.global.privilegedRights }}
+kind: ClusterRoleBinding
+apiVersion: {{ template "rbac.apiVersion" . }}
+metadata:
+  name: {{ template "monitoring.operator.rbac.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "monitoring.operator.rbac.fullname" . }}
+    app.kubernetes.io/component: monitoring-operator
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "monitoring.instance" . }}
+    app.kubernetes.io/version: {{ template "monitoring.operator.version" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.monitoringOperator.serviceAccount.name }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name:  {{ template "monitoring.operator.rbac.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

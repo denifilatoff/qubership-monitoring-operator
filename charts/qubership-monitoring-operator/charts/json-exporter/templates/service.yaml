@@ -1,0 +1,25 @@
+{{- if .Values.install }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/instance: {{ cat .Values.name "-" .Release.Namespace | nospace | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: json-exporter
+    app.kubernetes.io/part-of: monitoring
+    {{- $image := include "jsonExporter.image" . }}
+    app.kubernetes.io/version: {{ splitList ":" $image | last }}
+    {{- if .Values.service.labels }}
+      {{ toYaml .Values.service.labels | indent 4 }}
+    {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.name }}
+      protocol: TCP
+      name: {{ .Values.service.name }}
+  selector:
+    app.kubernetes.io/name: {{ .Values.name }}
+{{- end }}

@@ -1,0 +1,22 @@
+{{- if .Values.install }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  annotations:
+    prometheus.io/scrape: "true"
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/component: cert-exporter
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "certExporter.instance" . }}
+    app.kubernetes.io/version: {{ template "certExporter.version" . }}
+spec:
+  ports:
+    - name: metrics
+      protocol: TCP
+      port: {{ .Values.servicePort }}
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/name: {{ .Values.name }}
+{{- end }}

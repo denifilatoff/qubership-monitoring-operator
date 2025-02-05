@@ -1,0 +1,23 @@
+{{- if and .Values.install .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/instance: {{ template "networkLatencyExporter.instance" . }}
+    app.kubernetes.io/version: {{ template "networkLatencyExporter.version" . }}
+spec:
+  endpoints:
+    - interval: {{ .Values.serviceMonitor.interval | default "30s" }}
+      scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout | default "20s" }}
+      port: metrics
+      path: /metrics
+      scheme: http
+  jobLabel: {{ .Values.name }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.name }}
+{{- end }}

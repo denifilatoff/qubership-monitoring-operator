@@ -1,0 +1,228 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/component: victoriametrics
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/managed-by: monitoring-operator
+  name: monitoring-victoriametrics-operator
+rules:
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterroles
+      - clusterrolebindings
+      - rolebindings
+      - roles
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+  - verbs:
+      - get
+      - list
+    apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      - customresourcedefinitions
+  - verbs:
+      - get
+      - list
+      - watch
+    apiGroups:
+      - operator.victoriametrics.com
+    resources:
+      - vmprobscrapes
+  - verbs:
+      - get
+      - list
+      - watch
+      - update
+      - patch
+    apiGroups:
+      - operator.victoriametrics.com
+    resources:
+      - vmalertmanagerconfigs/status
+      - vmpodscrapes/status
+      - vmrules/status
+      - vmservicescrapes/status
+      - vmprobes/status
+      - vmnodescrapes/status
+      - vmstaticscrapes/status
+      - vmprobscrapes/status
+      - vmscrapeconfigs/status
+      - vlogs/status
+  - verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+    apiGroups:
+      - operator.victoriametrics.com
+    resources:
+      - vmalertmanagerconfigs/finalizers
+      - vmprobscrapes/finalizers
+      - vmprobes/finalizers
+      - vmservicescrapes/finalizers
+      - vmrules/finalizers
+      - vmpodscrapes/finalizers
+      - vmstaticscrapes/finalizers
+      - vmnodescrapes/finalizers
+      - vmscrapeconfigs/finalizers
+      - vlogs/finalizers
+  - verbs:
+      - get
+      - list
+      - watch
+      - update
+      - create
+      - patch
+    apiGroups:
+      - policy
+    resources:
+      - poddisruptionbudgets
+      - poddisruptionbudgets/finalizers
+  - verbs:
+      - get
+      - list
+      - watch
+      - update
+    apiGroups:
+      - ''
+    resources:
+      - serviceaccounts
+      - persistentvolumeclaims
+  - verbs:
+      - get
+      - list
+      - watch
+      - update
+      - delete
+    apiGroups:
+      - 'autoscaling'
+    resources:
+      - horizontalpodautoscalers
+  - verbs:
+      - get
+      - list
+      - watch
+      - update
+    apiGroups:
+      - ''
+    resources:
+      - secrets
+      - namespaces
+      - configmaps
+      - services
+      - pods
+  - verbs:
+      - get
+      - list
+      - watch
+    apiGroups:
+      - apps
+    resources:
+      - deployments
+      - deployments/finalizers
+      - replicasets
+      - statefulsets
+      - statefulsets/finalizers
+      - statefulsets/status
+  - verbs:
+      - get
+      - list
+      - watch
+    apiGroups:
+      - monitoring.coreos.com
+    resources:
+      - probes
+      - servicemonitors
+      - prometheusrules
+      - alertmanagerconfigs
+      - podmonitors
+      - scrapeconfigs
+  - verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+    apiGroups:
+      - monitoring.coreos.com
+    resources:
+      - podmonitors/finalizers
+      - probes/finalizers
+      - prometheusrules/finalizers
+      - servicemonitors/finalizers
+      - alertmanagerconfigs/finalizers
+      - thanosrulers/finalizers
+  - verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+    apiGroups:
+      - operator.victoriametrics.com
+    resources:
+      - vmservicescrapes
+      - vmrules
+      - vmpodscrapes
+      - vmstaticscrapes
+      - vmnodescrapes
+      - vmprobes
+      - vmalertmanagerconfigs
+      - vmscrapeconfigs
+  - verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+    apiGroups:
+      - operator.victoriametrics.com
+    resources:
+      - vmagents
+      - vmagents/finalizers
+      - vmagents/status
+      - vmalertmanagers
+      - vmalertmanagers/status
+      - vmalertmanagers/finalizers
+      - vmalerts
+      - vmalerts/status
+      - vmalerts/finalizers
+      - vmclusters
+      - vmclusters/status
+      - vmclusters/finalizers
+      - vmsingles
+      - vmsingles/status
+      - vmsingles/finalizers
+      - vmauths
+      - vmauths/status
+      - vmauths/finalizers
+      - vmusers
+      - vmusers/status
+      - vmusers/finalizers
+      - vlogs
+      - vlogs/finalizers

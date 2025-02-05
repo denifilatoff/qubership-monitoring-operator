@@ -1,0 +1,47 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: platform-monitoring-grafana-operator
+  labels:
+    app.kubernetes.io/component: grafana
+    app.kubernetes.io/part-of: monitoring
+    app.kubernetes.io/managed-by: monitoring-operator
+rules:
+  - apiGroups:
+      - "integreatly.org"
+    resources:
+      - grafananotificationchannels
+      - grafananotificationchannels/status
+      - grafanadashboards
+      - grafanadashboards/status
+      - grafanadatasources
+      - grafanadatasources/status
+      - grafanafolders
+      - grafanafolders/status
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+      - "update"
+      - "patch"
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - namespaces
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - update
+      - delete
+      - get
+      - list
+      - watch
+      - patch

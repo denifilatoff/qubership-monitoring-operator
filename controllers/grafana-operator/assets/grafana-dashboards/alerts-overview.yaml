@@ -1,0 +1,1119 @@
+apiVersion: integreatly.org/v1alpha1
+kind: GrafanaDashboard
+metadata:
+  name: alerts-overview
+  labels:
+    app.kubernetes.io/component: monitoring
+spec:
+  json: >
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          }
+        ]
+      },
+      "description": "Show current firing and pending alerts, and  severity alert counts.",
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "gnetId": null,
+      "graphTooltip": 0,
+      "id": 15,
+      "iteration": 1640342284620,
+      "links": [
+        {
+          "icon": "external link",
+          "tags": [
+            "cluster"
+          ],
+          "type": "dashboards"
+        },
+        {
+          "icon": "external link",
+          "tags": [
+            "namespaces"
+          ],
+          "type": "dashboards"
+        },
+        {
+          "icon": "external link",
+          "tags": [
+            "pods"
+          ],
+          "type": "dashboards"
+        }
+      ],
+      "liveNow": false,
+      "panels": [
+        {
+          "collapsed": false,
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 10,
+          "panels": [],
+          "title": "Alerts Overview",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "description": "Show the number of alerts  (all alerts, sent to alertmanager, pending sent to alertmanager)",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "#299c46",
+                    "value": null
+                  },
+                  {
+                    "color": "rgba(237, 129, 40, 0.89)",
+                    "value": 1
+                  },
+                  {
+                    "color": "#d44a3a"
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 0,
+            "y": 1
+          },
+          "id": 8,
+          "links": [],
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "sum(ALERTS{alertname!=\"DeadMansSwitch\", cluster=~\"$cluster\"})",
+              "instant": true,
+              "interval": "1m",
+              "legendFormat": "All alerts",
+              "refId": "C"
+            },
+            {
+              "expr": "sum(ALERTS{alertname!=\"DeadMansSwitch\",alertstate=\"firing\", cluster=~\"$cluster\"} > 0) ",
+              "format": "time_series",
+              "instant": true,
+              "interval": "1m",
+              "intervalFactor": 1,
+              "legendFormat": "Firing",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(ALERTS{alertname!=\"DeadMansSwitch\",alertstate=\"pending\", cluster=~\"$cluster\"} > 0)",
+              "instant": true,
+              "interval": "1m",
+              "intervalFactor": 1,
+              "legendFormat": "Pending",
+              "refId": "B"
+            }
+          ],
+          "title": "Alerts",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "description": "Show the number of alerts with \"critical\" severity",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "green",
+                      "text": "0"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "#C4162A",
+                    "value": 1
+                  },
+                  {
+                    "color": "#d44a3a"
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 4,
+            "y": 1
+          },
+          "id": 2,
+          "links": [],
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "expr": "sum(ALERTS{alertname!=\"DeadMansSwitch\",alertstate=\"firing\",severity=~\"(?i:(Critical))\", cluster=~\"$cluster\"} -0 > 0) ",
+              "format": "time_series",
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "refId": "A"
+            }
+          ],
+          "title": "Critical",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "description": "Show the number of alerts with \"high\" severity",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "green",
+                      "text": "0"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "dark-orange",
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 8,
+            "y": 1
+          },
+          "id": 14,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "expr": "sum(ALERTS{alertname!=\"DeadMansSwitch\",alertstate=\"firing\",severity=~\"(?i:(high))\", cluster=~\"$cluster\"} - 0 > 0) ",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "High",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "description": "Show the number of alerts with \"warning\" severity",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "green",
+                      "text": "0"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "semi-dark-yellow",
+                    "value": 1
+                  },
+                  {
+                    "color": "#d44a3a"
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 12,
+            "y": 1
+          },
+          "id": 5,
+          "links": [],
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "expr": "sum(ALERTS{alertname!=\"DeadMansSwitch\", alertstate=\"firing\",severity=~\"(?i:(warning))\", cluster=~\"$cluster\"} -0 > 0) ",
+              "format": "time_series",
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Warning",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "description": "Show the number of alerts with \"info\" severity",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "green",
+                      "text": "0"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "semi-dark-blue",
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 16,
+            "y": 1
+          },
+          "id": 16,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "expr": "sum(ALERTS{alertname!=\"DeadMansSwitch\",alertstate=\"firing\",severity=~\"(?i:(info))\", cluster=~\"$cluster\"} -0 > 0) ",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Info",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "description": "Show the number of alerts without severity",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "green",
+                      "text": "0"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "semi-dark-purple",
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 20,
+            "y": 1
+          },
+          "id": 18,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "expr": "sum(ALERTS{alertname!=\"DeadMansSwitch\",alertstate=\"firing\",severity!~\"(?i:(critical|high|warning|info|))\", cluster=~\"$cluster\"} -0 > 0) ",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Other Labels",
+          "type": "stat"
+        },
+        {
+          "collapsed": true,
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 6
+          },
+          "id": 12,
+          "panels": [
+            {
+              "datasource": {
+                "uid": "$datasource"
+              },
+              "description": "Show the table with alerts in firing state, which group by alertnames, namespaces, severities",
+              "fieldConfig": {
+                "defaults": {
+                  "custom": {
+                    "displayMode": "auto",
+                    "filterable": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      }
+                    ]
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "namespace"
+                    },
+                    "properties": [
+                      {
+                        "id": "links",
+                        "value": [
+                          {
+                            "targetBlank": true,
+                            "title": "Drill down to namespaces",
+                            "url": "./d/{% printf `%.40s` (printf `%s-%s` .Release.Namespace (index .DashboardsUIDs `kubernetes-namespace-resources`) ) %}/kubernetes-namespace-resources?var-datasource=$datasource&var-cluster=$cluster&var-namespace=${__data.fields.[namespace]}"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "pod"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 313
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "severity"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 120
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "count"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 120
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "alertname"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 301
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "alertstate"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 86
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "exported_pod"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 238
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "exported_namespace"
+                    },
+                    "properties": [
+                      {
+                        "id": "links",
+                        "value": [
+                          {
+                            "targetBlank": true,
+                            "title": "Drill down to exported namespaces",
+                            "url": "./d/{% printf `%.40s` (printf `%s-%s` .Release.Namespace (index .DashboardsUIDs `kubernetes-namespace-resources`) ) %}/kubernetes-namespace-resources?var-datasource=$datasource&var-cluster=$cluster&var-namespace=${__data.fields.[exported_namespace]}"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "gridPos": {
+                "h": 11,
+                "w": 24,
+                "x": 0,
+                "y": 7
+              },
+              "id": 1,
+              "links": [],
+              "options": {
+                "footer": {
+                  "fields": "",
+                  "reducer": [
+                    "sum"
+                  ],
+                  "show": false
+                },
+                "frameIndex": 0,
+                "showHeader": true,
+                "sortBy": [
+                  {
+                    "desc": false,
+                    "displayName": "alertname"
+                  }
+                ]
+              },
+              "pluginVersion": "8.3.3",
+              "targets": [
+                {
+                  "expr": "ALERTS{alertname!=\"DeadMansSwitch\", severity=~\"$severity\",alertstate='firing', exported_namespace=~\"$namespace|\", cluster=~\"$cluster\"}",
+                  "format": "table",
+                  "hide": false,
+                  "instant": true,
+                  "interval": "",
+                  "intervalFactor": 1,
+                  "legendFormat": "",
+                  "refId": "A"
+                }
+              ],
+              "title": "Firing",
+              "transformations": [
+                {
+                  "id": "organize",
+                  "options": {
+                    "excludeByName": {
+                      "Time": true,
+                      "Value": true,
+                      "Value #A": true,
+                      "Value #B": true,
+                      "Value #C": true,
+                      "__name__": true,
+                      "alertstate": true,
+                      "endpoint": true,
+                      "instance": true,
+                      "job": false,
+                      "namespace": false,
+                      "port": true,
+                      "project_name": true,
+                      "replication_role": true,
+                      "server": true,
+                      "service": true
+                    },
+                    "indexByName": {
+                      "Time": 0,
+                      "Value": 12,
+                      "__name__": 8,
+                      "alertname": 1,
+                      "alertstate": 3,
+                      "container": 13,
+                      "daemonset": 15,
+                      "deployment": 16,
+                      "endpoint": 9,
+                      "exported_namespace": 4,
+                      "exported_pod": 6,
+                      "id": 17,
+                      "image": 18,
+                      "instance": 10,
+                      "job": 14,
+                      "job_name": 19,
+                      "name": 20,
+                      "namespace": 5,
+                      "node": 21,
+                      "pod": 7,
+                      "replicaset": 22,
+                      "service": 11,
+                      "severity": 2,
+                      "statefulset": 23
+                    },
+                    "renameByName": {
+                      "alertname": "",
+                      "exported_namespace": "",
+                      "severity": ""
+                    }
+                  }
+                }
+              ],
+              "type": "table"
+            },
+            {
+              "datasource": {
+                "uid": "$datasource"
+              },
+              "description": "Show the table with alerts in a pending state, which group by alertnames, namespaces, severities",
+              "fieldConfig": {
+                "defaults": {
+                  "custom": {
+                    "displayMode": "auto",
+                    "filterable": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "namespace"
+                    },
+                    "properties": [
+                      {
+                        "id": "links",
+                        "value": [
+                          {
+                            "targetBlank": true,
+                            "title": "Drill down to namespace",
+                            "url": "./d/{% printf `%.40s` (printf `%s-%s` .Release.Namespace (index .DashboardsUIDs `kubernetes-namespace-resources`) ) %}/kubernetes-namespace-resources?var-datasource=$datasource&var-cluster=$cluster&var-namespace=${__data.fields.[namespace]}"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "pod"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 360
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "severity"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 120
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "count"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 120
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "alertname"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 301
+                      }
+                    ]
+                  }
+                ]
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 24,
+                "x": 0,
+                "y": 18
+              },
+              "id": 3,
+              "links": [],
+              "options": {
+                "footer": {
+                  "fields": "",
+                  "reducer": [
+                    "sum"
+                  ],
+                  "show": false
+                },
+                "frameIndex": 1,
+                "showHeader": true,
+                "sortBy": []
+              },
+              "pluginVersion": "8.3.3",
+              "targets": [
+                {
+                  "expr": "ALERTS{alertname!=\"DeadMansSwitch\", severity=~\"$severity\",alertstate=\"pending\", exported_namespace=~\"$namespace|\", cluster=~\"$cluster\"}",
+                  "format": "table",
+                  "instant": true,
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "A"
+                }
+              ],
+              "title": "Pending",
+              "transformations": [
+                {
+                  "id": "organize",
+                  "options": {
+                    "excludeByName": {
+                      "Time": true,
+                      "Value": true,
+                      "__name__": true,
+                      "alertstate": true,
+                      "endpoint": true,
+                      "id": true,
+                      "image": true,
+                      "instance": true,
+                      "name": false,
+                      "service": true
+                    },
+                    "indexByName": {
+                      "Time": 0,
+                      "Value": 16,
+                      "__name__": 1,
+                      "alertname": 2,
+                      "alertstate": 3,
+                      "container": 8,
+                      "deployment": 17,
+                      "endpoint": 9,
+                      "exported_namespace": 5,
+                      "id": 10,
+                      "image": 11,
+                      "instance": 12,
+                      "job": 13,
+                      "name": 19,
+                      "namespace": 6,
+                      "node": 14,
+                      "pod": 7,
+                      "replicaset": 18,
+                      "service": 15,
+                      "severity": 4
+                    },
+                    "renameByName": {}
+                  }
+                }
+              ],
+              "type": "table"
+            }
+          ],
+          "title": "Alerts",
+          "type": "row"
+        }
+      ],
+      "refresh": "",
+      "schemaVersion": 34,
+      "style": "dark",
+      "tags": [
+        "alerts"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "default",
+              "value": "default"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "multi": false,
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "queryValue": "",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "current": {
+              "isNone": true,
+              "selected": false,
+              "text": "None",
+              "value": ""
+            },
+            "datasource": {
+              "uid": "$datasource"
+            },
+            "definition": "label_values(up, cluster)",
+            "hide": 0,
+            "includeAll": false,
+            "multi": false,
+            "name": "cluster",
+            "options": [],
+            "query": {
+              "query": "label_values(up, cluster)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "current": {
+              "selected": true,
+              "text": [
+                "All"
+              ],
+              "value": [
+                "$__all"
+              ]
+            },
+            "datasource": {
+              "uid": "$datasource"
+            },
+            "definition": "label_values(kube_pod_info{cluster=~\"$cluster\"}, exported_namespace)",
+            "hide": 0,
+            "includeAll": true,
+            "multi": true,
+            "name": "namespace",
+            "options": [],
+            "query": {
+              "query": "label_values(kube_pod_info{cluster=~\"$cluster\"}, exported_namespace)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 1,
+            "tagValuesQuery": "",
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "current": {
+              "selected": true,
+              "text": [
+                "All"
+              ],
+              "value": [
+                "$__all"
+              ]
+            },
+            "datasource": {
+              "uid": "$datasource"
+            },
+            "definition": "label_values(ALERTS, severity)",
+            "hide": 0,
+            "includeAll": true,
+            "multi": true,
+            "name": "severity",
+            "options": [],
+            "query": {
+              "query": "label_values(ALERTS, severity)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          }
+        ]
+      },
+      "time": {
+        "from": "now-30m",
+        "to": "now"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ],
+        "time_options": [
+          "5m",
+          "15m",
+          "1h",
+          "6h",
+          "12h",
+          "24h",
+          "2d",
+          "7d",
+          "30d"
+        ]
+      },
+      "timezone": "",
+      "title": "Alerts - Overview",
+      "uid": "{% printf `%.40s` (printf `%s-%s` .Release.Namespace (index .DashboardsUIDs `alerts-overview`) ) %}",
+      "version": 2,
+      "weekStart": ""
+    }

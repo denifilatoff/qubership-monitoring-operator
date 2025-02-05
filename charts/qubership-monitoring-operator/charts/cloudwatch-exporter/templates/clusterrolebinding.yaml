@@ -1,0 +1,18 @@
+{{- if and .Values.install .Values.rbac.createClusterRoleBinding .Values.global.privilegedRights }}
+apiVersion: {{ template "rbac.apiVersion" . }}
+kind: ClusterRoleBinding
+metadata:
+  name: {{ template "cloudwatch-exporter.rbac.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "cloudwatch-exporter.rbac.fullname" . }}
+    app.kubernetes.io/component: cloudwatch-exporter
+    app.kubernetes.io/part-of: monitoring
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccount.name }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ template "cloudwatch-exporter.rbac.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}
