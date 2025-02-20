@@ -241,7 +241,7 @@ securityContext: {}
   # Type: integer
   # Mandatory: no
   #
-# fsGroup: 2000
+  # fsGroup: 2000
 
 # Tolerations allow the pods to schedule onto nodes with matching taints.
 # Type: object
