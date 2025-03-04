@@ -205,7 +205,7 @@ monitoringOperator:
   nodeSelector: {}
 
   # If specified, the pod's scheduling constraints
-  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#affinity-v1-core
+  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#affinity-v1-core
   # Type: object
   # Mandatory: no
   # Default: not set
@@ -441,7 +441,7 @@ alertManager:
   nodeSelector: {}
 
   # If specified, the pod's scheduling constraints
-  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#affinity-v1-core
+  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#affinity-v1-core
   # Type: object
   # Mandatory: no
   # Default: not set
@@ -615,7 +615,7 @@ kubeStateMetrics:
   nodeSelector: {}
 
   # If specified, the pod's scheduling constraints
-  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#affinity-v1-core
+  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#affinity-v1-core
   # Type: object
   # Mandatory: no
   # Default: not set
@@ -801,7 +801,7 @@ nodeExporter:
   tolerations: []
 
   # If specified, the pod's scheduling constraints
-  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#affinity-v1-core
+  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#affinity-v1-core
   # Type: object
   # Mandatory: no
   # Default: not set
@@ -1440,7 +1440,7 @@ pushgateway:
   nodeSelector: {}
 
   # If specified, the pod's scheduling constraints
-  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#affinity-v1-core
+  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#affinity-v1-core
   # Type: object
   # Mandatory: no
   # Default: not set
@@ -1568,7 +1568,7 @@ integrationTests:
   nodeSelector: {}
   
   # If specified, the pod's scheduling constraints
-  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#affinity-v1-core
+  # More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#affinity-v1-core
   # Type: object
   # Mandatory: no
   # Default: not set
