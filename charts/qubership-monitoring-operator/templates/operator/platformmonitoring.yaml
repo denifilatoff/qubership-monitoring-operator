@@ -278,6 +278,10 @@ spec:
       nodeSelector:
         {{- toYaml .Values.prometheus.operator.nodeSelector | nindent 8 }}
       {{- end }}
+      {{- if .Values.prometheus.operator.affinity }}
+      affinity:
+        {{- toYaml .Values.prometheus.operator.affinity | nindent 8 }}
+      {{- end }}
       {{- if .Values.prometheus.operator.labels }}
       labels:
         {{- toYaml .Values.prometheus.operator.labels | nindent 8 }}

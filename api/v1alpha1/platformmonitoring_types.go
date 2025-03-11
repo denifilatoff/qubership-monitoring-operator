@@ -460,6 +460,9 @@ type PrometheusOperator struct {
 	// NodeSelector Define which Nodes the Pods are scheduled on.
 	// Specified just as map[string]string. For example: "type: compute"
 	NodeSelector map[string]string `json:"nodeSelector,omitempty"`
+	// If specified, the pod's scheduling constraints.
+	// More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#affinity-v1-core
+	Affinity *v1.Affinity `json:"affinity,omitempty"`
 	// Pod monitor for self monitoring
 	PodMonitor *Monitor `json:"podMonitor,omitempty"`
 	//Namespaces to scope the interaction of the Prometheus Operator and the apiserver.

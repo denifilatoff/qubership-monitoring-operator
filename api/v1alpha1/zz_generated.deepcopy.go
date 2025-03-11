@@ -1121,6 +1121,11 @@ func (in *PrometheusOperator) DeepCopyInto(out *PrometheusOperator) {
 			(*out)[key] = val
 		}
 	}
+	if in.Affinity != nil {
+		in, out := &in.Affinity, &out.Affinity
+		*out = new(v1.Affinity)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PodMonitor != nil {
 		in, out := &in.PodMonitor, &out.PodMonitor
 		*out = new(Monitor)
