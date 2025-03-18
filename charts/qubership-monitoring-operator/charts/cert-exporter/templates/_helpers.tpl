@@ -10,7 +10,7 @@ Image can be found from:
   {{- if .Values.image -}}
     {{- printf "%s" .Values.image -}}
   {{- else -}}
-    {{- print "joeelliott/cert-exporter:v2.11.0" -}}
+    {{- print "joeelliott/cert-exporter:v2.14.0" -}}
   {{- end -}}
 {{- end -}}
 

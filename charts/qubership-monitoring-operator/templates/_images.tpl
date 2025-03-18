@@ -12,7 +12,7 @@ Image can be found from:
   {{- if .Values.monitoringOperator.image -}}
     {{- printf "%s" .Values.monitoringOperator.image -}}
   {{- else -}}
-    {{- print "github.com/netcracker/qubership-monitoring-operator:main" -}}
+    {{- print "ghcr.io/netcracker/qubership-monitoring-operator:main" -}}
   {{- end -}}
 {{- end -}}
 
@@ -29,7 +29,7 @@ Image can be found from:
     {{- if .Values.grafana.operator.image -}}
       {{- printf "%s" .Values.grafana.operator.image -}}
     {{- else -}}
-      {{- print "grafana-operator/grafana-operator:v4.9.0" -}}
+      {{- print "quay.io/grafana-operator/grafana-operator:v4.9.0" -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
@@ -59,7 +59,7 @@ Image can be found from:
     {{- if .Values.grafana.operator.initContainerImage -}}
       {{- printf "%s" .Values.grafana.operator.initContainerImage -}}
     {{- else -}}
-      {{- print "github.com/netcracker/qubership-grafana-plugins-init:main" -}}
+      {{- print "ghcr.io/netcracker/qubership-grafana-plugins-init:main" -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
@@ -76,7 +76,7 @@ Image can be found from:
   {{- if .Values.prometheus.operator.image -}}
     {{- printf "%s" .Values.prometheus.operator.image -}}
   {{- else -}}
-    {{- print "prometheus-operator/prometheus-operator:v0.61.1" -}}
+    {{- print "quay.io/prometheus-operator/prometheus-operator:v0.80.1" -}}
   {{- end -}}
 {{- end -}}
 
@@ -90,7 +90,7 @@ Image can be found from:
   {{- if .Values.prometheus.configReloaderImage -}}
     {{- printf "%s" .Values.prometheus.configReloaderImage -}}
   {{- else -}}
-    {{- print "prometheus-operator/prometheus-config-reloader:v0.61.0" -}}
+    {{- print "quay.io/prometheus-operator/prometheus-config-reloader:v0.80.1" -}}
   {{- end -}}
 {{- end -}}
 
@@ -104,7 +104,7 @@ Image can be found from:
   {{- if .Values.alertManager.image -}}
     {{- printf "%s" .Values.alertManager.image -}}
   {{- else -}}
-    {{- print "prom/alertmanager:v0.25.0" -}}
+    {{- print "prom/alertmanager:v0.28.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -118,7 +118,7 @@ Image can be found from:
   {{- if .Values.prometheus.image -}}
     {{- printf "%s" .Values.prometheus.image -}}
   {{- else -}}
-    {{- print "prom/prometheus:v2.43.1" -}}
+    {{- print "prom/prometheus:v3.2.1" -}}
   {{- end -}}
 {{- end -}}
 
@@ -134,7 +134,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmOperator.image -}}
     {{- printf "%s" .Values.victoriametrics.vmOperator.image -}}
   {{- else -}}
-    {{- print "victoriametrics/operator:v0.33.0" -}}
+    {{- print "victoriametrics/operator:v0.53.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -148,7 +148,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmOperator.configReloaderImage -}}
     {{- printf "%s" .Values.victoriametrics.vmOperator.configReloaderImage -}}
   {{- else -}}
-    {{- print "victoriametrics/operator:config-reloader-v0.33.0" -}}
+    {{- print "victoriametrics/operator:config-reloader-v0.53.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -162,7 +162,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAgent.image -}}
     {{- printf "%s" .Values.victoriametrics.vmAgent.image -}}
   {{- else -}}
-    {{- print "victoriametrics/vmagent:v1.90.0" -}}
+    {{- print "victoriametrics/vmagent:v1.112.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -176,7 +176,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAgent.configReloadImage -}}
     {{- printf "%s" .Values.victoriametrics.vmAgent.configReloadImage -}}
   {{- else -}}
-    {{- print "prometheus-operator/prometheus-config-reloader:v0.65.1" -}}
+    {{- print "quay.io/prometheus-operator/prometheus-config-reloader:v0.80.1" -}}
   {{- end -}}
 {{- end -}}
 
@@ -190,7 +190,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAlert.image -}}
     {{- printf "%s" .Values.victoriametrics.vmAlert.image -}}
   {{- else -}}
-    {{- print "victoriametrics/vmalert:v1.90.0" -}}
+    {{- print "victoriametrics/vmalert:v1.112.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -204,7 +204,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAlert.configReloadImage -}}
     {{- printf "%s" .Values.victoriametrics.vmAlert.configReloadImage -}}
   {{- else -}}
-    {{- print "jimmidyson/configmap-reload:v0.8.0" -}}
+    {{- print "jimmidyson/configmap-reload:v0.14.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -218,7 +218,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAlertManager.image -}}
     {{- printf "%s" .Values.victoriametrics.vmAlertManager.image -}}
   {{- else -}}
-    {{- print "prom/alertmanager:v0.24.0" -}}
+    {{- print "prom/alertmanager:v0.28.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -232,7 +232,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAlertManager.configReloadImage -}}
     {{- printf "%s" .Values.victoriametrics.vmAlertManager.configReloadImage -}}
   {{- else -}}
-    {{- print "jimmidyson/configmap-reload:v0.8.0" -}}
+    {{- print "jimmidyson/configmap-reload:v0.14.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -246,7 +246,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAuth.image -}}
     {{- printf "%s" .Values.victoriametrics.vmAuth.image -}}
   {{- else -}}
-    {{- print "victoriametrics/vmauth:v1.90.0" -}}
+    {{- print "victoriametrics/vmauth:v1.112.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -260,7 +260,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmCluster.vmSelectImage -}}
     {{- printf "%s" .Values.victoriametrics.vmCluster.vmSelectImage -}}
   {{- else -}}
-    {{- print "victoriametrics/vmselect:v1.90.0-cluster" -}}
+    {{- print "victoriametrics/vmselect:v1.112.0-cluster" -}}
   {{- end -}}
 {{- end -}}
 
@@ -274,7 +274,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmCluster.vmStorageImage -}}
     {{- printf "%s" .Values.victoriametrics.vmCluster.vmStorageImage -}}
   {{- else -}}
-    {{- print "victoriametrics/vmstorage:v1.90.0-cluster" -}}
+    {{- print "victoriametrics/vmstorage:v1.112.0-cluster" -}}
   {{- end -}}
 {{- end -}}
 
@@ -288,7 +288,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmCluster.vmInsertImage -}}
     {{- printf "%s" .Values.victoriametrics.vmCluster.vmInsertImage -}}
   {{- else -}}
-    {{- print "victoriametrics/vminsert:v1.90.0-cluster" -}}
+    {{- print "victoriametrics/vminsert:v1.112.0-cluster" -}}
   {{- end -}}
 {{- end -}}
 
@@ -302,7 +302,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAuth.configReloadImage -}}
     {{- printf "%s" .Values.victoriametrics.vmAuth.configReloadImage -}}
   {{- else -}}
-    {{- print "prometheus-operator/prometheus-config-reloader:v0.65.1" -}}
+    {{- print "quay.io/prometheus-operator/prometheus-config-reloader:v0.80.1" -}}
   {{- end -}}
 {{- end -}}
 
@@ -316,7 +316,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmSingle.image -}}
     {{- printf "%s" .Values.victoriametrics.vmSingle.image -}}
   {{- else -}}
-    {{- print  "victoriametrics/victoria-metrics:v1.90.0" -}}
+    {{- print  "victoriametrics/victoria-metrics:v1.112.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -332,7 +332,7 @@ Image can be found from:
   {{- if .Values.kubeStateMetrics.image -}}
     {{- printf "%s" .Values.kubeStateMetrics.image -}}
   {{- else -}}
-    {{- print "coreos/kube-state-metrics:v2.8.2" -}}
+    {{- print "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.15.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -346,7 +346,7 @@ Image can be found from:
   {{- if .Values.nodeExporter.image -}}
     {{- printf "%s" .Values.nodeExporter.image -}}
   {{- else -}}
-    {{- print "prom/node-exporter:v1.5.0" -}}
+    {{- print "prom/node-exporter:v1.9.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -360,7 +360,7 @@ Image can be found from:
   {{- if .Values.pushgateway.image -}}
     {{- printf "%s" .Values.pushgateway.image -}}
   {{- else -}}
-    {{- print "prom/pushgateway:v1.5.1" -}}
+    {{- print "prom/pushgateway:v1.11.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -376,7 +376,7 @@ Image can be found from:
   {{- if .Values.integrationTests.image -}}
     {{- printf "%s" .Values.integrationTests.image -}}
   {{- else -}}
-    {{- print "prod.platform.system.monitoring_tests_platform-monitoring-tests:master_release" -}}
+    {{- print "TBD" -}}
   {{- end -}}
 {{- end -}}
 
@@ -392,6 +392,6 @@ Image can be found from:
   {{- if .Values.oAuthProxy.image -}}
     {{- printf "%s" .Values.oAuthProxy.image -}}
   {{- else -}}
-    {{- print "oauth2-proxy/oauth2-proxy:7.6.0" -}}
+    {{- print "quay.io/oauth2-proxy/oauth2-proxy:7.8.1" -}}
   {{- end -}}
 {{- end -}}
