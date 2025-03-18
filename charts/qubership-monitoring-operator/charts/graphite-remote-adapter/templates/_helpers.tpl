@@ -10,7 +10,7 @@ Image can be found from:
   {{- if .Values.image -}}
     {{- printf "%s" .Values.image -}}
   {{- else -}}
-    {{- print "product/prod.platform.system.graphite-remote-adapter:latest" -}}
+    {{- print "ghcr.io/netcracker/qubership-graphite-remote-adapter:main" -}}
   {{- end -}}
 {{- end -}}
 

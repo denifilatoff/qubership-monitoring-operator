@@ -10,7 +10,7 @@ Image can be found from:
   {{- if .Values.operator.image -}}
     {{- printf "%s" .Values.operator.image -}}
   {{- else -}}
-    {{- print "product/prod.platform.system.monitoring_k8s-scaling_prometheus-adapter-operator:latest" -}}
+    {{- print "ghcr.io/netcracker/qubership-prometheus-adapter-operator:main" -}}
   {{- end -}}
 {{- end -}}
 
@@ -24,7 +24,7 @@ Image can be found from:
   {{- if .Values.image -}}
     {{- printf "%s" .Values.image -}}
   {{- else -}}
-    {{- print "k8s-prometheus-adapter-amd64:v0.6.0" -}}
+    {{- print "ghcr.io/netcracker/qubership-prometheus-adapter:main" -}}
   {{- end -}}
 {{- end -}}
 
