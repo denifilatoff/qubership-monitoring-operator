@@ -204,7 +204,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAlert.configReloadImage -}}
     {{- printf "%s" .Values.victoriametrics.vmAlert.configReloadImage -}}
   {{- else -}}
-    {{- print "docker.io/jimmidyson/configmap-reload:v0.14.0" -}}
+    {{- print "ghcr.io/jimmidyson/configmap-reload:v0.14.0" -}}
   {{- end -}}
 {{- end -}}
 
@@ -232,7 +232,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAlertManager.configReloadImage -}}
     {{- printf "%s" .Values.victoriametrics.vmAlertManager.configReloadImage -}}
   {{- else -}}
-    {{- print "docker.io/jimmidyson/configmap-reload:v0.14.0" -}}
+    {{- print "ghcr.io/jimmidyson/configmap-reload:v0.14.0" -}}
   {{- end -}}
 {{- end -}}
 
