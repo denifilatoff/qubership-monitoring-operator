@@ -10,7 +10,7 @@ Image can be found from:
   {{- if .Values.image -}}
     {{- printf "%s" .Values.image -}}
   {{- else -}}
-    {{- print "jacksontj/promxy:v0.0.92" -}}
+    {{- print "quay.io/jacksontj/promxy:v0.0.92" -}}
   {{- end -}}
 {{- end -}}
 

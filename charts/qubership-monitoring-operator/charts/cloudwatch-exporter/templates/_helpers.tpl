@@ -10,7 +10,7 @@ Image can be found from:
   {{- if .Values.image -}}
     {{- printf "%s" .Values.image -}}
   {{- else -}}
-    {{- print "prom/cloudwatch-exporter:v0.16.0" -}}
+    {{- print "docker.io/prom/cloudwatch-exporter:v0.16.0" -}}
   {{- end -}}
 {{- end -}}
 

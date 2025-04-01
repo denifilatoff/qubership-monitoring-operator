@@ -169,7 +169,7 @@ Image can be found from:
 {{/*
 Find a configmap-reload image in various places.
 Image can be found from:
-* .Values.promxy.configmapReload.image from values file
+* .Values.victoriametrics.vmAgent.configReloadImage from values file
 * or default value
 */}}
 {{- define "vm.agent.configReloader.image" -}}
@@ -197,7 +197,7 @@ Image can be found from:
 {{/*
 Find a configmap-reload image in various places.
 Image can be found from:
-* .Values.promxy.configmapReload.image from values file
+* .Values.victoriametrics.vmAlert.configReloadImage from values file
 * or default value
 */}}
 {{- define "vm.alert.configReloader.image" -}}
@@ -225,7 +225,7 @@ Image can be found from:
 {{/*
 Find a configmap-reload image in various places.
 Image can be found from:
-* .Values.promxy.configmapReload.image from values file
+* .Values.victoriametrics.vmAlertManager.configReloadImage from values file
 * or default value
 */}}
 {{- define "vm.alertmanager.configReloader.image" -}}
@@ -295,7 +295,7 @@ Image can be found from:
 {{/*
 Find a configmap-reload image in various places.
 Image can be found from:
-* .Values.promxy.configmapReload.image from values file
+* .Values.victoriametrics.vmAuth.configReloadImage from values file
 * or default value
 */}}
 {{- define "vm.auth.configReloader.image" -}}
