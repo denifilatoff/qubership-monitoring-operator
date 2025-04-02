@@ -104,7 +104,7 @@ Image can be found from:
   {{- if .Values.alertManager.image -}}
     {{- printf "%s" .Values.alertManager.image -}}
   {{- else -}}
-    {{- print "docker.io/prom/alertmanager:v0.28.0" -}}
+    {{- print "docker.io/prom/alertmanager:v0.28.1" -}}
   {{- end -}}
 {{- end -}}
 
@@ -218,7 +218,7 @@ Image can be found from:
   {{- if .Values.victoriametrics.vmAlertManager.image -}}
     {{- printf "%s" .Values.victoriametrics.vmAlertManager.image -}}
   {{- else -}}
-    {{- print "docker.io/prom/alertmanager:v0.28.0" -}}
+    {{- print "docker.io/prom/alertmanager:v0.28.1" -}}
   {{- end -}}
 {{- end -}}
 
