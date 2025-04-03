@@ -19,7 +19,7 @@ spec:
       securityContext: {}
       containers:
         - name: prometheus-example-app
-          image: tbd
+          image: tbd  # TODO: convert to template
           ports:
             - name: web
               containerPort: 8080

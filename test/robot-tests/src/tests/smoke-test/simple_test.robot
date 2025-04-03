@@ -14,12 +14,12 @@ ${vmauth_url_state}            ''
 *** Test Cases ***
 Check Grafana Deployment Pods Are Running
     [Tags]  full  smoke  grafana
-    ${grafana_deployment_flag}=  Check Deployment state With Prerequisite  ${grafana-deployment}  ${grafana-in-cr}
+    ${grafana_deployment_flag}=  Check Deployment State With Prerequisite  ${grafana-deployment}  ${grafana-in-cr}
     Set Suite Variable  ${grafana_deployment_flag}
 
 Check Grafana Operator Pods Are Running
     [Tags]  full  smoke  grafana
-    ${grafana_operator_flag}=  Check Deployment state With Prerequisite  ${grafana-operator}  ${grafana-in-cr}
+    ${grafana_operator_flag}=  Check Deployment State With Prerequisite  ${grafana-operator}  ${grafana-in-cr}
     Set Suite Variable  ${grafana_operator_flag}
 
 Check Monitoring Operator Pods Are Running
@@ -45,18 +45,23 @@ Check Prometheus Pods Are Running
 
 Check Node Exporter Pods Are Running
     [Tags]  full  smoke
-    ${node_exporter_flag}=  Check Daemon Set state with prerequisite  ${node-exporter}  ${node-exporter-in-cr}
+    ${node_exporter_flag}=  Check Daemon Set State With Prerequisite  ${node-exporter}  ${node-exporter-in-cr}
     Set Suite Variable  ${node_exporter_flag}
 
 Check Kube State Metrics Pods Are Running
     [Tags]  full  smoke
-    ${kube_state_metrics_flag}=  Check Deployment state with prerequisite  ${kube-state-metrics}  ${kube-state-metrics-in-cr}
+    ${kube_state_metrics_flag}=  Check Deployment State With Prerequisite  ${kube-state-metrics}  ${kube-state-metrics-in-cr}
     Set Suite Variable  ${kube_state_metrics_flag}
 
 Check Pushgateway Pods Are Running
     [Tags]  full  smoke
     ${pushgateway_flag}=  Check Deployment State With Prerequisite  ${pushgateway}  ${pushgateway-in-cr}
     Set Suite Variable  ${pushgateway_flag}
+
+Check JSON Exporter Pods Are Running
+    [Tags]  full  smoke  json-exporter
+    ${json_exporter_flag}=  Check Deployment State  ${json-exporter}
+    Set Suite Variable  ${json_exporter_flag}
 
 Check Status Of Prometheus
     [Tags]  full  smoke-test-prometheus  smoke
@@ -96,17 +101,17 @@ Check Non Mandatory Prometheus Target Metrics
 
 Check Configurations Streamer Deployment Pods Are Running
     [Tags]  full  smoke  configurations-streamer
-    ${configurations-streamer_flag}=  Check Deployment state  ${configurations-streamer}
+    ${configurations-streamer_flag}=  Check Deployment State  ${configurations-streamer}
     Set Suite Variable  ${configurations-streamer_flag}
 
 Check Version Exporter Deployment Pods Are Running
     [Tags]  full  smoke  version-exporter
-    ${version-exporter_flag}=  Check Deployment state  ${version-exporter}
+    ${version-exporter_flag}=  Check Deployment State  ${version-exporter}
     Set Suite Variable  ${version-exporter_flag}
 
 Check Graphite Remote Adapter Deployment Pods Are Running
     [Tags]  full  smoke  graphite-remote-adapter
-    ${graphite-remote-adapter_flag}=  Check Deployment state  ${graphite-remote-adapter}
+    ${graphite-remote-adapter_flag}=  Check Deployment State  ${graphite-remote-adapter}
     Set Suite Variable  ${graphite-remote-adapter_flag}
 
 Check Cert Exporter Deployment Pods Are Running
@@ -116,32 +121,32 @@ Check Cert Exporter Deployment Pods Are Running
 
 Check Cloudwatch Exporter Deployment Pods Are Running
     [Tags]  full  smoke  cloudwatch-exporter
-    ${cloudwatch-exporter_flag}=  Check Deployment state  ${cloudwatch-exporter}
+    ${cloudwatch-exporter_flag}=  Check Deployment State  ${cloudwatch-exporter}
     Set Suite Variable  ${cloudwatch-exporter_flag}
 
-Check Blackbox Exporter Deployment Pods Are Running
+Check Blackbox Exporter Pods Are Running
     [Tags]  full  smoke  blackbox-exporter
-    ${blackbox-exporter_flag}=  Check Deployment state  ${blackbox-exporter}
+    ${blackbox-exporter_flag}=  Check Deployment Or DaemonSet State  ${blackbox-exporter}
     Set Suite Variable  ${blackbox-exporter_flag}
 
 Check Prometheus Adapter Deployment Pods Are Running
     [Tags]  full  smoke-test-prometheus  smoke  prometheus-adapter
-    ${prometheus-adapter_flag}=  Check Deployment state  ${prometheus-adapter}
+    ${prometheus-adapter_flag}=  Check Deployment State  ${prometheus-adapter}
     Set Suite Variable  ${prometheus-adapter_flag}
 
 Check Prometheus Adapter Operator Deployment Pods Are Running
     [Tags]  full  smoke-test-prometheus  smoke  prometheus-adapter-operator
-    ${prometheus-adapter-operator_flag}=  Check Deployment state  ${prometheus-adapter-operator}
+    ${prometheus-adapter-operator_flag}=  Check Deployment State  ${prometheus-adapter-operator}
     Set Suite Variable  ${prometheus-adapter-operator_flag}
 
 Check Promxy Deployment Pods Are Running
     [Tags]  full  smoke  promxy
-    ${promxy_flag}=  Check Deployment state  ${promxy}
+    ${promxy_flag}=  Check Deployment State  ${promxy}
     Set Suite Variable  ${promxy_flag}
 
 Check Promitor Agent Scraper Deployment Pods Are Running
     [Tags]  full  smoke  promitor-agent-scraper
-    ${promitor-agent-scraper_flag}=  Check Deployment state  ${promitor-agent-scraper}
+    ${promitor-agent-scraper_flag}=  Check Deployment State  ${promitor-agent-scraper}
     Set Suite Variable  ${promitor-agent-scraper_flag}
 
 Check Network Latency Exporter Pods Are Running
@@ -193,22 +198,22 @@ Check Pushgateway UI Status
 
 Check Victoriametrics Operator Pods Are Running
     [Tags]  full  smoke-test-vm  smoke
-    ${victoriametrics_flag}=  Check Deployment state With Prerequisite  ${victoriametrics-operator}  ${vm-operator-in-cr}  victoriametrics
+    ${victoriametrics_flag}=  Check Deployment State With Prerequisite  ${victoriametrics-operator}  ${vm-operator-in-cr}  victoriametrics
     Set Suite Variable  ${victoriametrics_flag}
 
 Check Vmagent Pods Are Running
     [Tags]  full  smoke-test-vm  smoke
-    ${vmagent_flag}=  Check Deployment state With Prerequisite  ${vmagent}  ${vmagent-in-cr}  victoriametrics
+    ${vmagent_flag}=  Check Deployment State With Prerequisite  ${vmagent}  ${vmagent-in-cr}  victoriametrics
     Set Suite Variable  ${vmagent_flag}
 
 Check Vmsingle Pods Are Running
     [Tags]  full  smoke-test-vm  smoke
-    ${vmsingle_flag}=  Check Deployment state With Prerequisite  ${vmsingle}  ${vmsingle-in-cr}  victoriametrics
+    ${vmsingle_flag}=  Check Deployment State With Prerequisite  ${vmsingle}  ${vmsingle-in-cr}  victoriametrics
     Set Suite Variable  ${vmsingle_flag}
 
 Check Vmalert Pods Are Running
     [Tags]  full  smoke-test-vm  smoke
-    ${vmalert_flag}=  Check Deployment state With Prerequisite  ${vmalert}  ${vmalert-in-cr}  victoriametrics
+    ${vmalert_flag}=  Check Deployment State With Prerequisite  ${vmalert}  ${vmalert-in-cr}  victoriametrics
     Set Suite Variable  ${vmalert_flag}
 
 Check Vmalertmanager Pods Are Running

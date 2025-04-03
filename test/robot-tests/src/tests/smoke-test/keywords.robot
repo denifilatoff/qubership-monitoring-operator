@@ -56,6 +56,7 @@ ${prometheus-adapter-operator}  prometheus-adapter-operator
 ${promxy}                       promxy
 ${promitor-agent-scraper}       promitor-agent-scraper
 ${network-latency-exporter}     network-latency-exporter
+${json-exporter}                json-exporter
 
 ${FILES_PATH}                   integration-tests/source_files
 ${RETRY_TIME}                   5min
@@ -93,10 +94,26 @@ Check Status Of Pods
     END
     [Return]  ${state}
 
+Determine Deployment Type
+    [Arguments]  ${name}
+    ${deployment_exists}=  Run Keyword And Return Status  Get Deployment Entity  ${name}  ${namespace}
+    ${daemonset_exists}=   Run Keyword And Return Status  Get Daemon Set  ${name}  ${namespace}
+    ${deployment_type}=    Set Variable  none
+    ${deployment_type}=    Run Keyword If    ${deployment_exists} and not ${daemonset_exists}  
+    ...    Set Variable    deployment  
+    ...    ELSE    Set Variable    daemonset
+    [Return]  ${deployment_type}
+    
+Check Deployment Or DaemonSet State
+    [Arguments]  ${name}
+    ${deployment_type}=  Determine Deployment Type  ${name}
+    Run Keyword If  "${deployment_type}" == "deployment"  Check Deployment State  ${name}
+    Run Keyword If  "${deployment_type}" == "daemonset"  Check Daemon Set State  ${name}
+
 Check Daemon Set State With Prerequisite
     [Arguments]  ${name}  ${name-in-cr}  ${parentservice}=${None}
     ${status_check_object}=  Check that in CR service is presented  ${name-in-cr}  ${parentservice}
-    ${flag}=  Run Keyword If  ${status_check_object}==True  Check Daemon Set state  ${name}
+    ${flag}=  Run Keyword If  ${status_check_object}==True  Check Daemon Set State  ${name}
     [Return]  ${flag}
 
 Check Daemon Set State
@@ -125,7 +142,7 @@ Check Daemon Set And Deployment State For Cert Exporter
 Check Deployment State With Prerequisite
     [Arguments]  ${name}  ${name-in-cr}  ${parentservice}=${None}
     ${status_check_object}=  Check That In CR Service Is Presented  ${name-in-cr}  ${parentservice}
-    ${flag}=  Run Keyword If  ${status_check_object}==True  Check Deployment state  ${name}
+    ${flag}=  Run Keyword If  ${status_check_object}==True  Check Deployment State  ${name}
     [Return]  ${flag}
 
 Check Deployment State

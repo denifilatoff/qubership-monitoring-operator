@@ -4,6 +4,7 @@ import re
 
 import yaml
 from PlatformLibrary import PlatformLibrary
+from urllib.parse import urlparse
 
 
 def get_object_data(response):
@@ -12,16 +13,26 @@ def get_object_data(response):
 
 def get_prometheus_target(response, target_name):
     json_object = get_object_data(response)
-    for item in json_object.get('activeTargets'):
-        labels = item.get('labels')
-        if target_name in labels.get('job'):
-            return item
+    matched_targets = [
+        item for item in json_object.get('activeTargets', []) 
+        if target_name in item.get('labels', {}).get('job', '')
+    ]
+    def get_path(target):
+        return urlparse(target.get("scrapeUrl", "")).path
+    for target in matched_targets:
+        if get_path(target) == "/probe":
+            return target
+    for target in matched_targets:
+        if get_path(target) == "/metrics":
+            return target
     return False
 
 
 def target_state_and_not_empty(target, health):
-    if not str(target.get('scrapeUrl')).isspace() and str(target.get('scrapeUrl')).count('/metrics'):
-        if health in target.get('health'):
+    scrape_url = str(target.get('scrapeUrl'))
+    scrape_path = urlparse(scrape_url).path
+    if scrape_path in ["/probe", "/metrics"]:
+        if health in target.get('health', ''):
             return True
     return False
 
@@ -181,3 +192,12 @@ def get_pass_from_secret(secret):
 def get_username_from_secret(secret):
     username = base64.b64decode(secret.data.get('username')).decode()
     return username
+
+
+def extract_config_map(configmap, key):
+    config_data = configmap.to_dict() if hasattr(configmap, "to_dict") else configmap
+    raw_content = config_data.get("data", {}).get(key, "")
+    try:
+        return yaml.safe_load(raw_content) if raw_content else {}
+    except yaml.YAMLError:
+        return {}

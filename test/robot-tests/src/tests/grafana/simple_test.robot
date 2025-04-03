@@ -2,7 +2,7 @@
 Resource  keywords.robot
 Library   String
 
-Suite Setup  Preparation Grafana Test Data
+Suite Setup  Initialize And Prepare Test Data
 Suite Teardown  Cleanup Test Data
 
 *** Keywords ***
@@ -10,13 +10,20 @@ Cleanup Test Data
     ${status}  ${message}=  Run Keyword And Ignore Error  Find Dashboard  ${uid}
     Run Keyword If  '${status}'=='PASS'  Delete Dashboard Via Cloud Rest
 
-Preparation Grafana Test Data
+Initialize And Prepare Test Data
+    Initialize Grafana Library
     ${uid_from_file}=  Get Dashboard Value From File   ${PATH_TO_DASHBOARD}  uid
     ${dashboard_name}=  Get Dashboard Value From File   ${PATH_TO_DASHBOARD}  title
     Set Suite Variable  ${uid_from_file}
     Set Suite Variable  ${dashboard_name}
 
 *** Test Cases ***
+Verify Login To Grafana
+    [Tags]  full  grafana
+    ${username}  ${password}=  Get Grafana Credentials From Secret
+    Wait Until Keyword Succeeds  ${RETRY_TIME}  ${RETRY_INTERVAL}
+    ...  Attempt Login To Grafana  ${grafana_host}  ${username}  ${password}
+
 Create Object Grafana Dashboard
     [Tags]  full  grafana
     Create Test Dashboard In namespace  ${PATH_TO_DASHBOARD}

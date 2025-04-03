@@ -10,16 +10,39 @@ Library            %{ROBOT_HOME}/lib/CheckJsonObject.py
 Library            %{ROBOT_HOME}/lib/TestAppsLib.py     managed_by_operator=true
 
 *** Variables ***
-${prometheus_url}           http://prometheus-operated:9090
-${vmsingle_url}             http://vmsingle-k8s:8429
-${vmagent_url}              http://vmagent-k8s:8429
-${vmauth_url}               http://vmauth-k8s:8427
+${prometheus_host}          prometheus-operated:9090
+${vmsingle_host}            vmsingle-k8s:8429
+${vmagent_host}             vmagent-k8s:8429
+${vmauth_host}              vmauth-k8s:8427
 ${vmuser}                   vmuser-k8s
 ${vmauth-in-cr}             vmAuth
 ${vmauth}                   False
 ${OPERATOR}                 %{OPERATOR}
 
 *** Keywords ***
+Determine Protocol
+    [Arguments]  ${host}  ${auth}=None
+    ${https_url}=  Set Variable  https://${host}
+    ${http_url}=   Set Variable  http://${host}
+    ${https_response}=  Run Keyword And Return Status  Check URL Accessibility  ${https_url}  ${auth}
+    IF  ${https_response}
+        Log To Console  Using HTTPS: ${https_url}
+        ${final_url}=  Set Variable  ${https_url}
+    ELSE
+        Log To Console  Using HTTP: ${http_url}
+        ${final_url}=  Set Variable  ${http_url}
+    END
+    [Return]  ${final_url}
+
+Check URL Accessibility
+    [Arguments]  ${url}  ${auth}=None
+    Evaluate  __import__("logging").getLogger("urllib3").setLevel(40)
+    Create Session  temp_session  ${url}  auth=${auth}
+    ${response}=  GET On Session  temp_session  /
+    Delete All Sessions
+    Should Be Equal As Integers  ${response.status_code}  200
+    [Return]  True
+
 Get Creadentials From Secret
     ${secret}=  Get Secret  ${vmuser}  ${namespace}
     ${pass}=  Get Pass From Secret  ${secret}
@@ -61,14 +84,18 @@ Check That VMauth Is Presented In CR
      [Return]  ${flag}
 
 Preparation Prometheus Session
-    Create Session  prometheussession  ${prometheus_url}
+    ${prometheus_url}=  Determine Protocol  ${prometheus_host}
+    Create Session  prometheussession  ${prometheus_url}  verify=False
 
 Preparation Victoriametrics Sessions With Oauth
     ${auth}=  Get Creadentials From Secret
+    ${vmauth_url}=  Determine Protocol  ${vmauth_host}  ${auth}
     Create Session  vmsinglessession  ${vmauth_url}  auth=${auth}
     Create Session  vmagentsession  ${vmauth_url}  auth=${auth}
 
 Preparation Victoriametrics Sessions Without Oauth
+    ${vmsingle_url}=  Determine Protocol  ${vmsingle_host}
+    ${vmagent_url}=   Determine Protocol  ${vmagent_host}
     Create Session  vmsinglessession  ${vmsingle_url}
     Create Session  vmagentsession  ${vmagent_url}
 

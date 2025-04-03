@@ -20,7 +20,7 @@ spec:
       securityContext: {}
       containers:
         - name: autoscaling-example-service
-          image: tbd
+          image: tbd  # TODO: convert to template
           imagePullPolicy: Always
           ports:
             - name: web

@@ -1,4 +1,3 @@
-
 *** Settings ***
 Library            String
 Library            json
@@ -9,10 +8,6 @@ Library            PlatformLibrary                   managed_by_operator=true
 Library            MonitoringLibrary
 Resource           %{ROBOT_HOME}/tests/smoke-test/keywords.robot
 Library            %{ROBOT_HOME}/lib/CheckJsonObject.py
-Library            %{ROBOT_HOME}/lib/GrafanaApiLib.py
-...                                                   url=${grafana_host}
-...                                                   g_user=${G_USER}
-...                                                   g_password=${G_PASSWORD}
 
 *** Variables ***
 ${namespace}                %{NAMESPACE}
@@ -21,12 +16,46 @@ ${FILES_PATH}               %{ROBOT_HOME}/source_files/dashboards
 
 ${PATH_TO_DASHBOARD}        ${FILES_PATH}/dashboard_for_create.yml
 ${PATH_TO_UPD_DASHBOARD}    ${FILES_PATH}/dashboard_for_update.yml
-${G_USER}                   admin
-${G_PASSWORD}               admin
 ${RETRY_TIME}               5min
 ${RETRY_INTERVAL}           3s
 
 *** Keywords ***
+Initialize Grafana Library
+    ${username}  ${password}=  Get Grafana Credentials From Secret
+    Import Library   %{ROBOT_HOME}/lib/GrafanaApiLib.py
+    ...              url=${grafana_host}
+    ...              g_user=${username}
+    ...              g_password=${password}
+
+Get Grafana Credentials From Secret
+    ${secret}=  Get Secret  grafana-admin-credentials  ${namespace}
+    ${username_base64}=  Set Variable  ${secret.data["GF_SECURITY_ADMIN_USER"]}
+    ${password_base64}=  Set Variable  ${secret.data["GF_SECURITY_ADMIN_PASSWORD"]}
+    ${username}=  Decode Base64  ${username_base64}
+    ${password}=  Decode Base64  ${password_base64}
+    [Return]  ${username}  ${password}
+
+Decode Base64
+    [Arguments]  ${base64_string}
+    ${decoded}=  Evaluate  base64.b64decode("""${base64_string}""").decode("utf-8")
+    [Return]  ${decoded}
+
+Attempt Login To Grafana
+    [Arguments]  ${url}  ${username}  ${password}
+    ${url}=  Set Variable  https://${url}
+    Create Session  grafana_session  ${url}
+    ${headers}=  Create Dictionary  Content-Type=application/json
+    ${body}=  Create Dictionary  user=${username}  password=${password}
+    ${response}=  POST On Session  grafana_session  /login
+    ...  headers=${headers}
+    ...  json=${body}
+    ${login_status}=  Run Keyword If  '${response.status_code}' == '200'
+    ...  Set Variable  SUCCESS
+    ...  ELSE
+    ...  Set Variable  FAIL
+    Should Be Equal  ${login_status}  SUCCESS  Login to Grafana failed!
+    [Return]  ${login_status}
+
 Create Test Dashboard In Namespace
     [Arguments]  ${PATH_TO_DASHBOARD}
     ${body}=  Parse Yaml File  ${PATH_TO_DASHBOARD}

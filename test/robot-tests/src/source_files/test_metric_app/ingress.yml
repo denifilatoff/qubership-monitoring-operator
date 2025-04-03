@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: tbs  # TODO: replace to template
+    - host: tbd  # TODO: convert to template
       http:
         paths:
           - path: /
