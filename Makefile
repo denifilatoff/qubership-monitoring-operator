@@ -68,8 +68,8 @@ GO_BUILD_RECIPE=\
 # Default test arguments
 TEST_RUN_ARGS=-vet=off --shuffle=on
 
-# List of packages, exlucde integration tests that require "envtest"
-pkgs = $(shell go list ./... | grep -v /integration-tests)
+# List of packages, exclude integration tests that require "envtest"
+pkgs = $(shell go list ./... | grep -v /test/envtests)
 #pkgs += $(shell go list $(MONITORING_OPERATOR_PKG)/api...)
 
 # Container name
