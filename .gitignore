@@ -34,3 +34,9 @@ build/_output
 build/_crds
 manager
 deployments
+
+# python
+.idea/
+__pycache__/
+venv/
+*.pyc

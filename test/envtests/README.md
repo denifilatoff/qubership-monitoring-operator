@@ -1,4 +1,4 @@
-# Integration tests
+# Envtests
 
 ## How to run it locally
 
