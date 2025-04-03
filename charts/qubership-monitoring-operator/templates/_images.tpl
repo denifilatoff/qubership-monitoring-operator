@@ -376,7 +376,7 @@ Image can be found from:
   {{- if .Values.integrationTests.image -}}
     {{- printf "%s" .Values.integrationTests.image -}}
   {{- else -}}
-    {{- print "TBD" -}}
+    {{- print "ghcr.io/netcracker/qubership-monitoring-int-tests:main" -}}
   {{- end -}}
 {{- end -}}
 
