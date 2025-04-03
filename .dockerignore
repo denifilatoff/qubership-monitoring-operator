@@ -4,8 +4,8 @@
 !**/*.mod
 !**/*.sum
 .git
-docs
+.github
 delivery
-charts
 assets
+test
 tools
