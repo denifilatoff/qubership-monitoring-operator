@@ -44,7 +44,7 @@ jobs:
           file: Dockerfile
           context: .
         - name: qubership-monitoring-int-tests
-          file: Dockerfile
+          file: test/robot-tests/Dockerfile
           context: test/robot-tests
     runs-on: ubuntu-latest
     name: ${{ matrix.component.name }}
