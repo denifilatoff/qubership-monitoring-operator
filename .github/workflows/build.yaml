@@ -43,6 +43,9 @@ jobs:
         - name: qubership-monitoring-operator
           file: Dockerfile
           context: .
+        - name: qubership-monitoring-transfer
+          file: docker-transfer/Dockerfile
+          context: .
         - name: qubership-monitoring-int-tests
           file: test/robot-tests/Dockerfile
           context: test/robot-tests
