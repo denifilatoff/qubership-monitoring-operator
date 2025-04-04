@@ -10,7 +10,7 @@ Image can be found from:
   {{- if .Values.image -}}
     {{- printf "%s" .Values.image -}}
   {{- else -}}
-    {{- print "prom/blackbox-exporter:v0.26.0" -}}
+    {{- print "docker.io/prom/blackbox-exporter:v0.26.0" -}}
   {{- end -}}
 {{- end -}}
 
