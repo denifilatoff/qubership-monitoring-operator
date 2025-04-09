@@ -7,10 +7,10 @@
             "pattern": "^https://pages.netcracker.com/cla-main.html"
         },
         {
-            "pattern": "^sources/draw.io"
+            "pattern": "^(/?docs/)?sources/draw.io"
         },
         {
-            "pattern": "^sources/plantuml"
+            "pattern": "^(/?docs/)?sources/plantuml"
         },
         {
             "pattern": "^hardware-sizing.md"
