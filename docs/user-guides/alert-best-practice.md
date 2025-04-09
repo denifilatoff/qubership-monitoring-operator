@@ -9,25 +9,25 @@ This document should provide requirements and recommendations on how to write al
 
 # Table of Content
 
-* [Table of Content](#table-of-content)
-* [What is Alert Rule?](#what-is-alert-rule)
-* [Requirements](#requirements)
-  * [Severity](#severity)
-  * [Expression](#expression)
-    * [Keep valuable labels during use aggregation](#keep-valuable-labels-during-use-aggregation)
-    * [Do not use expressions without filters](#do-not-use-expressions-without-filters)
-    * [Don not use too short `rate()` windows](#don-not-use-too-short-rate-windows)
-  * [The "for" field](#the-for-field)
-  * [Label](#label)
-  * [Annotations](#annotations)
-* [Recommendations](#recommendations)
-  * [Alert names without spaces](#alert-names-without-spaces)
-  * [Dead Man's Switch](#dead-mans-switch)
-  * [Alerts suppressions](#alerts-suppressions)
-  * [Dashboard, Handbook, Runbook information or links](#dashboard-handbook-runbook-information-or-links)
-  * [Kubernetes DR Specific](#kubernetes-dr-specific)
-* [Examples](#examples)
-* [Links](#links)
+- [Table of Content](#table-of-content)
+- [What is Alert Rule?](#what-is-alert-rule)
+- [Requirements](#requirements)
+  - [Severity](#severity)
+  - [Expression](#expression)
+    - [Keep valuable labels during use aggregation](#keep-valuable-labels-during-use-aggregation)
+    - [Do not use expressions without filters](#do-not-use-expressions-without-filters)
+    - [Don not use too short `rate()` windows](#don-not-use-too-short-rate-windows)
+  - [The "for" field](#the-for-field)
+  - [Label](#label)
+  - [Annotations](#annotations)
+- [Recommendations](#recommendations)
+  - [Alert names without spaces](#alert-names-without-spaces)
+  - [Dead Man's Switch](#dead-mans-switch)
+  - [Alerts suppressions](#alerts-suppressions)
+  - [Dashboard, Handbook, Runbook information or links](#dashboard-handbook-runbook-information-or-links)
+  - [Kubernetes DR Specific](#kubernetes-dr-specific)
+- [Examples](#examples)
+- [Links](#links)
 
 # What is Alert Rule?
 
@@ -188,19 +188,19 @@ the output will become empty.
 For example, if you take the 50s-ranged rate() of a counter metric that is scraped every 30s,
 there's a good chance that those 50s will often not cover two samples, so you get a gappy rate:
 
-![CPU Usage with 50s range window](/docs/public/images/prometheus_cpu_usage_50s.png)
+![CPU Usage with 50s range window](images/prometheus_cpu_usage_50s.png)
 
 Taken to the extreme: if you decrease the rate window to 30s, you only get an output point very occasionally,
 when two 30s-apart points happen to fall under an arbitrarily aligned 30s window:
 
-![CPU Usage with 30s range window](/docs/public/images/prometheus_cpu_usage_30s.png)
+![CPU Usage with 30s range window](images/prometheus_cpu_usage_30s.png)
 
 So you'll want to choose your input windows large enough – not just 2x the scrape interval, but you'll also want
 to be robust in the face of occasional scrape failures and unlucky window alignments.
 
 It's generally a good practice to choose rate window sizes to be at least 2x and better 4x the scrape interval:
 
-![Rate window size](/docs/public/images/rate-window-size.png)
+![Rate window size](images/rate-window-size.png)
 
 If you will use the rate windows only 2x the scrape interval you can get the situation when you should have two points
 but one scrape failed and one point is absent now.
@@ -522,7 +522,7 @@ For example we can recommended to use the following annotations:
 
 First of all let's show the Monitoring deployment schema in Kubernetes DR:
 
-![Monitoring in Kubernetes DR](/docs/public/images/prometheus-dr-with-promxy-overview.png)
+![Monitoring in Kubernetes DR](images/prometheus-dr-with-promxy-overview.png)
 
 As you can see this schema has no metrics replication and just allow Grafana to show data from both sides.
 It means that Prometheus will collect metrics independently and doesn't know anything about Prometheus in other

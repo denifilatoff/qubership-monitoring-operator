@@ -1,6 +1,6 @@
 For more information, refer to the following:
 
-* [Monitoring Overview](/docs/internal/cookbook/overview.md)
+* [Monitoring Overview](overview.md)
 * Architecture Overview
 * Best Practices
 * Features
