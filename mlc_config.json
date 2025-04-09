@@ -1,0 +1,22 @@
+{
+    "ignorePatterns": [
+        {
+            "pattern": "^https://pages.netcracker.com/cla-main.html"
+        },
+        {
+            "pattern": "^docs/sources/draw.io"
+        },
+        {
+            "pattern": "^docs/sources/plantuml"
+        }
+    ],
+    "timeout": "20s",
+    "retryOn429": true,
+    "retryCount": 5,
+    "fallbackRetryDelay": "30s",
+    "aliveStatusCodes": [
+        200,
+        206,
+        429
+    ]
+}

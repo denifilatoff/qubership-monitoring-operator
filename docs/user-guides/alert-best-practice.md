@@ -200,7 +200,7 @@ to be robust in the face of occasional scrape failures and unlucky window alignm
 
 It's generally a good practice to choose rate window sizes to be at least 2x and better 4x the scrape interval:
 
-![Rate window size](images/rate-window-size.png)
+![Rate window size](../images/rate-window-size.png)
 
 If you will use the rate windows only 2x the scrape interval you can get the situation when you should have two points
 but one scrape failed and one point is absent now.
@@ -389,7 +389,7 @@ PrometheusNotConnectedToAlertmanager
 **NOTE:** The current version of monitoring-operator already has the Dead Man's Switch alert included to out-of-box
 alerts, but this alert is **disabled by default**. You can enable the Dead Man's Switch alert by adding `Heartbeat`
 alert group to the `prometheusRules.ruleGroups` parameter. Look for more information in the
-[alert configuration document](monitoring-configuration/alerts.md#dead-mans-switch-alert).
+[alert configuration document](../monitoring-configuration/alerts.md#dead-mans-switch-alert).
 
 In cases when your service is critical and the customer wants to have a `heartbeat` or just a regular
 the event which signals that the service is up and running you can use the `Dead Man's Switch` alerts.

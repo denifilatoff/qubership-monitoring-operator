@@ -71,7 +71,7 @@ oc apply -f dashboard.yaml
 ## Links
 
 * Prometheus operator
-  * [API Documentation](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md)
+  * [API Documentation](https://github.com/prometheus-operator/prometheus-operator/blob/v0.79.2/Documentation/api.md)
 * Grafana operator
   * [Dashboard API](https://github.com/integr8ly/grafana-operator/blob/master/documentation/dashboards.md)
 * Victoriametrics operator

@@ -33,15 +33,15 @@ Guides:
 
 Documents described Custom Resources Definitions (CRDs):
 
-* [PlatformMonitoring](docs/apis/platform-monitoring.md)
-* [PrometheusAdapter](docs/apis/prometheus-adapter.md)
-* [CustomScaleMetricRule](docs/apis/custom-scale-metric-rule.md)
+* [PlatformMonitoring](docs/api/platform-monitoring.md)
+* [PrometheusAdapter](docs/api/prometheus-adapter.md)
+* [CustomScaleMetricRule](docs/api/custom-scale-metric-rule.md)
 
 Documents described metrics, alerts, dashboards which deploy with monitoring out-of-box (OOB):
 
-* [Metrics](docs/metrics-oob.md)
-* [Alerts](docs/alerts-oob.md)
-* [Dashboards](docs/dashboards-oob)
+* [Metrics](docs/defaults/metrics.md)
+* [Alerts](docs/defaults/alerts.md)
+* [Dashboards](docs/defaults/dashboards)
 
 Examples:
 
@@ -55,3 +55,8 @@ within the company.
 ### Images
 
 All images are stored in [docs/images](docs/images).
+
+And all the sources of these images are stored in following directories:
+
+* [docs/sources/draw.io](docs/sources/draw.io) - for diagrams which are made using [https://draw.io](https://draw.io)
+* [docs/sources/plantuml](docs/sources/plantuml) - for diagrams which are made using PlantUML syntax
