@@ -188,12 +188,12 @@ the output will become empty.
 For example, if you take the 50s-ranged rate() of a counter metric that is scraped every 30s,
 there's a good chance that those 50s will often not cover two samples, so you get a gappy rate:
 
-![CPU Usage with 50s range window](images/prometheus_cpu_usage_50s.png)
+![CPU Usage with 50s range window](../images/prometheus_cpu_usage_50s.png)
 
 Taken to the extreme: if you decrease the rate window to 30s, you only get an output point very occasionally,
 when two 30s-apart points happen to fall under an arbitrarily aligned 30s window:
 
-![CPU Usage with 30s range window](images/prometheus_cpu_usage_30s.png)
+![CPU Usage with 30s range window](../images/prometheus_cpu_usage_30s.png)
 
 So you'll want to choose your input windows large enough – not just 2x the scrape interval, but you'll also want
 to be robust in the face of occasional scrape failures and unlucky window alignments.

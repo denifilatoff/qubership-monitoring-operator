@@ -53,7 +53,7 @@ The sections below describe integration details for the certain monitoring syste
 
 ## Vendor observability solutions
 
-* [IBM Netcool](integration/ibm-netcool.md)
+* [IBM Netcool](ibm-netcool.md)
 
 ## Enabling/disabling specific monitoring components
 

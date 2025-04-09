@@ -42,5 +42,5 @@ All images store into directory [docs/images](images).
 
 And all sources of these images store into directories:
 
-* [sources/drawio](sources/drawio) - for diagrams which made into [https://draw.io](https://draw.io)
+* [sources/draw.io](sources/draw.io) - for diagrams which made into [https://draw.io](https://draw.io)
 * [sources/plantuml](sources/plantuml) - for diagrams which made with using PlantUML syntax

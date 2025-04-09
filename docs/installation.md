@@ -367,7 +367,7 @@ The **minimal** recommended hardware requirements for average system is:
 Monitoring can be deployed in various schemes and with additional components for integrations. Also it can collect
 various metrics count, and different components can use a different number of resources.
 
-There is a separate guide [Hardware Sizing](../internal/install/hardware-sizing.md) if you need to calculate
+There is a separate guide [Hardware Sizing](hardware-sizing.md) if you need to calculate
 the exact amount of resources for each component.
 
 [Back to TOC](#table-of-content)
@@ -2392,7 +2392,7 @@ graphite_remote_adapter:
 | install       | Indicates whether Ingress is needed to be installed. Marked as true if a host is specified.                                                                                                                                                                                                                                                                | bool              |
 | host          | FQDN of the ingress host.                                                                                                                                                                                                                                                                                                                                  | string            |
 | annotations   | Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. For more information, refer to [https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) | map[string]string |
-| labels        | Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. For more information, refer to [https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/w/working-with-objects/labels/)                                                               | map[string]string |
+| labels        | Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. For more information, refer to [https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)                                                               | map[string]string |
 | tlsSecretName | TlsSecretName allows to set secret name which will be used for TLS setting for the Ingress for specified host.                                                                                                                                                                                                                                             | string            |
 
 <!-- markdownlint-enable line-length -->
