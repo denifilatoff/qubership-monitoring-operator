@@ -1,13 +1,19 @@
 {
     "ignorePatterns": [
         {
+            "pattern": "^http://victoria-metrics-single:8429/api/v1/write"
+        },
+        {
             "pattern": "^https://pages.netcracker.com/cla-main.html"
         },
         {
-            "pattern": "^docs/sources/draw.io"
+            "pattern": "^sources/draw.io"
         },
         {
-            "pattern": "^docs/sources/plantuml"
+            "pattern": "^sources/plantuml"
+        },
+        {
+            "pattern": "^hardware-sizing.md"
         }
     ],
     "timeout": "20s",

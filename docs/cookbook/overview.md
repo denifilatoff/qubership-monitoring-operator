@@ -26,7 +26,7 @@ Kubernetes metrics, and from deployed exporters, `kube-state-metrics` and `node-
 
 # Architecture
 
-![Architecture](images/prometheus_k8s_control_plane.png)
+![Architecture](../images/prometheus_k8s_control_plane.png)
 
 ## Monitoring-operator
 
@@ -113,7 +113,7 @@ In the current namespace, the Grafana Operator executes the managing of:
 * [Grafana](#grafana)
 
 For more information, refer to the official documentation at
-[https://github.com/integr8ly/grafana-operator](https://github.com/integr8ly/grafana-operator)
+[https://github.com/grafana/grafana-operator](https://github.com/grafana/grafana-operator)
 
 ### Grafana
 
@@ -122,7 +122,7 @@ your metrics no matter where they are stored. In plain language, it provides you
 database (TSDB) data into beautiful graphs and visualizations.
 
 For more information, refer to the official documentation at
-[https://grafana.com/docs/grafana/latest/getting-started/what-is-grafana](https://grafana.com/docs/grafana/latest/getting-started/what-is-grafana)
+[https://grafana.com/docs/grafana/latest/fundamentals/](https://grafana.com/docs/grafana/latest/fundamentals/)
 
 ## Kube-state-metrics
 

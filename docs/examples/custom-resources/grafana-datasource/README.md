@@ -76,6 +76,6 @@ oc apply -f simple-datasource-example.yaml
   * [Configuration of datasource example](https://grafana.com/docs/grafana/latest/administration/provisioning/#data-sources)
   * [Add a data source (via UI)](https://grafana.com/docs/grafana/latest/datasources/add-a-data-source)
 * Grafana-operator
-  * [Working with data sources](https://github.com/grafana/grafana-operator/blob/v4.10.1/documentation/datasources.md)
-  * [Plugins](https://github.com/grafana/grafana-operator/blob/v4.10.1/documentation/plugins.md)
+  * [Working with data sources](https://github.com/grafana/grafana-operator/blob/v4/documentation/datasources.md)
+  * [Plugins](https://github.com/grafana/grafana-operator/blob/v4/documentation/plugins.md)
   * [Examples of data sources](https://github.com/grafana/grafana-operator/tree/v4.10.1/deploy/examples/datasources)

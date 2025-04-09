@@ -32,7 +32,7 @@ This document describes how to configure Monitoring work in Disaster and Recover
 
 Deployment schema:
 
-![Prometheus with Promxy](images/prometheus-dr-with-promxy-overview.png)
+![Prometheus with Promxy](../images/prometheus-dr-with-promxy-overview.png)
 
 You can use [Promxy](https://github.com/jacksontj/promxy) to deploy monitoring in DR mode.
 It's a proxy to request data from several Prometheuses/VictoriaMetrics from different clusters and show all data in the

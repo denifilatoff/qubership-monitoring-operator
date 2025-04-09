@@ -522,7 +522,7 @@ For example we can recommended to use the following annotations:
 
 First of all let's show the Monitoring deployment schema in Kubernetes DR:
 
-![Monitoring in Kubernetes DR](images/prometheus-dr-with-promxy-overview.png)
+![Monitoring in Kubernetes DR](../images/prometheus-dr-with-promxy-overview.png)
 
 As you can see this schema has no metrics replication and just allow Grafana to show data from both sides.
 It means that Prometheus will collect metrics independently and doesn't know anything about Prometheus in other
@@ -549,5 +549,5 @@ There are some useful links which you can read to know more about various best p
 * [Prometheus - Alerting](https://prometheus.io/docs/practices/alerting/)
 * [Prometheus - Recording Rules](https://prometheus.io/docs/practices/rules/)
 * [Prometheus - Alerting based on metrics](https://prometheus.io/docs/tutorials/alerting_based_on_metrics/)
-* [Awesome - Prometheus Alerts](https://awesome-prometheus-alerts.grep.to/rules)
+* [Awesome - Prometheus Alerts](https://samber.github.io/awesome-prometheus-alerts/rules.html)
 * [Awesome - Prometheus](https://github.com/roaldnefs/awesome-prometheus)

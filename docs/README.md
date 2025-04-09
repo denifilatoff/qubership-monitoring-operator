@@ -12,15 +12,15 @@ Guides:
 
 Documents described custom resources:
 
-* [PlatformMonitoring](apis/platform-monitoring.md)
-* [PrometheusAdapter](apis/prometheus-adapter.md)
-* [CustomScaleMetricRule](apis/custom-scale-metric-rule.md)
+* [PlatformMonitoring](api/platform-monitoring.md)
+* [PrometheusAdapter](api/prometheus-adapter.md)
+* [CustomScaleMetricRule](api/custom-scale-metric-rule.md)
 
 Documents described metrics, alerts, dashboards which deploy with monitoring out-of-box (OOB):
 
-* [Metrics](metrics-oob.md)
-* [Alerts](alerts-oob.md)
-* [Dashboards](dashboards-oob)
+* [Metrics](defaults/metrics.md )
+* [Alerts](defaults/alerts.md)
+* [Dashboards](defaults/dashboards/)
 
 Examples:
 
@@ -42,5 +42,5 @@ All images store into directory [docs/images](images).
 
 And all sources of these images store into directories:
 
-* [docs/sources/drawio](sources/drawio) - for diagrams which made into [https://draw.io](https://draw.io)
-* [docs/sources/plantuml](sources/plantuml) - for diagrams which made with using PlantUML syntax
+* [sources/drawio](sources/drawio) - for diagrams which made into [https://draw.io](https://draw.io)
+* [sources/plantuml](sources/plantuml) - for diagrams which made with using PlantUML syntax

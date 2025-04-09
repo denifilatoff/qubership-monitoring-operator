@@ -60,7 +60,7 @@ the average CPU utilization, average memory utilization, or any other custom met
 
 ## How does a HorizontalPodAutoscaler Work?
 
-![Horizontal Pod Autoscaler](images/horizontal-pod-autoscaler.png)
+![Horizontal Pod Autoscaler](../images/horizontal-pod-autoscaler.png)
 
 HorizontalPodAutoscaler controls the scale of a deployment and its ReplicaSet.
 

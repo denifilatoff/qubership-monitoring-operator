@@ -47,7 +47,7 @@ like to enforce TLS for those connections, you would need to create a specific w
 
 The diagram below shows a simplified structure of the architecture and secure connections between components.
 
-![Prometheus TLS architecture](images/prometheus_k8s_tls.png)
+![Prometheus TLS architecture](../images/prometheus_k8s_tls.png)
 
 In general, we provide ability to enable TLS in Prometheus,but connection between prometheus and
 grafana\alertmanager is unsecured (HTTP) with option to skipping TLS verify.

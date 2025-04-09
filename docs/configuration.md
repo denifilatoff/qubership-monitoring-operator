@@ -1351,7 +1351,6 @@ this custom resource in any other namespace, but grafana-operator will not disco
 **Note**: This is a known limitation and the community already has plans to change this behavior.
 Refer to the following links for more details:
 
-* Milestone - [https://github.com/grafana-operator/grafana-operator/milestone/1](https://github.com/grafana-operator/grafana-operator/milestone/1)
 * Issue - [https://github.com/grafana-operator/grafana-operator/issues/304](https://github.com/grafana-operator/grafana-operator/issues/304)
 
 `GrafanaDatasource` is used when:

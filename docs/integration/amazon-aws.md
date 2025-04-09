@@ -63,7 +63,7 @@ the necessary features.
 
 The following image describes how platform monitoring is integrated with Amazon CloudWatch.
 
-![Platform monitoring integration with AWS CloudWatch](images/prometheus_k8s_aws_cloudwatch.png)
+![Platform monitoring integration with AWS CloudWatch](../images/prometheus_k8s_aws_cloudwatch.png)
 
 In general, the ability to collect metrics from CloudWatch is provided, which it collects from other AWS Managed Services.
 These metrics are collected by Prometheus and can be used for showing metrics and alerting in Grafana and AlertManager.
@@ -173,15 +173,15 @@ also should be written as **two different list items**.
 
 This configuration in the YAML format should be placed as a value for the `.Values.cloudwatchExporter.config`
 parameter. For more information, refer to the
-[cloudwatch-exporter](installation.md#cloudwatch-exporter) configuration section.
+[cloudwatch-exporter](../installation.md#cloudwatch-exporter) configuration section.
 
 Examples of configuration files for cloudwatch-exporter by namespace (these configurations can be used as-is):
 
-* [ApplicationELB](examples/cloudwatch-exporter-config/ApplicationELB.yaml)
-* [ELB](examples/cloudwatch-exporter-config/ELB.yaml)
-* [NetworkELB](examples/cloudwatch-exporter-config/NetworkELB.yaml)
-* [Route53](examples/cloudwatch-exporter-config/Route53.yaml)
-* [Route53Resolver](examples/cloudwatch-exporter-config/Route53Resolver.yaml)
+- [ApplicationELB](../examples/components/cloudwatch-exporter-config/ApplicationELB.yaml)
+- [ELB](../examples/components/cloudwatch-exporter-config/ELB.yaml)
+- [NetworkELB](../examples/components/cloudwatch-exporter-config/NetworkELB.yaml)
+- [Route53](../examples/components/cloudwatch-exporter-config/Route53.yaml)
+- [Route53Resolver](../examples/components/cloudwatch-exporter-config/Route53Resolver.yaml)
 
 #### How to Setup Monitoring in CloudWatch
 
@@ -603,7 +603,7 @@ cloudwatchExporter:
           <Put there list of configuration from below examples.>
 ```
 
-**NOTE:** You can use [those examples](../examples/cloudwatch-exporter-config) with cloudwatch-exporter configuration
+**NOTE:** You can use [those examples](../examples/components/cloudwatch-exporter-config/) with cloudwatch-exporter configuration
 which contains all metrics from AWS Cloudwatch for each service.
 
 Read installation guide [cloudwatch-exporter section](../installation.md#cloudwatch-exporter) for details.

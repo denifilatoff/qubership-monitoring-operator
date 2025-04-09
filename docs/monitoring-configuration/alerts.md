@@ -49,7 +49,7 @@ therefore you should pay attention if you want to use alerts disabled by default
 | DRAlerts           | ✓ Yes              |
 | BackupAlerts       | ✓ Yes              |
 
-Full list of all alerts can be found in the [alerts-oob document](../alerts-oob.md).
+Full list of all alerts can be found in the [alerts-oob document](../defaults/alerts.md).
 
 If you want to enable alerts for HAmode or HAproxy,
 you should add `HAmode` or `HAproxy` respectively to `prometheusRules.ruleGroups` parameter.

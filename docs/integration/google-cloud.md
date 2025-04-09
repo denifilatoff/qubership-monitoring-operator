@@ -315,7 +315,7 @@ For example, to collect metrics from CloudSQL, configure stackdriver-exporter as
 
 The following image describes how platform monitoring is integrated with Google Cloud Operations (GCO).
 
-![Platform monitoring integration with GCO](images/prometheus_k8s_gco.png)
+![Platform monitoring integration with GCO](../images/prometheus_k8s_gco.png)
 
 In general, a sidecar container to Prometheus pod that reads Prometheus WAL and sends read metrics to Google
 Cloud Operations is added. These metrics can be used for alerting and visualization supported by GCO.
@@ -367,7 +367,7 @@ You have to collect the following parameters to set up the monitoring integratio
 
 Do not forget to replace these parameters with the values in the examples of the following parameters.
 You can see list of all possible parameters for the `monitoring-operator` in the
-[Parameters document](docs/internal/install/parameters.md).
+[Installation document](../installation.md).
 
 #### How to Check Integration
 
