@@ -122,7 +122,7 @@ promxy:
 
 Detailed scenarios how to use select data with using Promxy:
 
-![Prometheus with Promxy - Detailed](images/prometheus-dr-with-promxy-detailed.png)
+![Prometheus with Promxy - Detailed](../images/prometheus-dr-with-promxy-detailed.png)
 
 #### Blackbox-exporter configuration examples
 
