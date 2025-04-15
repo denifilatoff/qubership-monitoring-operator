@@ -2,14 +2,14 @@ This document describes kubelet metrics list and how to collect them.
 
 # Table of Content
 
-- [Table of Content](#table-of-content)
-- [Metrics](#metrics)
-  - [How to Collect](#how-to-collect)
-  - [Metrics List](#metrics-list)
-  - [Volumes usage metrics](#volumes-usage-metrics)
-    - [Built-in storages](#built-in-storages)
-    - [CSI Drivers](#csi-drivers)
-    - [External Provisioners](#external-provisioners)
+* [Table of Content](#table-of-content)
+* [Metrics](#metrics)
+  * [How to Collect](#how-to-collect)
+  * [Metrics List](#metrics-list)
+  * [Volumes usage metrics](#volumes-usage-metrics)
+    * [Built-in storages](#built-in-storages)
+    * [CSI Drivers](#csi-drivers)
+    * [External Provisioners](#external-provisioners)
 
 # Metrics
 

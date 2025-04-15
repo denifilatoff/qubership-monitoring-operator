@@ -2,16 +2,16 @@ This document describes how to configure Prometheus alerts in Monitoring.
 
 # Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [Platform Monitoring alerts](#platform-monitoring-alerts)
-  - [Enabling and disabling alerts](#enabling-and-disabling-alerts)
-    - [Dead Man's Switch alert](#dead-mans-switch-alert)
-    - [HAmode alerts](#hamode-alerts)
-  - [Alerts overriding](#alerts-overriding)
-- [Examples](#examples)
-  - [Default configuration example](#default-configuration-example)
-  - [Configuration with enabled additional groups](#configuration-with-enabled-additional-groups)
-  - [Configuration with overridden alert](#configuration-with-overridden-alert)
+* [Table of Contents](#table-of-contents)
+* [Platform Monitoring alerts](#platform-monitoring-alerts)
+  * [Enabling and disabling alerts](#enabling-and-disabling-alerts)
+    * [Dead Man's Switch alert](#dead-mans-switch-alert)
+    * [HAmode alerts](#hamode-alerts)
+  * [Alerts overriding](#alerts-overriding)
+* [Examples](#examples)
+  * [Default configuration example](#default-configuration-example)
+  * [Configuration with enabled additional groups](#configuration-with-enabled-additional-groups)
+  * [Configuration with overridden alert](#configuration-with-overridden-alert)
 
 # Platform Monitoring alerts
 

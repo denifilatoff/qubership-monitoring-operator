@@ -1,15 +1,15 @@
 This document describes the monitoring architecture.
 
-- [Architecture](#architecture)
-  - [Monitoring-operator](#monitoring-operator)
-  - [Prometheus-operator](#prometheus-operator)
-    - [Prometheus](#prometheus)
-    - [AlertManager](#alertmanager)
-  - [Grafana-operator](#grafana-operator)
-    - [Grafana](#grafana)
-  - [Kube-state-metrics](#kube-state-metrics)
-  - [Node-exporter](#node-exporter)
-- [Custom Resources](#custom-resources)
+* [Architecture](#architecture)
+  * [Monitoring-operator](#monitoring-operator)
+  * [Prometheus-operator](#prometheus-operator)
+    * [Prometheus](#prometheus)
+    * [AlertManager](#alertmanager)
+  * [Grafana-operator](#grafana-operator)
+    * [Grafana](#grafana)
+  * [Kube-state-metrics](#kube-state-metrics)
+  * [Node-exporter](#node-exporter)
+* [Custom Resources](#custom-resources)
 
 **[Back](../README.md)**
 
@@ -32,16 +32,16 @@ Kubernetes metrics, and from deployed exporters, `kube-state-metrics` and `node-
 
 It is an operator which watches and manages (create, update, remove) such services into a current namespace as:
 
-- [Architecture](#architecture)
-  - [Monitoring-operator](#monitoring-operator)
-  - [Prometheus-operator](#prometheus-operator)
-    - [Prometheus](#prometheus)
-    - [AlertManager](#alertmanager)
-  - [Grafana-operator](#grafana-operator)
-    - [Grafana](#grafana)
-  - [Kube-state-metrics](#kube-state-metrics)
-  - [Node-exporter](#node-exporter)
-- [Custom Resources](#custom-resources)
+* [Architecture](#architecture)
+  * [Monitoring-operator](#monitoring-operator)
+  * [Prometheus-operator](#prometheus-operator)
+    * [Prometheus](#prometheus)
+    * [AlertManager](#alertmanager)
+  * [Grafana-operator](#grafana-operator)
+    * [Grafana](#grafana)
+  * [Kube-state-metrics](#kube-state-metrics)
+  * [Node-exporter](#node-exporter)
+* [Custom Resources](#custom-resources)
 
 Monitoring operator executes a monitoring deploy with specified parameters. It is also possible to determine which cloud
 is running and create cloud specific resources. For example, during deploy into OpenShift, >3.11 creates

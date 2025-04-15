@@ -2,12 +2,12 @@ This document describes the integration capabilities with various third party mo
 
 # Table of Content
 
-- [Table of Content](#table-of-content)
-- [Overview](#overview)
-- [Integrations](#integrations)
-  - [Public Clouds](#public-clouds)
-  - [Vendor observability solutions](#vendor-observability-solutions)
-  - [Enabling/disabling specific monitoring components](#enablingdisabling-specific-monitoring-components)
+* [Table of Content](#table-of-content)
+* [Overview](#overview)
+* [Integrations](#integrations)
+  * [Public Clouds](#public-clouds)
+  * [Vendor observability solutions](#vendor-observability-solutions)
+  * [Enabling/disabling specific monitoring components](#enablingdisabling-specific-monitoring-components)
 
 **[Back](../README.md)**
 
