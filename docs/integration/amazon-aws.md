@@ -177,11 +177,11 @@ parameter. For more information, refer to the
 
 Examples of configuration files for cloudwatch-exporter by namespace (these configurations can be used as-is):
 
-- [ApplicationELB](../examples/components/cloudwatch-exporter-config/ApplicationELB.yaml)
-- [ELB](../examples/components/cloudwatch-exporter-config/ELB.yaml)
-- [NetworkELB](../examples/components/cloudwatch-exporter-config/NetworkELB.yaml)
-- [Route53](../examples/components/cloudwatch-exporter-config/Route53.yaml)
-- [Route53Resolver](../examples/components/cloudwatch-exporter-config/Route53Resolver.yaml)
+* [ApplicationELB](../examples/components/cloudwatch-exporter-config/ApplicationELB.yaml)
+* [ELB](../examples/components/cloudwatch-exporter-config/ELB.yaml)
+* [NetworkELB](../examples/components/cloudwatch-exporter-config/NetworkELB.yaml)
+* [Route53](../examples/components/cloudwatch-exporter-config/Route53.yaml)
+* [Route53Resolver](../examples/components/cloudwatch-exporter-config/Route53Resolver.yaml)
 
 #### How to Setup Monitoring in CloudWatch
 
@@ -291,7 +291,7 @@ Let us assume that the account ID is placed in the `account_id` variable.
 
 _Step 3.2._ To find the OpenID Connect provider for your EKS cluster, navigate to AWS console > EKS.
 You can find the OIDC provider in the Details section. Copy this value without
-**https://** prefix (format: _oidc.eks.<region>.amazonaws.com/id/<cluster_id>_).
+**https://** prefix (format: `oidc.eks.<region>.amazonaws.com/id/<cluster_id>`).
 
 Alternatively, run the following command in the AWS CLI. Replace `my-cluster` with the name of your cluster:
 
@@ -567,11 +567,9 @@ aws_kafka_bytes_in_per_sec_average
 In general, you can just find metrics which start from `aws_` in the Prometheus UI and check that they
 exist.
 
-
 ## Send Metrics in AWS CloudWatch
 
 TBD
-
 
 ## Grafana Dashboards
 
@@ -1405,7 +1403,6 @@ prometheus:
 <!-- TODO: Add description how to use Grafana with AWS Managed Prometheus -->
 <!-- ## Query data from AWS Managed Prometheus -->
 
-
 ## Create Recording Rules
 
 There are no any specific settings for Monitoring. Follow the procedure described in the official documentation at
@@ -1416,12 +1413,10 @@ There are no any specific settings for Monitoring. Follow the procedure describe
 There are no any specific settings for Monitoring. Follow the procedure described in the official documentation at
 [https://docs.aws.amazon.com/prometheus/latest/userguide/AMP-alert-manager.html](https://docs.aws.amazon.com/prometheus/latest/userguide/AMP-alert-manager.html)
 
-
 <!-- TODO: Add description how to use AWS Managed Grafana -->
 <!-- # AWS Managed Grafana -->
 
 <!-- ## Upload dashboards into AWS Managed Grafana -->
-
 
 # Links
 
