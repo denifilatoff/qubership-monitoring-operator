@@ -63,7 +63,7 @@ the necessary features.
 
 The following image describes how platform monitoring is integrated with Amazon CloudWatch.
 
-![Platform monitoring integration with AWS CloudWatch](/docs/public/images/prometheus_k8s_aws_cloudwatch.png)
+![Platform monitoring integration with AWS CloudWatch](../images/prometheus_k8s_aws_cloudwatch.png)
 
 In general, the ability to collect metrics from CloudWatch is provided, which it collects from other AWS Managed Services.
 These metrics are collected by Prometheus and can be used for showing metrics and alerting in Grafana and AlertManager.
@@ -173,15 +173,15 @@ also should be written as **two different list items**.
 
 This configuration in the YAML format should be placed as a value for the `.Values.cloudwatchExporter.config`
 parameter. For more information, refer to the
-[cloudwatch-exporter](/docs/public/installation.md#cloudwatch-exporter) configuration section.
+[cloudwatch-exporter](../installation.md#cloudwatch-exporter) configuration section.
 
 Examples of configuration files for cloudwatch-exporter by namespace (these configurations can be used as-is):
 
-* [ApplicationELB](/docs/public/examples/cloudwatch-exporter-config/ApplicationELB.yaml)
-* [ELB](/docs/public/examples/cloudwatch-exporter-config/ELB.yaml)
-* [NetworkELB](/docs/public/examples/cloudwatch-exporter-config/NetworkELB.yaml)
-* [Route53](/docs/public/examples/cloudwatch-exporter-config/Route53.yaml)
-* [Route53Resolver](/docs/public/examples/cloudwatch-exporter-config/Route53Resolver.yaml)
+* [ApplicationELB](../examples/components/cloudwatch-exporter-config/ApplicationELB.yaml)
+* [ELB](../examples/components/cloudwatch-exporter-config/ELB.yaml)
+* [NetworkELB](../examples/components/cloudwatch-exporter-config/NetworkELB.yaml)
+* [Route53](../examples/components/cloudwatch-exporter-config/Route53.yaml)
+* [Route53Resolver](../examples/components/cloudwatch-exporter-config/Route53Resolver.yaml)
 
 #### How to Setup Monitoring in CloudWatch
 
@@ -291,7 +291,7 @@ Let us assume that the account ID is placed in the `account_id` variable.
 
 _Step 3.2._ To find the OpenID Connect provider for your EKS cluster, navigate to AWS console > EKS.
 You can find the OIDC provider in the Details section. Copy this value without
-**https://** prefix (format: _oidc.eks.<region>.amazonaws.com/id/<cluster_id>_).
+**https://** prefix (format: `oidc.eks.<region>.amazonaws.com/id/<cluster_id>`).
 
 Alternatively, run the following command in the AWS CLI. Replace `my-cluster` with the name of your cluster:
 
@@ -567,11 +567,9 @@ aws_kafka_bytes_in_per_sec_average
 In general, you can just find metrics which start from `aws_` in the Prometheus UI and check that they
 exist.
 
-
 ## Send Metrics in AWS CloudWatch
 
 TBD
-
 
 ## Grafana Dashboards
 
@@ -603,7 +601,7 @@ cloudwatchExporter:
           <Put there list of configuration from below examples.>
 ```
 
-**NOTE:** You can use [those examples](../examples/cloudwatch-exporter-config) with cloudwatch-exporter configuration
+**NOTE:** You can use [those examples](../examples/components/cloudwatch-exporter-config/) with cloudwatch-exporter configuration
 which contains all metrics from AWS Cloudwatch for each service.
 
 Read installation guide [cloudwatch-exporter section](../installation.md#cloudwatch-exporter) for details.
@@ -1405,7 +1403,6 @@ prometheus:
 <!-- TODO: Add description how to use Grafana with AWS Managed Prometheus -->
 <!-- ## Query data from AWS Managed Prometheus -->
 
-
 ## Create Recording Rules
 
 There are no any specific settings for Monitoring. Follow the procedure described in the official documentation at
@@ -1416,12 +1413,10 @@ There are no any specific settings for Monitoring. Follow the procedure describe
 There are no any specific settings for Monitoring. Follow the procedure described in the official documentation at
 [https://docs.aws.amazon.com/prometheus/latest/userguide/AMP-alert-manager.html](https://docs.aws.amazon.com/prometheus/latest/userguide/AMP-alert-manager.html)
 
-
 <!-- TODO: Add description how to use AWS Managed Grafana -->
 <!-- # AWS Managed Grafana -->
 
 <!-- ## Upload dashboards into AWS Managed Grafana -->
-
 
 # Links
 

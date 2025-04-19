@@ -270,7 +270,7 @@ for specific namespaces.
 
 How to do it you can read:
 
-* [Monitoring: Kubernetes Monitors](/docs/public/installation.md#kubernetes-monitors)
+* [Monitoring: Kubernetes Monitors](../installation.md#kubernetes-monitors)
 * [https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
 
 For example:

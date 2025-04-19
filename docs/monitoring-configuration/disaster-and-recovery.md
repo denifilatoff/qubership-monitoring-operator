@@ -32,7 +32,7 @@ This document describes how to configure Monitoring work in Disaster and Recover
 
 Deployment schema:
 
-![Prometheus with Promxy](/docs/public/images/prometheus-dr-with-promxy-overview.png)
+![Prometheus with Promxy](../images/prometheus-dr-with-promxy-overview.png)
 
 You can use [Promxy](https://github.com/jacksontj/promxy) to deploy monitoring in DR mode.
 It's a proxy to request data from several Prometheuses/VictoriaMetrics from different clusters and show all data in the
@@ -122,7 +122,7 @@ promxy:
 
 Detailed scenarios how to use select data with using Promxy:
 
-![Prometheus with Promxy - Detailed](/docs/public/images/prometheus-dr-with-promxy-detailed.png)
+![Prometheus with Promxy - Detailed](../images/prometheus-dr-with-promxy-detailed.png)
 
 #### Blackbox-exporter configuration examples
 

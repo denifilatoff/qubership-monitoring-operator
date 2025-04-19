@@ -156,8 +156,8 @@ You can't use `wget` because it doesn't allow to add headers for authorization.
 
 Metrics list of `kubelet` you can find in files:
 
-* [Kubelet](examples/kubelet-metrics.txt)
-* [cAdvisor](examples/kubelet-cadvisor-metrics.txt)
+- [Kubelet](../../defaults/metrics.md#kubelet-kubernetes-v123)
+- [cAdvisor](../../defaults/metrics.md#cadvisor-kubernetes-v123)
 
 ## Volumes usage metrics
 

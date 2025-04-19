@@ -480,7 +480,7 @@ Settings from `auth` section will provide to:
 * `Prometheus` - in the Prometheus pod will add a sidecar with `oauth2-proxy` to block access to the UI
 * `Alertmanager` - in the Alertmanager pod will add sidecar with `oauth2-proxy` to block access to the UI
 
-Details and parameters description see at [Installation Guide: Auth](../../installation.md#auth).
+Details and parameters description see at [Installation Guide: Auth](../installation.md#auth).
 
 
 [Back to TOC](#table-of-content)

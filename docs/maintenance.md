@@ -195,7 +195,7 @@ If you use **Kubernetes v1.15** or lower or **OpenShift v3.11** or lower, you mu
 But the Helm chart uses CRDs _v1_ version, which are incompatible with _v1beta1_ CRDs.
 
 So if you use Kubernetes or OpenShift of specified version or lower, you have to work with _v1beta1_ CRDs which
-are contained in the [crds/v1beta1 directory](./crds/v1beta1). Also, you have to use the features of deployment tools
+are contained in the [crds directory](crds/). Also, you have to use the features of deployment tools
 to skip installing CRDs to avoid errors.
 
 If you want to deploy the `monitoring-operator` in a cluster (Kubernetes v1.15 or lower or
@@ -204,7 +204,7 @@ OpenShift v3.11 or lower) for the first time, you have to install CRDs manually 
 To create CRDs version _v1beta1_ need:
 
 1. Login into cluster using `kubectl` client for Kubernetes or `oc` client for `OpenShift`
-2. Navigate to `docs/public/crds` directory
+2. Navigate to `docs/crds` directory
 3. Execute the following command for Kubernetes:
 
 ```bash
@@ -220,7 +220,7 @@ oc create -f ./v1beta1
 To update CRDs version _v1beta1_ need:
 
 1. Login into cluster using `kubectl` client for Kubernetes or `oc` client for `OpenShift`
-2. Navigate to `docs/public/crds` directory
+2. Navigate to `docs/crds` directory
 3. Execute the following command for Kubernetes:
 
 ```bash

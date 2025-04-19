@@ -21,7 +21,7 @@ This document describes the abilities and work of integration between Horizontal
     * [Removing all Components using Helm](#removing-all-components-using-helm)
 * [Using prometheus-adapter](#using-prometheus-adapter)
   * [Declaring New Custom Metrics for Scale](#declaring-new-custom-metrics-for-scale)
-    * [How to Read and Write Prometheus Adapter Configurations?](#how-to-read-and-write-prometheus-adapter-configurations)
+    * [How to Read and Write prometheus-adapter Configurations?](#how-to-read-and-write-prometheus-adapter-configurations)
       * [Discovery](#discovery)
       * [Association](#association)
       * [Naming](#naming)
@@ -60,7 +60,7 @@ the average CPU utilization, average memory utilization, or any other custom met
 
 ## How does a HorizontalPodAutoscaler Work?
 
-![Horizontal Pod Autoscaler](/docs/public/images/horizontal-pod-autoscaler.png)
+![Horizontal Pod Autoscaler](../images/horizontal-pod-autoscaler.png)
 
 HorizontalPodAutoscaler controls the scale of a deployment and its ReplicaSet.
 

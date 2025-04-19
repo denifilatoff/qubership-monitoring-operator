@@ -46,14 +46,14 @@ The sections below describe integration details for the certain monitoring syste
 
 ## Public Clouds
 
-* [Amazon Cloud Watch](integration/amazon-aws.md#aws-cloudwatch)
-* [Amazon Managed Prometheus](integration/amazon-aws.md#aws-managed-prometheus)
-* [Azure Monitor](integration/azure-monitor.md)
-* [Google Cloud Operations](integration/google-cloud.md)
+* [Amazon Cloud Watch](amazon-aws.md#aws-cloudwatch)
+* [Amazon Managed Prometheus](amazon-aws.md#aws-managed-prometheus)
+* [Azure Monitor](azure-monitor.md)
+* [Google Cloud Operations](google-cloud.md)
 
 ## Vendor observability solutions
 
-* [IBM Netcool](integration/ibm-netcool.md)
+* [IBM Netcool](ibm-netcool.md)
 
 ## Enabling/disabling specific monitoring components
 
