@@ -1,5 +1,5 @@
 # Based on python:3.13.2-alpine3.21
-FROM ghcr.io/netcracker/qubership-docker-integration-tests:main
+FROM ghcr.io/netcracker/qubership-docker-integration-tests:0.2.1
 
 ENV ROBOT_OUTPUT=/opt/robot/output \
     ROBOT_UID=1000 \
