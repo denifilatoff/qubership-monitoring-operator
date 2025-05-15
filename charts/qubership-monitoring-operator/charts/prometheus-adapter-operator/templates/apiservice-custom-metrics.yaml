@@ -1,4 +1,4 @@
-{{- if and .Values.global.privilegedRights .Values.enableCustomMetrics .Values.APIService .Values.APIService.customMetrics }}
+{{- if and .Values.install .Values.global.privilegedRights .Values.enableCustomMetrics .Values.APIService .Values.APIService.customMetrics }}
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService
 metadata:
