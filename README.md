@@ -1,5 +1,9 @@
 # Monitoring Operator
 
+[![Build](https://github.com/Netcracker/qubership-monitoring-operator/actions/workflows/build.yaml/badge.svg)](https://github.com/Netcracker/qubership-monitoring-operator/actions/workflows/build.yaml)
+[![Check Links](https://github.com/Netcracker/qubership-monitoring-operator/actions/workflows/link-checker.yaml/badge.svg)](https://github.com/Netcracker/qubership-monitoring-operator/actions/workflows/link-checker.yaml)
+[![Super-Linter](https://github.com/Netcracker/qubership-monitoring-operator/actions/workflows/super-linter.yaml/badge.svg)](https://github.com/Netcracker/qubership-monitoring-operator/actions/workflows/super-linter.yaml)
+
 The `monitoring-operator` is an operator (Kubernetes native application) which watches and manages following components:
 
 * `victoriametrics-operator`
