@@ -10,10 +10,10 @@ stackdriverExporter:
     name: stackdriver-exporter
     annotations:
       # For example:
-      #   iam.gke.io/gcp-service-account: sa-stackdriver-exporter@product-and-telus-dr-solution.iam.gserviceaccount.com
+      #   iam.gke.io/gcp-service-account: sa-stackdriver-exporter@product-and-dr-solution.iam.gserviceaccount.com
       # where:
       # * GSA_NAME = sa-stackdriver-exporter
-      # * PROJECT_ID = product-and-telus-dr-solution
+      # * PROJECT_ID = product-and-dr-solution
       iam.gke.io/gcp-service-account: <GSA_NAME>@<PROJECT_ID>.iam.gserviceaccount.com
 
   stackdriver:

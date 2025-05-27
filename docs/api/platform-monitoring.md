@@ -7,40 +7,40 @@ This section describes the types introduced by the Monitoring Operator.
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [AlertManager](#alertmanager)
-- [Auth](#auth)
-- [EmbeddedObjectMetadata](#embeddedobjectmetadata)
-- [Grafana](#grafana)
-- [GrafanaDashboards](#grafanadashboards)
-- [GrafanaOperator](#grafanaoperator)
-- [Ingress](#ingress)
-- [Integration](#integration)
-- [Jaeger](#jaeger)
-- [KubeStateMetrics](#kubestatemetrics)
-- [Monitor](#monitor)
-- [NodeExporter](#nodeexporter)
-- [OAuthProxy](#oauthproxy)
-- [PlatformMonitoring](#platformmonitoring)
-- [PlatformMonitoringCondition](#platformmonitoringcondition)
-- [PlatformMonitoringList](#platformmonitoringlist)
-- [PlatformMonitoringSpec](#platformmonitoringspec)
-- [PlatformMonitoringStatus](#platformmonitoringstatus)
-- [Prometheus](#prometheus)
-- [PrometheusOperator](#prometheusoperator)
-- [PrometheusRule](#prometheusrule)
-- [PrometheusRules](#prometheusrules)
-- [Promxy](#promxy)
-- [Pushgateway](#pushgateway)
-- [SecurityContext](#securitycontext)
-- [StackDriverIntegrationConfig](#stackdriverintegrationconfig)
-- [TLSConfig](#tlsconfig)
-- [Victoriametrics](#victoriametrics)
-- [VmOperator](#vmoperator)
-- [VmAgent](#vmagent)
-- [VmSingle](#vmsingle)
-- [VmAlert](#vmalert)
-- [VmAlertManager](#vmalertmanager)
+* [Table of Contents](#table-of-contents)
+* [AlertManager](#alertmanager)
+* [Auth](#auth)
+* [EmbeddedObjectMetadata](#embeddedobjectmetadata)
+* [Grafana](#grafana)
+* [GrafanaDashboards](#grafanadashboards)
+* [GrafanaOperator](#grafanaoperator)
+* [Ingress](#ingress)
+* [Integration](#integration)
+* [Jaeger](#jaeger)
+* [KubeStateMetrics](#kubestatemetrics)
+* [Monitor](#monitor)
+* [NodeExporter](#nodeexporter)
+* [OAuthProxy](#oauthproxy)
+* [PlatformMonitoring](#platformmonitoring)
+* [PlatformMonitoringCondition](#platformmonitoringcondition)
+* [PlatformMonitoringList](#platformmonitoringlist)
+* [PlatformMonitoringSpec](#platformmonitoringspec)
+* [PlatformMonitoringStatus](#platformmonitoringstatus)
+* [Prometheus](#prometheus)
+* [PrometheusOperator](#prometheusoperator)
+* [PrometheusRule](#prometheusrule)
+* [PrometheusRules](#prometheusrules)
+* [Promxy](#promxy)
+* [Pushgateway](#pushgateway)
+* [SecurityContext](#securitycontext)
+* [StackDriverIntegrationConfig](#stackdriverintegrationconfig)
+* [TLSConfig](#tlsconfig)
+* [Victoriametrics](#victoriametrics)
+* [VmOperator](#vmoperator)
+* [VmAgent](#vmagent)
+* [VmSingle](#vmsingle)
+* [VmAlert](#vmalert)
+* [VmAlertManager](#vmalertmanager)
 
 ## AlertManager
 
@@ -60,7 +60,7 @@ AlertManager defines the desired state for some part of the prometheus-operator 
 | tolerations | Tolerations allow the pods to schedule onto nodes with matching taints. | []v1.Toleration | false |
 | nodeSelector | NodeSelector Define which Nodes the Pods are scheduled on. Specified just as map[string]string. For example: \"type: compute\" | map[string]string | false |
 | podMonitor | Pod monitor for self monitoring | *[Monitor](#monitor) | false |
-| labels | Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: [https://kubernetes.io/docs/user-guide/label](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) | map[string]string | false |
+| labels | Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: [https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) | map[string]string | false |
 | annotations | Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: [https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) | map[string]string | false |
 | serviceAccount | ServiceAccount is a structure which allow specify annotations and labels for Service Account which will use by Alertmanager for work in Kubernetes. Cna be use by external tools to store and retrieve arbitrary metadata. | *[EmbeddedObjectMetadata](#embeddedobjectmetadata) | false |
 
