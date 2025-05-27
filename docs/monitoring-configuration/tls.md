@@ -91,7 +91,7 @@ prometheus-operator will apply changes to Prometheus targets configuration in ru
 
 * Now Grafana are getting metrics from Prometheus without certificate verify.
   Grafana allows enabling TLS, but certificates to store in open-view in GrafanaDataSource CRD. It is unsecure.
-  [Feature request](https://github.com/grafana-operator/grafana-operator/issues/769)
+  [Feature request](https://github.com/grafana/grafana-operator/issues/769)
   to Grafana community to add ability to store certificates in secret.
 * Alertmanager doesn't support TLS.
   * [Feature request](https://github.com/prometheus-operator/prometheus-operator/issues/4830) to Prometheus
