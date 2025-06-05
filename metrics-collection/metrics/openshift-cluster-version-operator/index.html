@@ -1,0 +1,4600 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive monitoring solution for Kubernetes">
+      
+      
+      
+        <link rel="canonical" href="https://denifilatoff.github.io/qubership-monitoring-operator/metrics-collection/metrics/openshift-cluster-version-operator/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Openshift cluster version operator - Qubership Monitoring Operator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#metrics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Qubership Monitoring Operator" class="md-header__button md-logo" aria-label="Qubership Monitoring Operator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Qubership Monitoring Operator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Openshift cluster version operator
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="cyan"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/denifilatoff/qubership-monitoring-operator" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    qubership-monitoring-operator
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../installation/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Installation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Architecture & Components
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../configuration/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Configuration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cookbook/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Cookbook
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../integration/integrations/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Integrations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../monitoring-configuration/authentication/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Security
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../troubleshooting/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Qubership Monitoring Operator" class="md-nav__button md-logo" aria-label="Qubership Monitoring Operator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Qubership Monitoring Operator
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/denifilatoff/qubership-monitoring-operator" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    qubership-monitoring-operator
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../installation/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/basic-components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Components Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Storage Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/post-deploy-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post-Deploy Checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../installation/components/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Component Configuration
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Component Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/graphite-remote-adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Graphite Remote Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/promxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Promxy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/pushgateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pushgateway
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/pprof/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Profiling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7_6" id="__nav_2_7_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Exporters
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            Exporters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/exporters/blackbox-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blackbox Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/exporters/cloudwatch-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cloudwatch Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/exporters/promitor-agent-scraper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Promitor Agent Scraper
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/exporters/stackdriver-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Stackdriver Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/exporters/cert-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cert Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/exporters/network-latency-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Network Latency Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/exporters/version-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/exporters/kube-state-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kube State Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/exporters/node-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Node Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7_7" id="__nav_2_7_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    VictoriaMetrics Stack
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            VictoriaMetrics Stack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/victoriametrics-stack/victoriametrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/victoriametrics-stack/vmagent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMAgent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/victoriametrics-stack/vmsingle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMSingle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/victoriametrics-stack/vmalert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMAlert
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/victoriametrics-stack/vmalertmanager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMAlertManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/victoriametrics-stack/vmauth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMAUTH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/victoriametrics-stack/vmuser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMUser
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/victoriametrics-stack/vm-operator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM Operator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7_8" id="__nav_2_7_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Stack
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7_8">
+            <span class="md-nav__icon md-icon"></span>
+            Prometheus Stack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/prometheus-stack/prometheus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/prometheus-stack/prometheus-adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/prometheus-stack/prometheus-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Rules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/prometheus-stack/alertmanager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AlertManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7_9" id="__nav_2_7_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Grafana Stack
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            Grafana Stack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/components/grafana-stack/grafana/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Grafana
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture & Components
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture & Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/platform-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Platform Monitoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/prometheus-adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/custom-scale-metric-rule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Scale Metric Rule
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/best-practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Best Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Alert Configuration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Alert Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../monitoring-configuration/alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alert Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/alert-best-practice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alert Best Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metrics Collection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Metrics Collection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exporters-and-metrics-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../monitoring-configuration/limits-metric-collection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Limits & Collection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/horizontal-autoscaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Horizontal Autoscaling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Default Configurations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Default Configurations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../defaults/metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Default Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../defaults/alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Default Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/manual-create-crds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual CRD Creation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../examples/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_8_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../examples/components/cloudwatch-exporter-config/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Component Configurations
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            Component Configurations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_8_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../examples/custom-resources/alertmanagerconfig/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Custom Resources
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_8_3" id="__nav_4_8_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_8_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8_3">
+            <span class="md-nav__icon md-icon"></span>
+            Custom Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/custom-resources/grafana-dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Grafana Dashboards
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/custom-resources/grafana-datasource/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Grafana DataSources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/custom-resources/pod-monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pod Monitors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/custom-resources/prometheus-rule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Rules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/custom-resources/service-monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Service Monitors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../cookbook/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Cookbook
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Cookbook
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cookbook/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Integrations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Integrations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../integration/integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cloud Providers
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud Providers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../integration/amazon-aws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Amazon AWS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../integration/azure-monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../integration/google-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Google Cloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Other Systems
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Other Systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../integration/ibm-netcool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IBM Netcool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../examples/custom-resources/custom-endpoint/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Integration Examples
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Integration Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Authentication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            Authentication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../monitoring-configuration/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring Auth
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics Collection Auth
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    TLS Configuration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            TLS Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../monitoring-configuration/tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring TLS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics Collection TLS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../monitoring-configuration/route-ingress-tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Route/Ingress TLS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../examples/custom-resources/service-with-tls/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Security Examples
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Security Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Operations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../resource-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resource Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../monitoring-configuration/disaster-and-recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Disaster Recovery
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/password-change/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Password Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_6" id="__nav_8_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Migration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_6">
+            <span class="md-nav__icon md-icon"></span>
+            Migration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/migrate-from-angularjs-grafana-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Grafana Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/migrate-from-prometheus-to-victoriametrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus to VictoriaMetrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/victoriametrics-data-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VictoriaMetrics Data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../examples/custom-resources/service-with-alarms/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Operations Examples
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8_7" id="__nav_8_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_7">
+            <span class="md-nav__icon md-icon"></span>
+            Operations Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/custom-resources/service-with-dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Service with Dashboard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-collect" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Collect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metrics List
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metrics List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openshift-state-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Openshift state metrics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p>This document describes openshift cluster version operator metrics list and how to collect them.</p>
+<h1 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h1>
+<p>Consul already can exposes its metrics in Prometheus format and doesn't require to use of specific exporters.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Metrics Port</th>
+<th>Metrics Endpoint</th>
+<th>Need Exporter?</th>
+<th>Auth?</th>
+<th>Is Exporter Third Party?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prometheus</td>
+<td><code>9099</code></td>
+<td><code>/metrics</code></td>
+<td>No</td>
+<td>Require, token</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-collect">How to Collect<a class="headerlink" href="#how-to-collect" title="Permanent link">&para;</a></h2>
+<p>Metrics expose on port <code>9099</code> and endpoint <code>/metrics</code>. By default, Openshift cluster version operator has authentication
+by token.</p>
+<p>Config <code>ServiceMonitor</code> for <code>prometheus-operator</code> to collect Openshift cluster version operator:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring.coreos.com/v1</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceMonitor</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-version-operator</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">k8s-app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-version-operator</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-version-operator</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">app.kubernetes.io/component</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nt">app.kubernetes.io/managed-by</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring-operator</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nt">spec</span><span class="p">:</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="nt">endpoints</span><span class="p">:</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bearerTokenFile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/secrets/kubernetes.io/serviceaccount/token</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metrics</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">      </span><span class="nt">scheme</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">      </span><span class="nt">tlsConfig</span><span class="p">:</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">        </span><span class="nt">insecureSkipVerify</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">  </span><span class="nt">namespaceSelector</span><span class="p">:</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="nt">matchNames</span><span class="p">:</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshift-cluster-version</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">      </span><span class="nt">k8s-app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-version-operator</span>
+</span></code></pre></div>
+<p>To collect (or just to check) metrics manually you can use the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>-v<span class="w"> </span>-k<span class="w"> </span>-L<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer &lt;token&gt;&quot;</span><span class="w"> </span><span class="s2">&quot;http://&lt;api_server_ip_or_dns&gt;:88443/metrics&quot;</span>
+</span></code></pre></div>
+<p>Token usually you can find in the prometheus/vmagent pod by path <code>/var/run/secrets/kubernetes.io/serviceaccount/token</code>.</p>
+<p>You can't use <code>wget</code> because it doesn't allow to add headers for authorization.</p>
+<h2 id="metrics-list">Metrics List<a class="headerlink" href="#metrics-list" title="Permanent link">&para;</a></h2>
+<h3 id="openshift-state-metrics">Openshift state metrics<a class="headerlink" href="#openshift-state-metrics" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># HELP cluster_installer Reports info about the installation process and, if applicable, the install tool. The type is either &#39;openshift-install&#39;, indicating that openshift-install was used to install the cluster, or &#39;other&#39;, indicating that an unknown process installed the cluster. The invoker is &#39;user&#39; by default, but it may be overridden by a consuming tool. The version reported is that of the openshift-install that was used to generate the manifests and, if applicable, provision the infrastructure.
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a># TYPE cluster_installer gauge
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>cluster_installer{invoker=&quot;user&quot;,type=&quot;other&quot;,version=&quot;v4.12.0&quot;} 1
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a># HELP cluster_operator_condition_transitions Reports the number of times that a condition on a cluster operator changes status
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a># TYPE cluster_operator_condition_transitions gauge
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>cluster_operator_condition_transitions{condition=&quot;Available&quot;,name=&quot;authentication&quot;} 2372
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>cluster_operator_condition_transitions{condition=&quot;Available&quot;,name=&quot;console&quot;} 212
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>cluster_operator_condition_transitions{condition=&quot;Available&quot;,name=&quot;kube-storage-version-migrator&quot;} 4
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>cluster_operator_condition_transitions{condition=&quot;Available&quot;,name=&quot;machine-config&quot;} 10
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>cluster_operator_condition_transitions{condition=&quot;Available&quot;,name=&quot;monitoring&quot;} 38
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>cluster_operator_condition_transitions{condition=&quot;Available&quot;,name=&quot;openshift-apiserver&quot;} 1940
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;authentication&quot;} 14
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;cloud-controller-manager&quot;} 18
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;console&quot;} 12
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;etcd&quot;} 18
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;ingress&quot;} 4
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;kube-apiserver&quot;} 7
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;kube-controller-manager&quot;} 8
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;kube-scheduler&quot;} 2
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;machine-config&quot;} 11
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;monitoring&quot;} 38
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>cluster_operator_condition_transitions{condition=&quot;Degraded&quot;,name=&quot;network&quot;} 128
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;csi-snapshot-controller&quot;} 2
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;dns&quot;} 50
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;image-registry&quot;} 48
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;ingress&quot;} 8
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;kube-apiserver&quot;} 29
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;kube-storage-version-migrator&quot;} 4
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;machine-config&quot;} 1
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;monitoring&quot;} 38
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;network&quot;} 391
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;node-tuning&quot;} 8
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>cluster_operator_condition_transitions{condition=&quot;Progressing&quot;,name=&quot;openshift-controller-manager&quot;} 42
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>cluster_operator_condition_transitions{condition=&quot;TrustedCABundleControllerControllerAvailable&quot;,name=&quot;cloud-controller-manager&quot;} 32
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>cluster_operator_condition_transitions{condition=&quot;TrustedCABundleControllerControllerDegraded&quot;,name=&quot;cloud-controller-manager&quot;} 32
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>cluster_operator_condition_transitions{condition=&quot;Upgradeable&quot;,name=&quot;cloud-controller-manager&quot;} 18
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>cluster_operator_condition_transitions{condition=&quot;Upgradeable&quot;,name=&quot;console&quot;} 464
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>cluster_operator_condition_transitions{condition=&quot;Upgradeable&quot;,name=&quot;machine-config&quot;} 463
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a># HELP cluster_operator_conditions Report the conditions for active cluster operators. 0 is False and 1 is True.
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a># TYPE cluster_operator_conditions gauge
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;authentication&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;baremetal&quot;,reason=&quot;WaitingForProvisioningCR&quot;} 1
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;cloud-controller-manager&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;cloud-credential&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;cluster-autoscaler&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;config-operator&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;console&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;control-plane-machine-set&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;csi-snapshot-controller&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;dns&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;etcd&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-52"><a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;image-registry&quot;,reason=&quot;Removed&quot;} 1
+</span><span id="__span-2-53"><a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;ingress&quot;,reason=&quot;IngressAvailable&quot;} 1
+</span><span id="__span-2-54"><a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;insights&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-55"><a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;kube-apiserver&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-56"><a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;kube-controller-manager&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-57"><a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;kube-scheduler&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-58"><a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;kube-storage-version-migrator&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-59"><a id="__codelineno-2-59" name="__codelineno-2-59" href="#__codelineno-2-59"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;machine-api&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-60"><a id="__codelineno-2-60" name="__codelineno-2-60" href="#__codelineno-2-60"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;machine-approver&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-61"><a id="__codelineno-2-61" name="__codelineno-2-61" href="#__codelineno-2-61"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;machine-config&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-62"><a id="__codelineno-2-62" name="__codelineno-2-62" href="#__codelineno-2-62"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;marketplace&quot;,reason=&quot;OperatorAvailable&quot;} 1
+</span><span id="__span-2-63"><a id="__codelineno-2-63" name="__codelineno-2-63" href="#__codelineno-2-63"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;monitoring&quot;,reason=&quot;RollOutDone&quot;} 1
+</span><span id="__span-2-64"><a id="__codelineno-2-64" name="__codelineno-2-64" href="#__codelineno-2-64"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;network&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-65"><a id="__codelineno-2-65" name="__codelineno-2-65" href="#__codelineno-2-65"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;node-tuning&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-66"><a id="__codelineno-2-66" name="__codelineno-2-66" href="#__codelineno-2-66"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;openshift-apiserver&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-67"><a id="__codelineno-2-67" name="__codelineno-2-67" href="#__codelineno-2-67"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;openshift-controller-manager&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-68"><a id="__codelineno-2-68" name="__codelineno-2-68" href="#__codelineno-2-68"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;openshift-samples&quot;,reason=&quot;CurrentlyRemoved&quot;} 1
+</span><span id="__span-2-69"><a id="__codelineno-2-69" name="__codelineno-2-69" href="#__codelineno-2-69"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;operator-lifecycle-manager&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-70"><a id="__codelineno-2-70" name="__codelineno-2-70" href="#__codelineno-2-70"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;operator-lifecycle-manager-catalog&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-71"><a id="__codelineno-2-71" name="__codelineno-2-71" href="#__codelineno-2-71"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;operator-lifecycle-manager-packageserver&quot;,reason=&quot;ClusterServiceVersionSucceeded&quot;} 1
+</span><span id="__span-2-72"><a id="__codelineno-2-72" name="__codelineno-2-72" href="#__codelineno-2-72"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;service-ca&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-73"><a id="__codelineno-2-73" name="__codelineno-2-73" href="#__codelineno-2-73"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;storage&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-74"><a id="__codelineno-2-74" name="__codelineno-2-74" href="#__codelineno-2-74"></a>cluster_operator_conditions{condition=&quot;Available&quot;,name=&quot;version&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-75"><a id="__codelineno-2-75" name="__codelineno-2-75" href="#__codelineno-2-75"></a>cluster_operator_conditions{condition=&quot;CloudConfigControllerAvailable&quot;,name=&quot;cloud-controller-manager&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-76"><a id="__codelineno-2-76" name="__codelineno-2-76" href="#__codelineno-2-76"></a>cluster_operator_conditions{condition=&quot;CloudConfigControllerDegraded&quot;,name=&quot;cloud-controller-manager&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-77"><a id="__codelineno-2-77" name="__codelineno-2-77" href="#__codelineno-2-77"></a>cluster_operator_conditions{condition=&quot;CloudConfigControllerUpgradeable&quot;,name=&quot;cloud-controller-manager&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-78"><a id="__codelineno-2-78" name="__codelineno-2-78" href="#__codelineno-2-78"></a>cluster_operator_conditions{condition=&quot;ClusterTransferAvailable&quot;,name=&quot;insights&quot;,reason=&quot;Disconnected&quot;} 0
+</span><span id="__span-2-79"><a id="__codelineno-2-79" name="__codelineno-2-79" href="#__codelineno-2-79"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;authentication&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-80"><a id="__codelineno-2-80" name="__codelineno-2-80" href="#__codelineno-2-80"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;baremetal&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-81"><a id="__codelineno-2-81" name="__codelineno-2-81" href="#__codelineno-2-81"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;cloud-controller-manager&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-82"><a id="__codelineno-2-82" name="__codelineno-2-82" href="#__codelineno-2-82"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;cloud-credential&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-83"><a id="__codelineno-2-83" name="__codelineno-2-83" href="#__codelineno-2-83"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;cluster-autoscaler&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-84"><a id="__codelineno-2-84" name="__codelineno-2-84" href="#__codelineno-2-84"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;config-operator&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-85"><a id="__codelineno-2-85" name="__codelineno-2-85" href="#__codelineno-2-85"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;console&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-86"><a id="__codelineno-2-86" name="__codelineno-2-86" href="#__codelineno-2-86"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;control-plane-machine-set&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-87"><a id="__codelineno-2-87" name="__codelineno-2-87" href="#__codelineno-2-87"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;csi-snapshot-controller&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-88"><a id="__codelineno-2-88" name="__codelineno-2-88" href="#__codelineno-2-88"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;dns&quot;,reason=&quot;DNSNotDegraded&quot;} 0
+</span><span id="__span-2-89"><a id="__codelineno-2-89" name="__codelineno-2-89" href="#__codelineno-2-89"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;etcd&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-90"><a id="__codelineno-2-90" name="__codelineno-2-90" href="#__codelineno-2-90"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;image-registry&quot;,reason=&quot;Removed&quot;} 0
+</span><span id="__span-2-91"><a id="__codelineno-2-91" name="__codelineno-2-91" href="#__codelineno-2-91"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;ingress&quot;,reason=&quot;IngressNotDegraded&quot;} 0
+</span><span id="__span-2-92"><a id="__codelineno-2-92" name="__codelineno-2-92" href="#__codelineno-2-92"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;insights&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-93"><a id="__codelineno-2-93" name="__codelineno-2-93" href="#__codelineno-2-93"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;kube-apiserver&quot;,reason=&quot;MissingStaticPodController_SyncError::StaticPods_Error&quot;} 1
+</span><span id="__span-2-94"><a id="__codelineno-2-94" name="__codelineno-2-94" href="#__codelineno-2-94"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;kube-controller-manager&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-95"><a id="__codelineno-2-95" name="__codelineno-2-95" href="#__codelineno-2-95"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;kube-scheduler&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-96"><a id="__codelineno-2-96" name="__codelineno-2-96" href="#__codelineno-2-96"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;kube-storage-version-migrator&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-97"><a id="__codelineno-2-97" name="__codelineno-2-97" href="#__codelineno-2-97"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;machine-api&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-98"><a id="__codelineno-2-98" name="__codelineno-2-98" href="#__codelineno-2-98"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;machine-approver&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-99"><a id="__codelineno-2-99" name="__codelineno-2-99" href="#__codelineno-2-99"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;machine-config&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-100"><a id="__codelineno-2-100" name="__codelineno-2-100" href="#__codelineno-2-100"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;marketplace&quot;,reason=&quot;OperatorAvailable&quot;} 0
+</span><span id="__span-2-101"><a id="__codelineno-2-101" name="__codelineno-2-101" href="#__codelineno-2-101"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;monitoring&quot;,reason=&quot;PrometheusDataPersistenceNotConfigured&quot;} 0
+</span><span id="__span-2-102"><a id="__codelineno-2-102" name="__codelineno-2-102" href="#__codelineno-2-102"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;network&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-103"><a id="__codelineno-2-103" name="__codelineno-2-103" href="#__codelineno-2-103"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;node-tuning&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-104"><a id="__codelineno-2-104" name="__codelineno-2-104" href="#__codelineno-2-104"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;openshift-apiserver&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-105"><a id="__codelineno-2-105" name="__codelineno-2-105" href="#__codelineno-2-105"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;openshift-controller-manager&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-106"><a id="__codelineno-2-106" name="__codelineno-2-106" href="#__codelineno-2-106"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;openshift-samples&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-107"><a id="__codelineno-2-107" name="__codelineno-2-107" href="#__codelineno-2-107"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;operator-lifecycle-manager&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-108"><a id="__codelineno-2-108" name="__codelineno-2-108" href="#__codelineno-2-108"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;operator-lifecycle-manager-catalog&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-109"><a id="__codelineno-2-109" name="__codelineno-2-109" href="#__codelineno-2-109"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;operator-lifecycle-manager-packageserver&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-110"><a id="__codelineno-2-110" name="__codelineno-2-110" href="#__codelineno-2-110"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;service-ca&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-111"><a id="__codelineno-2-111" name="__codelineno-2-111" href="#__codelineno-2-111"></a>cluster_operator_conditions{condition=&quot;Degraded&quot;,name=&quot;storage&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-112"><a id="__codelineno-2-112" name="__codelineno-2-112" href="#__codelineno-2-112"></a>cluster_operator_conditions{condition=&quot;Disabled&quot;,name=&quot;baremetal&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-113"><a id="__codelineno-2-113" name="__codelineno-2-113" href="#__codelineno-2-113"></a>cluster_operator_conditions{condition=&quot;Disabled&quot;,name=&quot;insights&quot;,reason=&quot;NoToken&quot;} 1
+</span><span id="__span-2-114"><a id="__codelineno-2-114" name="__codelineno-2-114" href="#__codelineno-2-114"></a>cluster_operator_conditions{condition=&quot;EvaluationConditionsDetected&quot;,name=&quot;ingress&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-115"><a id="__codelineno-2-115" name="__codelineno-2-115" href="#__codelineno-2-115"></a>cluster_operator_conditions{condition=&quot;Failing&quot;,name=&quot;version&quot;,reason=&quot;ClusterOperatorDegraded&quot;} 1
+</span><span id="__span-2-116"><a id="__codelineno-2-116" name="__codelineno-2-116" href="#__codelineno-2-116"></a>cluster_operator_conditions{condition=&quot;ImplicitlyEnabledCapabilities&quot;,name=&quot;version&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-117"><a id="__codelineno-2-117" name="__codelineno-2-117" href="#__codelineno-2-117"></a>cluster_operator_conditions{condition=&quot;ManagementStateDegraded&quot;,name=&quot;network&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-118"><a id="__codelineno-2-118" name="__codelineno-2-118" href="#__codelineno-2-118"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;authentication&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-119"><a id="__codelineno-2-119" name="__codelineno-2-119" href="#__codelineno-2-119"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;baremetal&quot;,reason=&quot;WaitingForProvisioningCR&quot;} 0
+</span><span id="__span-2-120"><a id="__codelineno-2-120" name="__codelineno-2-120" href="#__codelineno-2-120"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;cloud-controller-manager&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-121"><a id="__codelineno-2-121" name="__codelineno-2-121" href="#__codelineno-2-121"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;cloud-credential&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-122"><a id="__codelineno-2-122" name="__codelineno-2-122" href="#__codelineno-2-122"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;cluster-autoscaler&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-123"><a id="__codelineno-2-123" name="__codelineno-2-123" href="#__codelineno-2-123"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;config-operator&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-124"><a id="__codelineno-2-124" name="__codelineno-2-124" href="#__codelineno-2-124"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;console&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-125"><a id="__codelineno-2-125" name="__codelineno-2-125" href="#__codelineno-2-125"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;control-plane-machine-set&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-126"><a id="__codelineno-2-126" name="__codelineno-2-126" href="#__codelineno-2-126"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;csi-snapshot-controller&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-127"><a id="__codelineno-2-127" name="__codelineno-2-127" href="#__codelineno-2-127"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;dns&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-128"><a id="__codelineno-2-128" name="__codelineno-2-128" href="#__codelineno-2-128"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;etcd&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-129"><a id="__codelineno-2-129" name="__codelineno-2-129" href="#__codelineno-2-129"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;image-registry&quot;,reason=&quot;Removed&quot;} 0
+</span><span id="__span-2-130"><a id="__codelineno-2-130" name="__codelineno-2-130" href="#__codelineno-2-130"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;ingress&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-131"><a id="__codelineno-2-131" name="__codelineno-2-131" href="#__codelineno-2-131"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;insights&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-132"><a id="__codelineno-2-132" name="__codelineno-2-132" href="#__codelineno-2-132"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;kube-apiserver&quot;,reason=&quot;NodeInstaller&quot;} 1
+</span><span id="__span-2-133"><a id="__codelineno-2-133" name="__codelineno-2-133" href="#__codelineno-2-133"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;kube-controller-manager&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-134"><a id="__codelineno-2-134" name="__codelineno-2-134" href="#__codelineno-2-134"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;kube-scheduler&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-135"><a id="__codelineno-2-135" name="__codelineno-2-135" href="#__codelineno-2-135"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;kube-storage-version-migrator&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-136"><a id="__codelineno-2-136" name="__codelineno-2-136" href="#__codelineno-2-136"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;machine-api&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-137"><a id="__codelineno-2-137" name="__codelineno-2-137" href="#__codelineno-2-137"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;machine-approver&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-138"><a id="__codelineno-2-138" name="__codelineno-2-138" href="#__codelineno-2-138"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;machine-config&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-139"><a id="__codelineno-2-139" name="__codelineno-2-139" href="#__codelineno-2-139"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;marketplace&quot;,reason=&quot;OperatorAvailable&quot;} 0
+</span><span id="__span-2-140"><a id="__codelineno-2-140" name="__codelineno-2-140" href="#__codelineno-2-140"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;monitoring&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-141"><a id="__codelineno-2-141" name="__codelineno-2-141" href="#__codelineno-2-141"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;network&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-142"><a id="__codelineno-2-142" name="__codelineno-2-142" href="#__codelineno-2-142"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;node-tuning&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-143"><a id="__codelineno-2-143" name="__codelineno-2-143" href="#__codelineno-2-143"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;openshift-apiserver&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-144"><a id="__codelineno-2-144" name="__codelineno-2-144" href="#__codelineno-2-144"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;openshift-controller-manager&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-145"><a id="__codelineno-2-145" name="__codelineno-2-145" href="#__codelineno-2-145"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;openshift-samples&quot;,reason=&quot;CurrentlyRemoved&quot;} 0
+</span><span id="__span-2-146"><a id="__codelineno-2-146" name="__codelineno-2-146" href="#__codelineno-2-146"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;operator-lifecycle-manager&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-147"><a id="__codelineno-2-147" name="__codelineno-2-147" href="#__codelineno-2-147"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;operator-lifecycle-manager-catalog&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-148"><a id="__codelineno-2-148" name="__codelineno-2-148" href="#__codelineno-2-148"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;operator-lifecycle-manager-packageserver&quot;,reason=&quot;&quot;} 0
+</span><span id="__span-2-149"><a id="__codelineno-2-149" name="__codelineno-2-149" href="#__codelineno-2-149"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;service-ca&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-150"><a id="__codelineno-2-150" name="__codelineno-2-150" href="#__codelineno-2-150"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;storage&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-151"><a id="__codelineno-2-151" name="__codelineno-2-151" href="#__codelineno-2-151"></a>cluster_operator_conditions{condition=&quot;Progressing&quot;,name=&quot;version&quot;,reason=&quot;ClusterOperatorDegraded&quot;} 0
+</span><span id="__span-2-152"><a id="__codelineno-2-152" name="__codelineno-2-152" href="#__codelineno-2-152"></a>cluster_operator_conditions{condition=&quot;RecentBackup&quot;,name=&quot;etcd&quot;,reason=&quot;UpgradeBackupSuccessful&quot;} 1
+</span><span id="__span-2-153"><a id="__codelineno-2-153" name="__codelineno-2-153" href="#__codelineno-2-153"></a>cluster_operator_conditions{condition=&quot;ReleaseAccepted&quot;,name=&quot;version&quot;,reason=&quot;PayloadLoaded&quot;} 1
+</span><span id="__span-2-154"><a id="__codelineno-2-154" name="__codelineno-2-154" href="#__codelineno-2-154"></a>cluster_operator_conditions{condition=&quot;RetrievedUpdates&quot;,name=&quot;version&quot;,reason=&quot;RemoteFailed&quot;} 0
+</span><span id="__span-2-155"><a id="__codelineno-2-155" name="__codelineno-2-155" href="#__codelineno-2-155"></a>cluster_operator_conditions{condition=&quot;SCAAvailable&quot;,name=&quot;insights&quot;,reason=&quot;NonHTTPError&quot;} 0
+</span><span id="__span-2-156"><a id="__codelineno-2-156" name="__codelineno-2-156" href="#__codelineno-2-156"></a>cluster_operator_conditions{condition=&quot;TrustedCABundleControllerControllerAvailable&quot;,name=&quot;cloud-controller-manager&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-157"><a id="__codelineno-2-157" name="__codelineno-2-157" href="#__codelineno-2-157"></a>cluster_operator_conditions{condition=&quot;TrustedCABundleControllerControllerDegraded&quot;,name=&quot;cloud-controller-manager&quot;,reason=&quot;AsExpected&quot;} 0
+</span><span id="__span-2-158"><a id="__codelineno-2-158" name="__codelineno-2-158" href="#__codelineno-2-158"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;authentication&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-159"><a id="__codelineno-2-159" name="__codelineno-2-159" href="#__codelineno-2-159"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;baremetal&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-160"><a id="__codelineno-2-160" name="__codelineno-2-160" href="#__codelineno-2-160"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;cloud-controller-manager&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-161"><a id="__codelineno-2-161" name="__codelineno-2-161" href="#__codelineno-2-161"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;cloud-credential&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-162"><a id="__codelineno-2-162" name="__codelineno-2-162" href="#__codelineno-2-162"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;cluster-autoscaler&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-163"><a id="__codelineno-2-163" name="__codelineno-2-163" href="#__codelineno-2-163"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;config-operator&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-164"><a id="__codelineno-2-164" name="__codelineno-2-164" href="#__codelineno-2-164"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;console&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-165"><a id="__codelineno-2-165" name="__codelineno-2-165" href="#__codelineno-2-165"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;control-plane-machine-set&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-166"><a id="__codelineno-2-166" name="__codelineno-2-166" href="#__codelineno-2-166"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;csi-snapshot-controller&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-167"><a id="__codelineno-2-167" name="__codelineno-2-167" href="#__codelineno-2-167"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;dns&quot;,reason=&quot;DNSUpgradeable&quot;} 1
+</span><span id="__span-2-168"><a id="__codelineno-2-168" name="__codelineno-2-168" href="#__codelineno-2-168"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;etcd&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-169"><a id="__codelineno-2-169" name="__codelineno-2-169" href="#__codelineno-2-169"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;ingress&quot;,reason=&quot;IngressControllersUpgradeable&quot;} 1
+</span><span id="__span-2-170"><a id="__codelineno-2-170" name="__codelineno-2-170" href="#__codelineno-2-170"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;insights&quot;,reason=&quot;InsightsUpgradeable&quot;} 1
+</span><span id="__span-2-171"><a id="__codelineno-2-171" name="__codelineno-2-171" href="#__codelineno-2-171"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;kube-apiserver&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-172"><a id="__codelineno-2-172" name="__codelineno-2-172" href="#__codelineno-2-172"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;kube-controller-manager&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-173"><a id="__codelineno-2-173" name="__codelineno-2-173" href="#__codelineno-2-173"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;kube-scheduler&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-174"><a id="__codelineno-2-174" name="__codelineno-2-174" href="#__codelineno-2-174"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;kube-storage-version-migrator&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-175"><a id="__codelineno-2-175" name="__codelineno-2-175" href="#__codelineno-2-175"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;machine-api&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-176"><a id="__codelineno-2-176" name="__codelineno-2-176" href="#__codelineno-2-176"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;machine-approver&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-177"><a id="__codelineno-2-177" name="__codelineno-2-177" href="#__codelineno-2-177"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;machine-config&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-178"><a id="__codelineno-2-178" name="__codelineno-2-178" href="#__codelineno-2-178"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;marketplace&quot;,reason=&quot;OperatorAvailable&quot;} 1
+</span><span id="__span-2-179"><a id="__codelineno-2-179" name="__codelineno-2-179" href="#__codelineno-2-179"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;monitoring&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-180"><a id="__codelineno-2-180" name="__codelineno-2-180" href="#__codelineno-2-180"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;network&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-181"><a id="__codelineno-2-181" name="__codelineno-2-181" href="#__codelineno-2-181"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;openshift-apiserver&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-182"><a id="__codelineno-2-182" name="__codelineno-2-182" href="#__codelineno-2-182"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;openshift-controller-manager&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-183"><a id="__codelineno-2-183" name="__codelineno-2-183" href="#__codelineno-2-183"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;operator-lifecycle-manager&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-184"><a id="__codelineno-2-184" name="__codelineno-2-184" href="#__codelineno-2-184"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;operator-lifecycle-manager-catalog&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-185"><a id="__codelineno-2-185" name="__codelineno-2-185" href="#__codelineno-2-185"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;operator-lifecycle-manager-packageserver&quot;,reason=&quot;&quot;} 1
+</span><span id="__span-2-186"><a id="__codelineno-2-186" name="__codelineno-2-186" href="#__codelineno-2-186"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;service-ca&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-187"><a id="__codelineno-2-187" name="__codelineno-2-187" href="#__codelineno-2-187"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;storage&quot;,reason=&quot;AsExpected&quot;} 1
+</span><span id="__span-2-188"><a id="__codelineno-2-188" name="__codelineno-2-188" href="#__codelineno-2-188"></a>cluster_operator_conditions{condition=&quot;Upgradeable&quot;,name=&quot;version&quot;,reason=&quot;AdminAckRequired&quot;} 0
+</span><span id="__span-2-189"><a id="__codelineno-2-189" name="__codelineno-2-189" href="#__codelineno-2-189"></a># HELP cluster_operator_payload_errors Report the number of errors encountered applying the payload.
+</span><span id="__span-2-190"><a id="__codelineno-2-190" name="__codelineno-2-190" href="#__codelineno-2-190"></a># TYPE cluster_operator_payload_errors gauge
+</span><span id="__span-2-191"><a id="__codelineno-2-191" name="__codelineno-2-191" href="#__codelineno-2-191"></a>cluster_operator_payload_errors{version=&quot;4.13.9&quot;} 4122
+</span><span id="__span-2-192"><a id="__codelineno-2-192" name="__codelineno-2-192" href="#__codelineno-2-192"></a># HELP cluster_operator_up 1 if a cluster operator is Available=True.  0 otherwise, including if a cluster operator sets no Available condition.  The &#39;version&#39; label tracks the &#39;operator&#39; version.  The &#39;reason&#39; label is passed through from the Available condition, unless the cluster operator sets no Available condition, in which case NoAvailableCondition is used.
+</span><span id="__span-2-193"><a id="__codelineno-2-193" name="__codelineno-2-193" href="#__codelineno-2-193"></a># TYPE cluster_operator_up gauge
+</span><span id="__span-2-194"><a id="__codelineno-2-194" name="__codelineno-2-194" href="#__codelineno-2-194"></a>cluster_operator_up{name=&quot;authentication&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-195"><a id="__codelineno-2-195" name="__codelineno-2-195" href="#__codelineno-2-195"></a>cluster_operator_up{name=&quot;baremetal&quot;,reason=&quot;WaitingForProvisioningCR&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-196"><a id="__codelineno-2-196" name="__codelineno-2-196" href="#__codelineno-2-196"></a>cluster_operator_up{name=&quot;cloud-controller-manager&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-197"><a id="__codelineno-2-197" name="__codelineno-2-197" href="#__codelineno-2-197"></a>cluster_operator_up{name=&quot;cloud-credential&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-198"><a id="__codelineno-2-198" name="__codelineno-2-198" href="#__codelineno-2-198"></a>cluster_operator_up{name=&quot;cluster-autoscaler&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-199"><a id="__codelineno-2-199" name="__codelineno-2-199" href="#__codelineno-2-199"></a>cluster_operator_up{name=&quot;config-operator&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-200"><a id="__codelineno-2-200" name="__codelineno-2-200" href="#__codelineno-2-200"></a>cluster_operator_up{name=&quot;console&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-201"><a id="__codelineno-2-201" name="__codelineno-2-201" href="#__codelineno-2-201"></a>cluster_operator_up{name=&quot;control-plane-machine-set&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-202"><a id="__codelineno-2-202" name="__codelineno-2-202" href="#__codelineno-2-202"></a>cluster_operator_up{name=&quot;csi-snapshot-controller&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-203"><a id="__codelineno-2-203" name="__codelineno-2-203" href="#__codelineno-2-203"></a>cluster_operator_up{name=&quot;dns&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-204"><a id="__codelineno-2-204" name="__codelineno-2-204" href="#__codelineno-2-204"></a>cluster_operator_up{name=&quot;etcd&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-205"><a id="__codelineno-2-205" name="__codelineno-2-205" href="#__codelineno-2-205"></a>cluster_operator_up{name=&quot;image-registry&quot;,reason=&quot;Removed&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-206"><a id="__codelineno-2-206" name="__codelineno-2-206" href="#__codelineno-2-206"></a>cluster_operator_up{name=&quot;ingress&quot;,reason=&quot;IngressAvailable&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-207"><a id="__codelineno-2-207" name="__codelineno-2-207" href="#__codelineno-2-207"></a>cluster_operator_up{name=&quot;insights&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-208"><a id="__codelineno-2-208" name="__codelineno-2-208" href="#__codelineno-2-208"></a>cluster_operator_up{name=&quot;kube-apiserver&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-209"><a id="__codelineno-2-209" name="__codelineno-2-209" href="#__codelineno-2-209"></a>cluster_operator_up{name=&quot;kube-controller-manager&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-210"><a id="__codelineno-2-210" name="__codelineno-2-210" href="#__codelineno-2-210"></a>cluster_operator_up{name=&quot;kube-scheduler&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-211"><a id="__codelineno-2-211" name="__codelineno-2-211" href="#__codelineno-2-211"></a>cluster_operator_up{name=&quot;kube-storage-version-migrator&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-212"><a id="__codelineno-2-212" name="__codelineno-2-212" href="#__codelineno-2-212"></a>cluster_operator_up{name=&quot;machine-api&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-213"><a id="__codelineno-2-213" name="__codelineno-2-213" href="#__codelineno-2-213"></a>cluster_operator_up{name=&quot;machine-approver&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-214"><a id="__codelineno-2-214" name="__codelineno-2-214" href="#__codelineno-2-214"></a>cluster_operator_up{name=&quot;machine-config&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-215"><a id="__codelineno-2-215" name="__codelineno-2-215" href="#__codelineno-2-215"></a>cluster_operator_up{name=&quot;marketplace&quot;,reason=&quot;OperatorAvailable&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-216"><a id="__codelineno-2-216" name="__codelineno-2-216" href="#__codelineno-2-216"></a>cluster_operator_up{name=&quot;monitoring&quot;,reason=&quot;RollOutDone&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-217"><a id="__codelineno-2-217" name="__codelineno-2-217" href="#__codelineno-2-217"></a>cluster_operator_up{name=&quot;network&quot;,reason=&quot;&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-218"><a id="__codelineno-2-218" name="__codelineno-2-218" href="#__codelineno-2-218"></a>cluster_operator_up{name=&quot;node-tuning&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-219"><a id="__codelineno-2-219" name="__codelineno-2-219" href="#__codelineno-2-219"></a>cluster_operator_up{name=&quot;openshift-apiserver&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-220"><a id="__codelineno-2-220" name="__codelineno-2-220" href="#__codelineno-2-220"></a>cluster_operator_up{name=&quot;openshift-controller-manager&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-221"><a id="__codelineno-2-221" name="__codelineno-2-221" href="#__codelineno-2-221"></a>cluster_operator_up{name=&quot;openshift-samples&quot;,reason=&quot;CurrentlyRemoved&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-222"><a id="__codelineno-2-222" name="__codelineno-2-222" href="#__codelineno-2-222"></a>cluster_operator_up{name=&quot;operator-lifecycle-manager&quot;,reason=&quot;&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-223"><a id="__codelineno-2-223" name="__codelineno-2-223" href="#__codelineno-2-223"></a>cluster_operator_up{name=&quot;operator-lifecycle-manager-catalog&quot;,reason=&quot;&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-224"><a id="__codelineno-2-224" name="__codelineno-2-224" href="#__codelineno-2-224"></a>cluster_operator_up{name=&quot;operator-lifecycle-manager-packageserver&quot;,reason=&quot;ClusterServiceVersionSucceeded&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-225"><a id="__codelineno-2-225" name="__codelineno-2-225" href="#__codelineno-2-225"></a>cluster_operator_up{name=&quot;service-ca&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-226"><a id="__codelineno-2-226" name="__codelineno-2-226" href="#__codelineno-2-226"></a>cluster_operator_up{name=&quot;storage&quot;,reason=&quot;AsExpected&quot;,version=&quot;4.13.9&quot;} 1
+</span><span id="__span-2-227"><a id="__codelineno-2-227" name="__codelineno-2-227" href="#__codelineno-2-227"></a># HELP cluster_version Reports the version of the cluster in terms of seconds since\nthe epoch. Type &#39;current&#39; is the version being applied and\nthe value is the creation date of the payload. The type\n&#39;desired&#39; is returned if spec.desiredUpdate is set but the\noperator has not yet updated and the value is the most \nrecent status transition time. The type &#39;failure&#39; is set \nif an error is preventing sync or upgrade with the last \ntransition timestamp of the condition. The type &#39;completed&#39; \nis the timestamp when the last image was successfully\napplied. The type &#39;cluster&#39; is the creation date of the\ncluster version object and the current version. The type\n&#39;updating&#39; is set when the cluster is transitioning to a\nnew version but has not reached the completed state and\nis the time the update was started. The type &#39;initial&#39; is\nset to the oldest entry in the history. The from_version label\nwill be set to the last completed version, the initial\nversion for &#39;cluster&#39;, or empty for &#39;initial&#39;.\n.
+</span><span id="__span-2-228"><a id="__codelineno-2-228" name="__codelineno-2-228" href="#__codelineno-2-228"></a># TYPE cluster_version gauge
+</span><span id="__span-2-229"><a id="__codelineno-2-229" name="__codelineno-2-229" href="#__codelineno-2-229"></a>cluster_version{from_version=&quot;&quot;,image=&quot;quay.io/openshift-release-dev/ocp-release@sha256:ba7956f5c2aae61c8ff3ab1ab2ee7e625db9b1c8964a65339764db79c148e4e6&quot;,type=&quot;initial&quot;,version=&quot;4.12.22&quot;} 1.689347834e+09
+</span><span id="__span-2-230"><a id="__codelineno-2-230" name="__codelineno-2-230" href="#__codelineno-2-230"></a>cluster_version{from_version=&quot;4.12.22&quot;,image=&quot;openshift-release-dev/ocp-release@sha256:a266d3d65c433b460cdef7ab5d6531580f5391adbe85d9c475208a56452e4c0b&quot;,type=&quot;cluster&quot;,version=&quot;4.13.9&quot;} 1.689347834e+09
+</span><span id="__span-2-231"><a id="__codelineno-2-231" name="__codelineno-2-231" href="#__codelineno-2-231"></a>cluster_version{from_version=&quot;4.12.22&quot;,image=&quot;openshift-release-dev/ocp-release@sha256:a266d3d65c433b460cdef7ab5d6531580f5391adbe85d9c475208a56452e4c0b&quot;,type=&quot;completed&quot;,version=&quot;4.13.9&quot;} 1.692368146e+09
+</span><span id="__span-2-232"><a id="__codelineno-2-232" name="__codelineno-2-232" href="#__codelineno-2-232"></a>cluster_version{from_version=&quot;4.13.9&quot;,image=&quot;openshift-release-dev/ocp-release@sha256:a266d3d65c433b460cdef7ab5d6531580f5391adbe85d9c475208a56452e4c0b&quot;,type=&quot;current&quot;,version=&quot;4.13.9&quot;} 1.691660236e+09
+</span><span id="__span-2-233"><a id="__codelineno-2-233" name="__codelineno-2-233" href="#__codelineno-2-233"></a>cluster_version{from_version=&quot;4.13.9&quot;,image=&quot;openshift-release-dev/ocp-release@sha256:a266d3d65c433b460cdef7ab5d6531580f5391adbe85d9c475208a56452e4c0b&quot;,type=&quot;failure&quot;,version=&quot;4.13.9&quot;} 1.700449562e+09
+</span><span id="__span-2-234"><a id="__codelineno-2-234" name="__codelineno-2-234" href="#__codelineno-2-234"></a># HELP cluster_version_capability Report currently enabled cluster capabilities.  0 is disabled, and 1 is enabled.
+</span><span id="__span-2-235"><a id="__codelineno-2-235" name="__codelineno-2-235" href="#__codelineno-2-235"></a># TYPE cluster_version_capability gauge
+</span><span id="__span-2-236"><a id="__codelineno-2-236" name="__codelineno-2-236" href="#__codelineno-2-236"></a>cluster_version_capability{name=&quot;CSISnapshot&quot;} 1
+</span><span id="__span-2-237"><a id="__codelineno-2-237" name="__codelineno-2-237" href="#__codelineno-2-237"></a>cluster_version_capability{name=&quot;Console&quot;} 1
+</span><span id="__span-2-238"><a id="__codelineno-2-238" name="__codelineno-2-238" href="#__codelineno-2-238"></a>cluster_version_capability{name=&quot;Insights&quot;} 1
+</span><span id="__span-2-239"><a id="__codelineno-2-239" name="__codelineno-2-239" href="#__codelineno-2-239"></a>cluster_version_capability{name=&quot;NodeTuning&quot;} 1
+</span><span id="__span-2-240"><a id="__codelineno-2-240" name="__codelineno-2-240" href="#__codelineno-2-240"></a>cluster_version_capability{name=&quot;Storage&quot;} 1
+</span><span id="__span-2-241"><a id="__codelineno-2-241" name="__codelineno-2-241" href="#__codelineno-2-241"></a>cluster_version_capability{name=&quot;baremetal&quot;} 1
+</span><span id="__span-2-242"><a id="__codelineno-2-242" name="__codelineno-2-242" href="#__codelineno-2-242"></a>cluster_version_capability{name=&quot;marketplace&quot;} 1
+</span><span id="__span-2-243"><a id="__codelineno-2-243" name="__codelineno-2-243" href="#__codelineno-2-243"></a>cluster_version_capability{name=&quot;openshift-samples&quot;} 1
+</span><span id="__span-2-244"><a id="__codelineno-2-244" name="__codelineno-2-244" href="#__codelineno-2-244"></a># HELP cluster_version_operator_update_retrieval_timestamp_seconds Reports when updates were last successfully retrieved.
+</span><span id="__span-2-245"><a id="__codelineno-2-245" name="__codelineno-2-245" href="#__codelineno-2-245"></a># TYPE cluster_version_operator_update_retrieval_timestamp_seconds gauge
+</span><span id="__span-2-246"><a id="__codelineno-2-246" name="__codelineno-2-246" href="#__codelineno-2-246"></a>cluster_version_operator_update_retrieval_timestamp_seconds{name=&quot;&quot;} 1.692367394e+09
+</span><span id="__span-2-247"><a id="__codelineno-2-247" name="__codelineno-2-247" href="#__codelineno-2-247"></a># HELP cluster_version_payload Report the number of entries in the payload.
+</span><span id="__span-2-248"><a id="__codelineno-2-248" name="__codelineno-2-248" href="#__codelineno-2-248"></a># TYPE cluster_version_payload gauge
+</span><span id="__span-2-249"><a id="__codelineno-2-249" name="__codelineno-2-249" href="#__codelineno-2-249"></a>cluster_version_payload{type=&quot;applied&quot;,version=&quot;4.13.9&quot;} 837
+</span><span id="__span-2-250"><a id="__codelineno-2-250" name="__codelineno-2-250" href="#__codelineno-2-250"></a>cluster_version_payload{type=&quot;pending&quot;,version=&quot;4.13.9&quot;} 5
+</span><span id="__span-2-251"><a id="__codelineno-2-251" name="__codelineno-2-251" href="#__codelineno-2-251"></a># HELP go_cgo_go_to_c_calls_calls_total Count of calls made from Go to C by the current process.
+</span><span id="__span-2-252"><a id="__codelineno-2-252" name="__codelineno-2-252" href="#__codelineno-2-252"></a># TYPE go_cgo_go_to_c_calls_calls_total counter
+</span><span id="__span-2-253"><a id="__codelineno-2-253" name="__codelineno-2-253" href="#__codelineno-2-253"></a>go_cgo_go_to_c_calls_calls_total 6
+</span><span id="__span-2-254"><a id="__codelineno-2-254" name="__codelineno-2-254" href="#__codelineno-2-254"></a># HELP go_gc_cycles_automatic_gc_cycles_total Count of completed GC cycles generated by the Go runtime.
+</span><span id="__span-2-255"><a id="__codelineno-2-255" name="__codelineno-2-255" href="#__codelineno-2-255"></a># TYPE go_gc_cycles_automatic_gc_cycles_total counter
+</span><span id="__span-2-256"><a id="__codelineno-2-256" name="__codelineno-2-256" href="#__codelineno-2-256"></a>go_gc_cycles_automatic_gc_cycles_total 488426
+</span><span id="__span-2-257"><a id="__codelineno-2-257" name="__codelineno-2-257" href="#__codelineno-2-257"></a># HELP go_gc_cycles_forced_gc_cycles_total Count of completed GC cycles forced by the application.
+</span><span id="__span-2-258"><a id="__codelineno-2-258" name="__codelineno-2-258" href="#__codelineno-2-258"></a># TYPE go_gc_cycles_forced_gc_cycles_total counter
+</span><span id="__span-2-259"><a id="__codelineno-2-259" name="__codelineno-2-259" href="#__codelineno-2-259"></a>go_gc_cycles_forced_gc_cycles_total 0
+</span><span id="__span-2-260"><a id="__codelineno-2-260" name="__codelineno-2-260" href="#__codelineno-2-260"></a># HELP go_gc_cycles_total_gc_cycles_total Count of all completed GC cycles.
+</span><span id="__span-2-261"><a id="__codelineno-2-261" name="__codelineno-2-261" href="#__codelineno-2-261"></a># TYPE go_gc_cycles_total_gc_cycles_total counter
+</span><span id="__span-2-262"><a id="__codelineno-2-262" name="__codelineno-2-262" href="#__codelineno-2-262"></a>go_gc_cycles_total_gc_cycles_total 488426
+</span><span id="__span-2-263"><a id="__codelineno-2-263" name="__codelineno-2-263" href="#__codelineno-2-263"></a># HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
+</span><span id="__span-2-264"><a id="__codelineno-2-264" name="__codelineno-2-264" href="#__codelineno-2-264"></a># TYPE go_gc_duration_seconds summary
+</span><span id="__span-2-265"><a id="__codelineno-2-265" name="__codelineno-2-265" href="#__codelineno-2-265"></a>go_gc_duration_seconds{quantile=&quot;0&quot;} 5.4778e-05
+</span><span id="__span-2-266"><a id="__codelineno-2-266" name="__codelineno-2-266" href="#__codelineno-2-266"></a>go_gc_duration_seconds{quantile=&quot;0.25&quot;} 7.9409e-05
+</span><span id="__span-2-267"><a id="__codelineno-2-267" name="__codelineno-2-267" href="#__codelineno-2-267"></a>go_gc_duration_seconds{quantile=&quot;0.5&quot;} 0.000106051
+</span><span id="__span-2-268"><a id="__codelineno-2-268" name="__codelineno-2-268" href="#__codelineno-2-268"></a>go_gc_duration_seconds{quantile=&quot;0.75&quot;} 0.00016854
+</span><span id="__span-2-269"><a id="__codelineno-2-269" name="__codelineno-2-269" href="#__codelineno-2-269"></a>go_gc_duration_seconds{quantile=&quot;1&quot;} 0.046073051
+</span><span id="__span-2-270"><a id="__codelineno-2-270" name="__codelineno-2-270" href="#__codelineno-2-270"></a>go_gc_duration_seconds_sum 198.518708721
+</span><span id="__span-2-271"><a id="__codelineno-2-271" name="__codelineno-2-271" href="#__codelineno-2-271"></a>go_gc_duration_seconds_count 488426
+</span><span id="__span-2-272"><a id="__codelineno-2-272" name="__codelineno-2-272" href="#__codelineno-2-272"></a># HELP go_gc_heap_allocs_by_size_bytes_total Distribution of heap allocations by approximate size. Note that this does not include tiny objects as defined by /gc/heap/tiny/allocs:objects, only tiny blocks.
+</span><span id="__span-2-273"><a id="__codelineno-2-273" name="__codelineno-2-273" href="#__codelineno-2-273"></a># TYPE go_gc_heap_allocs_by_size_bytes_total histogram
+</span><span id="__span-2-274"><a id="__codelineno-2-274" name="__codelineno-2-274" href="#__codelineno-2-274"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;8.999999999999998&quot;} 4.82474013e+08
+</span><span id="__span-2-275"><a id="__codelineno-2-275" name="__codelineno-2-275" href="#__codelineno-2-275"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;24.999999999999996&quot;} 1.8080876464e+10
+</span><span id="__span-2-276"><a id="__codelineno-2-276" name="__codelineno-2-276" href="#__codelineno-2-276"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;64.99999999999999&quot;} 2.9100532123e+10
+</span><span id="__span-2-277"><a id="__codelineno-2-277" name="__codelineno-2-277" href="#__codelineno-2-277"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;144.99999999999997&quot;} 3.3554110642e+10
+</span><span id="__span-2-278"><a id="__codelineno-2-278" name="__codelineno-2-278" href="#__codelineno-2-278"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;320.99999999999994&quot;} 3.5983546659e+10
+</span><span id="__span-2-279"><a id="__codelineno-2-279" name="__codelineno-2-279" href="#__codelineno-2-279"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;704.9999999999999&quot;} 4.0325420111e+10
+</span><span id="__span-2-280"><a id="__codelineno-2-280" name="__codelineno-2-280" href="#__codelineno-2-280"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;1536.9999999999998&quot;} 4.0616253514e+10
+</span><span id="__span-2-281"><a id="__codelineno-2-281" name="__codelineno-2-281" href="#__codelineno-2-281"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;3200.9999999999995&quot;} 4.069938606e+10
+</span><span id="__span-2-282"><a id="__codelineno-2-282" name="__codelineno-2-282" href="#__codelineno-2-282"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;6528.999999999999&quot;} 4.0735569022e+10
+</span><span id="__span-2-283"><a id="__codelineno-2-283" name="__codelineno-2-283" href="#__codelineno-2-283"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;13568.999999999998&quot;} 4.1265698649e+10
+</span><span id="__span-2-284"><a id="__codelineno-2-284" name="__codelineno-2-284" href="#__codelineno-2-284"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;27264.999999999996&quot;} 4.127497466e+10
+</span><span id="__span-2-285"><a id="__codelineno-2-285" name="__codelineno-2-285" href="#__codelineno-2-285"></a>go_gc_heap_allocs_by_size_bytes_total_bucket{le=&quot;+Inf&quot;} 4.1288698108e+10
+</span><span id="__span-2-286"><a id="__codelineno-2-286" name="__codelineno-2-286" href="#__codelineno-2-286"></a>go_gc_heap_allocs_by_size_bytes_total_sum 1.0637402843264e+13
+</span><span id="__span-2-287"><a id="__codelineno-2-287" name="__codelineno-2-287" href="#__codelineno-2-287"></a>go_gc_heap_allocs_by_size_bytes_total_count 4.1288698108e+10
+</span><span id="__span-2-288"><a id="__codelineno-2-288" name="__codelineno-2-288" href="#__codelineno-2-288"></a># HELP go_gc_heap_allocs_bytes_total Cumulative sum of memory allocated to the heap by the application.
+</span><span id="__span-2-289"><a id="__codelineno-2-289" name="__codelineno-2-289" href="#__codelineno-2-289"></a># TYPE go_gc_heap_allocs_bytes_total counter
+</span><span id="__span-2-290"><a id="__codelineno-2-290" name="__codelineno-2-290" href="#__codelineno-2-290"></a>go_gc_heap_allocs_bytes_total 1.0637402843264e+13
+</span><span id="__span-2-291"><a id="__codelineno-2-291" name="__codelineno-2-291" href="#__codelineno-2-291"></a># HELP go_gc_heap_allocs_objects_total Cumulative count of heap allocations triggered by the application. Note that this does not include tiny objects as defined by /gc/heap/tiny/allocs:objects, only tiny blocks.
+</span><span id="__span-2-292"><a id="__codelineno-2-292" name="__codelineno-2-292" href="#__codelineno-2-292"></a># TYPE go_gc_heap_allocs_objects_total counter
+</span><span id="__span-2-293"><a id="__codelineno-2-293" name="__codelineno-2-293" href="#__codelineno-2-293"></a>go_gc_heap_allocs_objects_total 4.1288698108e+10
+</span><span id="__span-2-294"><a id="__codelineno-2-294" name="__codelineno-2-294" href="#__codelineno-2-294"></a># HELP go_gc_heap_frees_by_size_bytes_total Distribution of freed heap allocations by approximate size. Note that this does not include tiny objects as defined by /gc/heap/tiny/allocs:objects, only tiny blocks.
+</span><span id="__span-2-295"><a id="__codelineno-2-295" name="__codelineno-2-295" href="#__codelineno-2-295"></a># TYPE go_gc_heap_frees_by_size_bytes_total histogram
+</span><span id="__span-2-296"><a id="__codelineno-2-296" name="__codelineno-2-296" href="#__codelineno-2-296"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;8.999999999999998&quot;} 4.82468573e+08
+</span><span id="__span-2-297"><a id="__codelineno-2-297" name="__codelineno-2-297" href="#__codelineno-2-297"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;24.999999999999996&quot;} 1.8080715199e+10
+</span><span id="__span-2-298"><a id="__codelineno-2-298" name="__codelineno-2-298" href="#__codelineno-2-298"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;64.99999999999999&quot;} 2.9100304738e+10
+</span><span id="__span-2-299"><a id="__codelineno-2-299" name="__codelineno-2-299" href="#__codelineno-2-299"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;144.99999999999997&quot;} 3.355386747e+10
+</span><span id="__span-2-300"><a id="__codelineno-2-300" name="__codelineno-2-300" href="#__codelineno-2-300"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;320.99999999999994&quot;} 3.59832735e+10
+</span><span id="__span-2-301"><a id="__codelineno-2-301" name="__codelineno-2-301" href="#__codelineno-2-301"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;704.9999999999999&quot;} 4.032514151e+10
+</span><span id="__span-2-302"><a id="__codelineno-2-302" name="__codelineno-2-302" href="#__codelineno-2-302"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;1536.9999999999998&quot;} 4.0615973778e+10
+</span><span id="__span-2-303"><a id="__codelineno-2-303" name="__codelineno-2-303" href="#__codelineno-2-303"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;3200.9999999999995&quot;} 4.0699105943e+10
+</span><span id="__span-2-304"><a id="__codelineno-2-304" name="__codelineno-2-304" href="#__codelineno-2-304"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;6528.999999999999&quot;} 4.0735288668e+10
+</span><span id="__span-2-305"><a id="__codelineno-2-305" name="__codelineno-2-305" href="#__codelineno-2-305"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;13568.999999999998&quot;} 4.1265417617e+10
+</span><span id="__span-2-306"><a id="__codelineno-2-306" name="__codelineno-2-306" href="#__codelineno-2-306"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;27264.999999999996&quot;} 4.1274693567e+10
+</span><span id="__span-2-307"><a id="__codelineno-2-307" name="__codelineno-2-307" href="#__codelineno-2-307"></a>go_gc_heap_frees_by_size_bytes_total_bucket{le=&quot;+Inf&quot;} 4.1288416912e+10
+</span><span id="__span-2-308"><a id="__codelineno-2-308" name="__codelineno-2-308" href="#__codelineno-2-308"></a>go_gc_heap_frees_by_size_bytes_total_sum 1.0637363382712e+13
+</span><span id="__span-2-309"><a id="__codelineno-2-309" name="__codelineno-2-309" href="#__codelineno-2-309"></a>go_gc_heap_frees_by_size_bytes_total_count 4.1288416912e+10
+</span><span id="__span-2-310"><a id="__codelineno-2-310" name="__codelineno-2-310" href="#__codelineno-2-310"></a># HELP go_gc_heap_frees_bytes_total Cumulative sum of heap memory freed by the garbage collector.
+</span><span id="__span-2-311"><a id="__codelineno-2-311" name="__codelineno-2-311" href="#__codelineno-2-311"></a># TYPE go_gc_heap_frees_bytes_total counter
+</span><span id="__span-2-312"><a id="__codelineno-2-312" name="__codelineno-2-312" href="#__codelineno-2-312"></a>go_gc_heap_frees_bytes_total 1.0637363382712e+13
+</span><span id="__span-2-313"><a id="__codelineno-2-313" name="__codelineno-2-313" href="#__codelineno-2-313"></a># HELP go_gc_heap_frees_objects_total Cumulative count of heap allocations whose storage was freed by the garbage collector. Note that this does not include tiny objects as defined by /gc/heap/tiny/allocs:objects, only tiny blocks.
+</span><span id="__span-2-314"><a id="__codelineno-2-314" name="__codelineno-2-314" href="#__codelineno-2-314"></a># TYPE go_gc_heap_frees_objects_total counter
+</span><span id="__span-2-315"><a id="__codelineno-2-315" name="__codelineno-2-315" href="#__codelineno-2-315"></a>go_gc_heap_frees_objects_total 4.1288416912e+10
+</span><span id="__span-2-316"><a id="__codelineno-2-316" name="__codelineno-2-316" href="#__codelineno-2-316"></a># HELP go_gc_heap_goal_bytes Heap size target for the end of the GC cycle.
+</span><span id="__span-2-317"><a id="__codelineno-2-317" name="__codelineno-2-317" href="#__codelineno-2-317"></a># TYPE go_gc_heap_goal_bytes gauge
+</span><span id="__span-2-318"><a id="__codelineno-2-318" name="__codelineno-2-318" href="#__codelineno-2-318"></a>go_gc_heap_goal_bytes 5.1911216e+07
+</span><span id="__span-2-319"><a id="__codelineno-2-319" name="__codelineno-2-319" href="#__codelineno-2-319"></a># HELP go_gc_heap_objects_objects Number of objects, live or unswept, occupying heap memory.
+</span><span id="__span-2-320"><a id="__codelineno-2-320" name="__codelineno-2-320" href="#__codelineno-2-320"></a># TYPE go_gc_heap_objects_objects gauge
+</span><span id="__span-2-321"><a id="__codelineno-2-321" name="__codelineno-2-321" href="#__codelineno-2-321"></a>go_gc_heap_objects_objects 281196
+</span><span id="__span-2-322"><a id="__codelineno-2-322" name="__codelineno-2-322" href="#__codelineno-2-322"></a># HELP go_gc_heap_tiny_allocs_objects_total Count of small allocations that are packed together into blocks. These allocations are counted separately from other allocations because each individual allocation is not tracked by the runtime, only their block. Each block is already accounted for in allocs-by-size and frees-by-size.
+</span><span id="__span-2-323"><a id="__codelineno-2-323" name="__codelineno-2-323" href="#__codelineno-2-323"></a># TYPE go_gc_heap_tiny_allocs_objects_total counter
+</span><span id="__span-2-324"><a id="__codelineno-2-324" name="__codelineno-2-324" href="#__codelineno-2-324"></a>go_gc_heap_tiny_allocs_objects_total 5.057530995e+09
+</span><span id="__span-2-325"><a id="__codelineno-2-325" name="__codelineno-2-325" href="#__codelineno-2-325"></a># HELP go_gc_limiter_last_enabled_gc_cycle GC cycle the last time the GC CPU limiter was enabled. This metric is useful for diagnosing the root cause of an out-of-memory error, because the limiter trades memory for CPU time when the GC&#39;s CPU time gets too high. This is most likely to occur with use of SetMemoryLimit. The first GC cycle is cycle 1, so a value of 0 indicates that it was never enabled.
+</span><span id="__span-2-326"><a id="__codelineno-2-326" name="__codelineno-2-326" href="#__codelineno-2-326"></a># TYPE go_gc_limiter_last_enabled_gc_cycle gauge
+</span><span id="__span-2-327"><a id="__codelineno-2-327" name="__codelineno-2-327" href="#__codelineno-2-327"></a>go_gc_limiter_last_enabled_gc_cycle 0
+</span><span id="__span-2-328"><a id="__codelineno-2-328" name="__codelineno-2-328" href="#__codelineno-2-328"></a># HELP go_gc_pauses_seconds_total Distribution individual GC-related stop-the-world pause latencies.
+</span><span id="__span-2-329"><a id="__codelineno-2-329" name="__codelineno-2-329" href="#__codelineno-2-329"></a># TYPE go_gc_pauses_seconds_total histogram
+</span><span id="__span-2-330"><a id="__codelineno-2-330" name="__codelineno-2-330" href="#__codelineno-2-330"></a>go_gc_pauses_seconds_total_bucket{le=&quot;-5e-324&quot;} 0
+</span><span id="__span-2-331"><a id="__codelineno-2-331" name="__codelineno-2-331" href="#__codelineno-2-331"></a>go_gc_pauses_seconds_total_bucket{le=&quot;9.999999999999999e-10&quot;} 0
+</span><span id="__span-2-332"><a id="__codelineno-2-332" name="__codelineno-2-332" href="#__codelineno-2-332"></a>go_gc_pauses_seconds_total_bucket{le=&quot;9.999999999999999e-09&quot;} 0
+</span><span id="__span-2-333"><a id="__codelineno-2-333" name="__codelineno-2-333" href="#__codelineno-2-333"></a>go_gc_pauses_seconds_total_bucket{le=&quot;9.999999999999998e-08&quot;} 0
+</span><span id="__span-2-334"><a id="__codelineno-2-334" name="__codelineno-2-334" href="#__codelineno-2-334"></a>go_gc_pauses_seconds_total_bucket{le=&quot;1.0239999999999999e-06&quot;} 0
+</span><span id="__span-2-335"><a id="__codelineno-2-335" name="__codelineno-2-335" href="#__codelineno-2-335"></a>go_gc_pauses_seconds_total_bucket{le=&quot;1.0239999999999999e-05&quot;} 379328
+</span><span id="__span-2-336"><a id="__codelineno-2-336" name="__codelineno-2-336" href="#__codelineno-2-336"></a>go_gc_pauses_seconds_total_bucket{le=&quot;0.00010239999999999998&quot;} 732155
+</span><span id="__span-2-337"><a id="__codelineno-2-337" name="__codelineno-2-337" href="#__codelineno-2-337"></a>go_gc_pauses_seconds_total_bucket{le=&quot;0.0010485759999999998&quot;} 949366
+</span><span id="__span-2-338"><a id="__codelineno-2-338" name="__codelineno-2-338" href="#__codelineno-2-338"></a>go_gc_pauses_seconds_total_bucket{le=&quot;0.010485759999999998&quot;} 974775
+</span><span id="__span-2-339"><a id="__codelineno-2-339" name="__codelineno-2-339" href="#__codelineno-2-339"></a>go_gc_pauses_seconds_total_bucket{le=&quot;0.10485759999999998&quot;} 976823
+</span><span id="__span-2-340"><a id="__codelineno-2-340" name="__codelineno-2-340" href="#__codelineno-2-340"></a>go_gc_pauses_seconds_total_bucket{le=&quot;+Inf&quot;} 976852
+</span><span id="__span-2-341"><a id="__codelineno-2-341" name="__codelineno-2-341" href="#__codelineno-2-341"></a>go_gc_pauses_seconds_total_sum NaN
+</span><span id="__span-2-342"><a id="__codelineno-2-342" name="__codelineno-2-342" href="#__codelineno-2-342"></a>go_gc_pauses_seconds_total_count 976852
+</span><span id="__span-2-343"><a id="__codelineno-2-343" name="__codelineno-2-343" href="#__codelineno-2-343"></a># HELP go_gc_stack_starting_size_bytes The stack size of new goroutines.
+</span><span id="__span-2-344"><a id="__codelineno-2-344" name="__codelineno-2-344" href="#__codelineno-2-344"></a># TYPE go_gc_stack_starting_size_bytes gauge
+</span><span id="__span-2-345"><a id="__codelineno-2-345" name="__codelineno-2-345" href="#__codelineno-2-345"></a>go_gc_stack_starting_size_bytes 4096
+</span><span id="__span-2-346"><a id="__codelineno-2-346" name="__codelineno-2-346" href="#__codelineno-2-346"></a># HELP go_goroutines Number of goroutines that currently exist.
+</span><span id="__span-2-347"><a id="__codelineno-2-347" name="__codelineno-2-347" href="#__codelineno-2-347"></a># TYPE go_goroutines gauge
+</span><span id="__span-2-348"><a id="__codelineno-2-348" name="__codelineno-2-348" href="#__codelineno-2-348"></a>go_goroutines 89
+</span><span id="__span-2-349"><a id="__codelineno-2-349" name="__codelineno-2-349" href="#__codelineno-2-349"></a># HELP go_info Information about the Go environment.
+</span><span id="__span-2-350"><a id="__codelineno-2-350" name="__codelineno-2-350" href="#__codelineno-2-350"></a># TYPE go_info gauge
+</span><span id="__span-2-351"><a id="__codelineno-2-351" name="__codelineno-2-351" href="#__codelineno-2-351"></a>go_info{version=&quot;go1.19.10 X:strictfipsruntime&quot;} 1
+</span><span id="__span-2-352"><a id="__codelineno-2-352" name="__codelineno-2-352" href="#__codelineno-2-352"></a># HELP go_memory_classes_heap_free_bytes Memory that is completely free and eligible to be returned to the underlying system, but has not been. This metric is the runtime&#39;s estimate of free address space that is backed by physical memory.
+</span><span id="__span-2-353"><a id="__codelineno-2-353" name="__codelineno-2-353" href="#__codelineno-2-353"></a># TYPE go_memory_classes_heap_free_bytes gauge
+</span><span id="__span-2-354"><a id="__codelineno-2-354" name="__codelineno-2-354" href="#__codelineno-2-354"></a>go_memory_classes_heap_free_bytes 8.609792e+06
+</span><span id="__span-2-355"><a id="__codelineno-2-355" name="__codelineno-2-355" href="#__codelineno-2-355"></a># HELP go_memory_classes_heap_objects_bytes Memory occupied by live objects and dead objects that have not yet been marked free by the garbage collector.
+</span><span id="__span-2-356"><a id="__codelineno-2-356" name="__codelineno-2-356" href="#__codelineno-2-356"></a># TYPE go_memory_classes_heap_objects_bytes gauge
+</span><span id="__span-2-357"><a id="__codelineno-2-357" name="__codelineno-2-357" href="#__codelineno-2-357"></a>go_memory_classes_heap_objects_bytes 3.9460552e+07
+</span><span id="__span-2-358"><a id="__codelineno-2-358" name="__codelineno-2-358" href="#__codelineno-2-358"></a># HELP go_memory_classes_heap_released_bytes Memory that is completely free and has been returned to the underlying system. This metric is the runtime&#39;s estimate of free address space that is still mapped into the process, but is not backed by physical memory.
+</span><span id="__span-2-359"><a id="__codelineno-2-359" name="__codelineno-2-359" href="#__codelineno-2-359"></a># TYPE go_memory_classes_heap_released_bytes gauge
+</span><span id="__span-2-360"><a id="__codelineno-2-360" name="__codelineno-2-360" href="#__codelineno-2-360"></a>go_memory_classes_heap_released_bytes 1.908736e+07
+</span><span id="__span-2-361"><a id="__codelineno-2-361" name="__codelineno-2-361" href="#__codelineno-2-361"></a># HELP go_memory_classes_heap_stacks_bytes Memory allocated from the heap that is reserved for stack space, whether or not it is currently in-use.
+</span><span id="__span-2-362"><a id="__codelineno-2-362" name="__codelineno-2-362" href="#__codelineno-2-362"></a># TYPE go_memory_classes_heap_stacks_bytes gauge
+</span><span id="__span-2-363"><a id="__codelineno-2-363" name="__codelineno-2-363" href="#__codelineno-2-363"></a>go_memory_classes_heap_stacks_bytes 2.031616e+06
+</span><span id="__span-2-364"><a id="__codelineno-2-364" name="__codelineno-2-364" href="#__codelineno-2-364"></a># HELP go_memory_classes_heap_unused_bytes Memory that is reserved for heap objects but is not currently used to hold heap objects.
+</span><span id="__span-2-365"><a id="__codelineno-2-365" name="__codelineno-2-365" href="#__codelineno-2-365"></a># TYPE go_memory_classes_heap_unused_bytes gauge
+</span><span id="__span-2-366"><a id="__codelineno-2-366" name="__codelineno-2-366" href="#__codelineno-2-366"></a>go_memory_classes_heap_unused_bytes 1.0502456e+07
+</span><span id="__span-2-367"><a id="__codelineno-2-367" name="__codelineno-2-367" href="#__codelineno-2-367"></a># HELP go_memory_classes_metadata_mcache_free_bytes Memory that is reserved for runtime mcache structures, but not in-use.
+</span><span id="__span-2-368"><a id="__codelineno-2-368" name="__codelineno-2-368" href="#__codelineno-2-368"></a># TYPE go_memory_classes_metadata_mcache_free_bytes gauge
+</span><span id="__span-2-369"><a id="__codelineno-2-369" name="__codelineno-2-369" href="#__codelineno-2-369"></a>go_memory_classes_metadata_mcache_free_bytes 10800
+</span><span id="__span-2-370"><a id="__codelineno-2-370" name="__codelineno-2-370" href="#__codelineno-2-370"></a># HELP go_memory_classes_metadata_mcache_inuse_bytes Memory that is occupied by runtime mcache structures that are currently being used.
+</span><span id="__span-2-371"><a id="__codelineno-2-371" name="__codelineno-2-371" href="#__codelineno-2-371"></a># TYPE go_memory_classes_metadata_mcache_inuse_bytes gauge
+</span><span id="__span-2-372"><a id="__codelineno-2-372" name="__codelineno-2-372" href="#__codelineno-2-372"></a>go_memory_classes_metadata_mcache_inuse_bytes 4800
+</span><span id="__span-2-373"><a id="__codelineno-2-373" name="__codelineno-2-373" href="#__codelineno-2-373"></a># HELP go_memory_classes_metadata_mspan_free_bytes Memory that is reserved for runtime mspan structures, but not in-use.
+</span><span id="__span-2-374"><a id="__codelineno-2-374" name="__codelineno-2-374" href="#__codelineno-2-374"></a># TYPE go_memory_classes_metadata_mspan_free_bytes gauge
+</span><span id="__span-2-375"><a id="__codelineno-2-375" name="__codelineno-2-375" href="#__codelineno-2-375"></a>go_memory_classes_metadata_mspan_free_bytes 440640
+</span><span id="__span-2-376"><a id="__codelineno-2-376" name="__codelineno-2-376" href="#__codelineno-2-376"></a># HELP go_memory_classes_metadata_mspan_inuse_bytes Memory that is occupied by runtime mspan structures that are currently being used.
+</span><span id="__span-2-377"><a id="__codelineno-2-377" name="__codelineno-2-377" href="#__codelineno-2-377"></a># TYPE go_memory_classes_metadata_mspan_inuse_bytes gauge
+</span><span id="__span-2-378"><a id="__codelineno-2-378" name="__codelineno-2-378" href="#__codelineno-2-378"></a>go_memory_classes_metadata_mspan_inuse_bytes 649584
+</span><span id="__span-2-379"><a id="__codelineno-2-379" name="__codelineno-2-379" href="#__codelineno-2-379"></a># HELP go_memory_classes_metadata_other_bytes Memory that is reserved for or used to hold runtime metadata.
+</span><span id="__span-2-380"><a id="__codelineno-2-380" name="__codelineno-2-380" href="#__codelineno-2-380"></a># TYPE go_memory_classes_metadata_other_bytes gauge
+</span><span id="__span-2-381"><a id="__codelineno-2-381" name="__codelineno-2-381" href="#__codelineno-2-381"></a>go_memory_classes_metadata_other_bytes 1.3159296e+07
+</span><span id="__span-2-382"><a id="__codelineno-2-382" name="__codelineno-2-382" href="#__codelineno-2-382"></a># HELP go_memory_classes_os_stacks_bytes Stack memory allocated by the underlying operating system.
+</span><span id="__span-2-383"><a id="__codelineno-2-383" name="__codelineno-2-383" href="#__codelineno-2-383"></a># TYPE go_memory_classes_os_stacks_bytes gauge
+</span><span id="__span-2-384"><a id="__codelineno-2-384" name="__codelineno-2-384" href="#__codelineno-2-384"></a>go_memory_classes_os_stacks_bytes 0
+</span><span id="__span-2-385"><a id="__codelineno-2-385" name="__codelineno-2-385" href="#__codelineno-2-385"></a># HELP go_memory_classes_other_bytes Memory used by execution trace buffers, structures for debugging the runtime, finalizer and profiler specials, and more.
+</span><span id="__span-2-386"><a id="__codelineno-2-386" name="__codelineno-2-386" href="#__codelineno-2-386"></a># TYPE go_memory_classes_other_bytes gauge
+</span><span id="__span-2-387"><a id="__codelineno-2-387" name="__codelineno-2-387" href="#__codelineno-2-387"></a>go_memory_classes_other_bytes 1.050192e+06
+</span><span id="__span-2-388"><a id="__codelineno-2-388" name="__codelineno-2-388" href="#__codelineno-2-388"></a># HELP go_memory_classes_profiling_buckets_bytes Memory that is used by the stack trace hash map used for profiling.
+</span><span id="__span-2-389"><a id="__codelineno-2-389" name="__codelineno-2-389" href="#__codelineno-2-389"></a># TYPE go_memory_classes_profiling_buckets_bytes gauge
+</span><span id="__span-2-390"><a id="__codelineno-2-390" name="__codelineno-2-390" href="#__codelineno-2-390"></a>go_memory_classes_profiling_buckets_bytes 5808
+</span><span id="__span-2-391"><a id="__codelineno-2-391" name="__codelineno-2-391" href="#__codelineno-2-391"></a># HELP go_memory_classes_total_bytes All memory mapped by the Go runtime into the current process as read-write. Note that this does not include memory mapped by code called via cgo or via the syscall package. Sum of all metrics in /memory/classes.
+</span><span id="__span-2-392"><a id="__codelineno-2-392" name="__codelineno-2-392" href="#__codelineno-2-392"></a># TYPE go_memory_classes_total_bytes gauge
+</span><span id="__span-2-393"><a id="__codelineno-2-393" name="__codelineno-2-393" href="#__codelineno-2-393"></a>go_memory_classes_total_bytes 9.5012896e+07
+</span><span id="__span-2-394"><a id="__codelineno-2-394" name="__codelineno-2-394" href="#__codelineno-2-394"></a># HELP go_memstats_alloc_bytes Number of bytes allocated and still in use.
+</span><span id="__span-2-395"><a id="__codelineno-2-395" name="__codelineno-2-395" href="#__codelineno-2-395"></a># TYPE go_memstats_alloc_bytes gauge
+</span><span id="__span-2-396"><a id="__codelineno-2-396" name="__codelineno-2-396" href="#__codelineno-2-396"></a>go_memstats_alloc_bytes 3.9460552e+07
+</span><span id="__span-2-397"><a id="__codelineno-2-397" name="__codelineno-2-397" href="#__codelineno-2-397"></a># HELP go_memstats_alloc_bytes_total Total number of bytes allocated, even if freed.
+</span><span id="__span-2-398"><a id="__codelineno-2-398" name="__codelineno-2-398" href="#__codelineno-2-398"></a># TYPE go_memstats_alloc_bytes_total counter
+</span><span id="__span-2-399"><a id="__codelineno-2-399" name="__codelineno-2-399" href="#__codelineno-2-399"></a>go_memstats_alloc_bytes_total 1.0637402843264e+13
+</span><span id="__span-2-400"><a id="__codelineno-2-400" name="__codelineno-2-400" href="#__codelineno-2-400"></a># HELP go_memstats_buck_hash_sys_bytes Number of bytes used by the profiling bucket hash table.
+</span><span id="__span-2-401"><a id="__codelineno-2-401" name="__codelineno-2-401" href="#__codelineno-2-401"></a># TYPE go_memstats_buck_hash_sys_bytes gauge
+</span><span id="__span-2-402"><a id="__codelineno-2-402" name="__codelineno-2-402" href="#__codelineno-2-402"></a>go_memstats_buck_hash_sys_bytes 5808
+</span><span id="__span-2-403"><a id="__codelineno-2-403" name="__codelineno-2-403" href="#__codelineno-2-403"></a># HELP go_memstats_frees_total Total number of frees.
+</span><span id="__span-2-404"><a id="__codelineno-2-404" name="__codelineno-2-404" href="#__codelineno-2-404"></a># TYPE go_memstats_frees_total counter
+</span><span id="__span-2-405"><a id="__codelineno-2-405" name="__codelineno-2-405" href="#__codelineno-2-405"></a>go_memstats_frees_total 4.6345947907e+10
+</span><span id="__span-2-406"><a id="__codelineno-2-406" name="__codelineno-2-406" href="#__codelineno-2-406"></a># HELP go_memstats_gc_cpu_fraction The fraction of this program&#39;s available CPU time used by the GC since the program started.
+</span><span id="__span-2-407"><a id="__codelineno-2-407" name="__codelineno-2-407" href="#__codelineno-2-407"></a># TYPE go_memstats_gc_cpu_fraction gauge
+</span><span id="__span-2-408"><a id="__codelineno-2-408" name="__codelineno-2-408" href="#__codelineno-2-408"></a>go_memstats_gc_cpu_fraction 0
+</span><span id="__span-2-409"><a id="__codelineno-2-409" name="__codelineno-2-409" href="#__codelineno-2-409"></a># HELP go_memstats_gc_sys_bytes Number of bytes used for garbage collection system metadata.
+</span><span id="__span-2-410"><a id="__codelineno-2-410" name="__codelineno-2-410" href="#__codelineno-2-410"></a># TYPE go_memstats_gc_sys_bytes gauge
+</span><span id="__span-2-411"><a id="__codelineno-2-411" name="__codelineno-2-411" href="#__codelineno-2-411"></a>go_memstats_gc_sys_bytes 1.3159296e+07
+</span><span id="__span-2-412"><a id="__codelineno-2-412" name="__codelineno-2-412" href="#__codelineno-2-412"></a># HELP go_memstats_heap_alloc_bytes Number of heap bytes allocated and still in use.
+</span><span id="__span-2-413"><a id="__codelineno-2-413" name="__codelineno-2-413" href="#__codelineno-2-413"></a># TYPE go_memstats_heap_alloc_bytes gauge
+</span><span id="__span-2-414"><a id="__codelineno-2-414" name="__codelineno-2-414" href="#__codelineno-2-414"></a>go_memstats_heap_alloc_bytes 3.9460552e+07
+</span><span id="__span-2-415"><a id="__codelineno-2-415" name="__codelineno-2-415" href="#__codelineno-2-415"></a># HELP go_memstats_heap_idle_bytes Number of heap bytes waiting to be used.
+</span><span id="__span-2-416"><a id="__codelineno-2-416" name="__codelineno-2-416" href="#__codelineno-2-416"></a># TYPE go_memstats_heap_idle_bytes gauge
+</span><span id="__span-2-417"><a id="__codelineno-2-417" name="__codelineno-2-417" href="#__codelineno-2-417"></a>go_memstats_heap_idle_bytes 2.7697152e+07
+</span><span id="__span-2-418"><a id="__codelineno-2-418" name="__codelineno-2-418" href="#__codelineno-2-418"></a># HELP go_memstats_heap_inuse_bytes Number of heap bytes that are in use.
+</span><span id="__span-2-419"><a id="__codelineno-2-419" name="__codelineno-2-419" href="#__codelineno-2-419"></a># TYPE go_memstats_heap_inuse_bytes gauge
+</span><span id="__span-2-420"><a id="__codelineno-2-420" name="__codelineno-2-420" href="#__codelineno-2-420"></a>go_memstats_heap_inuse_bytes 4.9963008e+07
+</span><span id="__span-2-421"><a id="__codelineno-2-421" name="__codelineno-2-421" href="#__codelineno-2-421"></a># HELP go_memstats_heap_objects Number of allocated objects.
+</span><span id="__span-2-422"><a id="__codelineno-2-422" name="__codelineno-2-422" href="#__codelineno-2-422"></a># TYPE go_memstats_heap_objects gauge
+</span><span id="__span-2-423"><a id="__codelineno-2-423" name="__codelineno-2-423" href="#__codelineno-2-423"></a>go_memstats_heap_objects 281196
+</span><span id="__span-2-424"><a id="__codelineno-2-424" name="__codelineno-2-424" href="#__codelineno-2-424"></a># HELP go_memstats_heap_released_bytes Number of heap bytes released to OS.
+</span><span id="__span-2-425"><a id="__codelineno-2-425" name="__codelineno-2-425" href="#__codelineno-2-425"></a># TYPE go_memstats_heap_released_bytes gauge
+</span><span id="__span-2-426"><a id="__codelineno-2-426" name="__codelineno-2-426" href="#__codelineno-2-426"></a>go_memstats_heap_released_bytes 1.908736e+07
+</span><span id="__span-2-427"><a id="__codelineno-2-427" name="__codelineno-2-427" href="#__codelineno-2-427"></a># HELP go_memstats_heap_sys_bytes Number of heap bytes obtained from system.
+</span><span id="__span-2-428"><a id="__codelineno-2-428" name="__codelineno-2-428" href="#__codelineno-2-428"></a># TYPE go_memstats_heap_sys_bytes gauge
+</span><span id="__span-2-429"><a id="__codelineno-2-429" name="__codelineno-2-429" href="#__codelineno-2-429"></a>go_memstats_heap_sys_bytes 7.766016e+07
+</span><span id="__span-2-430"><a id="__codelineno-2-430" name="__codelineno-2-430" href="#__codelineno-2-430"></a># HELP go_memstats_last_gc_time_seconds Number of seconds since 1970 of last garbage collection.
+</span><span id="__span-2-431"><a id="__codelineno-2-431" name="__codelineno-2-431" href="#__codelineno-2-431"></a># TYPE go_memstats_last_gc_time_seconds gauge
+</span><span id="__span-2-432"><a id="__codelineno-2-432" name="__codelineno-2-432" href="#__codelineno-2-432"></a>go_memstats_last_gc_time_seconds 1.7004618572108061e+09
+</span><span id="__span-2-433"><a id="__codelineno-2-433" name="__codelineno-2-433" href="#__codelineno-2-433"></a># HELP go_memstats_lookups_total Total number of pointer lookups.
+</span><span id="__span-2-434"><a id="__codelineno-2-434" name="__codelineno-2-434" href="#__codelineno-2-434"></a># TYPE go_memstats_lookups_total counter
+</span><span id="__span-2-435"><a id="__codelineno-2-435" name="__codelineno-2-435" href="#__codelineno-2-435"></a>go_memstats_lookups_total 0
+</span><span id="__span-2-436"><a id="__codelineno-2-436" name="__codelineno-2-436" href="#__codelineno-2-436"></a># HELP go_memstats_mallocs_total Total number of mallocs.
+</span><span id="__span-2-437"><a id="__codelineno-2-437" name="__codelineno-2-437" href="#__codelineno-2-437"></a># TYPE go_memstats_mallocs_total counter
+</span><span id="__span-2-438"><a id="__codelineno-2-438" name="__codelineno-2-438" href="#__codelineno-2-438"></a>go_memstats_mallocs_total 4.6346229103e+10
+</span><span id="__span-2-439"><a id="__codelineno-2-439" name="__codelineno-2-439" href="#__codelineno-2-439"></a># HELP go_memstats_mcache_inuse_bytes Number of bytes in use by mcache structures.
+</span><span id="__span-2-440"><a id="__codelineno-2-440" name="__codelineno-2-440" href="#__codelineno-2-440"></a># TYPE go_memstats_mcache_inuse_bytes gauge
+</span><span id="__span-2-441"><a id="__codelineno-2-441" name="__codelineno-2-441" href="#__codelineno-2-441"></a>go_memstats_mcache_inuse_bytes 4800
+</span><span id="__span-2-442"><a id="__codelineno-2-442" name="__codelineno-2-442" href="#__codelineno-2-442"></a># HELP go_memstats_mcache_sys_bytes Number of bytes used for mcache structures obtained from system.
+</span><span id="__span-2-443"><a id="__codelineno-2-443" name="__codelineno-2-443" href="#__codelineno-2-443"></a># TYPE go_memstats_mcache_sys_bytes gauge
+</span><span id="__span-2-444"><a id="__codelineno-2-444" name="__codelineno-2-444" href="#__codelineno-2-444"></a>go_memstats_mcache_sys_bytes 15600
+</span><span id="__span-2-445"><a id="__codelineno-2-445" name="__codelineno-2-445" href="#__codelineno-2-445"></a># HELP go_memstats_mspan_inuse_bytes Number of bytes in use by mspan structures.
+</span><span id="__span-2-446"><a id="__codelineno-2-446" name="__codelineno-2-446" href="#__codelineno-2-446"></a># TYPE go_memstats_mspan_inuse_bytes gauge
+</span><span id="__span-2-447"><a id="__codelineno-2-447" name="__codelineno-2-447" href="#__codelineno-2-447"></a>go_memstats_mspan_inuse_bytes 649584
+</span><span id="__span-2-448"><a id="__codelineno-2-448" name="__codelineno-2-448" href="#__codelineno-2-448"></a># HELP go_memstats_mspan_sys_bytes Number of bytes used for mspan structures obtained from system.
+</span><span id="__span-2-449"><a id="__codelineno-2-449" name="__codelineno-2-449" href="#__codelineno-2-449"></a># TYPE go_memstats_mspan_sys_bytes gauge
+</span><span id="__span-2-450"><a id="__codelineno-2-450" name="__codelineno-2-450" href="#__codelineno-2-450"></a>go_memstats_mspan_sys_bytes 1.090224e+06
+</span><span id="__span-2-451"><a id="__codelineno-2-451" name="__codelineno-2-451" href="#__codelineno-2-451"></a># HELP go_memstats_next_gc_bytes Number of heap bytes when next garbage collection will take place.
+</span><span id="__span-2-452"><a id="__codelineno-2-452" name="__codelineno-2-452" href="#__codelineno-2-452"></a># TYPE go_memstats_next_gc_bytes gauge
+</span><span id="__span-2-453"><a id="__codelineno-2-453" name="__codelineno-2-453" href="#__codelineno-2-453"></a>go_memstats_next_gc_bytes 5.1911216e+07
+</span><span id="__span-2-454"><a id="__codelineno-2-454" name="__codelineno-2-454" href="#__codelineno-2-454"></a># HELP go_memstats_other_sys_bytes Number of bytes used for other system allocations.
+</span><span id="__span-2-455"><a id="__codelineno-2-455" name="__codelineno-2-455" href="#__codelineno-2-455"></a># TYPE go_memstats_other_sys_bytes gauge
+</span><span id="__span-2-456"><a id="__codelineno-2-456" name="__codelineno-2-456" href="#__codelineno-2-456"></a>go_memstats_other_sys_bytes 1.050192e+06
+</span><span id="__span-2-457"><a id="__codelineno-2-457" name="__codelineno-2-457" href="#__codelineno-2-457"></a># HELP go_memstats_stack_inuse_bytes Number of bytes in use by the stack allocator.
+</span><span id="__span-2-458"><a id="__codelineno-2-458" name="__codelineno-2-458" href="#__codelineno-2-458"></a># TYPE go_memstats_stack_inuse_bytes gauge
+</span><span id="__span-2-459"><a id="__codelineno-2-459" name="__codelineno-2-459" href="#__codelineno-2-459"></a>go_memstats_stack_inuse_bytes 2.031616e+06
+</span><span id="__span-2-460"><a id="__codelineno-2-460" name="__codelineno-2-460" href="#__codelineno-2-460"></a># HELP go_memstats_stack_sys_bytes Number of bytes obtained from system for stack allocator.
+</span><span id="__span-2-461"><a id="__codelineno-2-461" name="__codelineno-2-461" href="#__codelineno-2-461"></a># TYPE go_memstats_stack_sys_bytes gauge
+</span><span id="__span-2-462"><a id="__codelineno-2-462" name="__codelineno-2-462" href="#__codelineno-2-462"></a>go_memstats_stack_sys_bytes 2.031616e+06
+</span><span id="__span-2-463"><a id="__codelineno-2-463" name="__codelineno-2-463" href="#__codelineno-2-463"></a># HELP go_memstats_sys_bytes Number of bytes obtained from system.
+</span><span id="__span-2-464"><a id="__codelineno-2-464" name="__codelineno-2-464" href="#__codelineno-2-464"></a># TYPE go_memstats_sys_bytes gauge
+</span><span id="__span-2-465"><a id="__codelineno-2-465" name="__codelineno-2-465" href="#__codelineno-2-465"></a>go_memstats_sys_bytes 9.5012896e+07
+</span><span id="__span-2-466"><a id="__codelineno-2-466" name="__codelineno-2-466" href="#__codelineno-2-466"></a># HELP go_sched_gomaxprocs_threads The current runtime.GOMAXPROCS setting, or the number of operating system threads that can execute user-level Go code simultaneously.
+</span><span id="__span-2-467"><a id="__codelineno-2-467" name="__codelineno-2-467" href="#__codelineno-2-467"></a># TYPE go_sched_gomaxprocs_threads gauge
+</span><span id="__span-2-468"><a id="__codelineno-2-468" name="__codelineno-2-468" href="#__codelineno-2-468"></a>go_sched_gomaxprocs_threads 4
+</span><span id="__span-2-469"><a id="__codelineno-2-469" name="__codelineno-2-469" href="#__codelineno-2-469"></a># HELP go_sched_goroutines_goroutines Count of live goroutines.
+</span><span id="__span-2-470"><a id="__codelineno-2-470" name="__codelineno-2-470" href="#__codelineno-2-470"></a># TYPE go_sched_goroutines_goroutines gauge
+</span><span id="__span-2-471"><a id="__codelineno-2-471" name="__codelineno-2-471" href="#__codelineno-2-471"></a>go_sched_goroutines_goroutines 90
+</span><span id="__span-2-472"><a id="__codelineno-2-472" name="__codelineno-2-472" href="#__codelineno-2-472"></a># HELP go_sched_latencies_seconds Distribution of the time goroutines have spent in the scheduler in a runnable state before actually running.
+</span><span id="__span-2-473"><a id="__codelineno-2-473" name="__codelineno-2-473" href="#__codelineno-2-473"></a># TYPE go_sched_latencies_seconds histogram
+</span><span id="__span-2-474"><a id="__codelineno-2-474" name="__codelineno-2-474" href="#__codelineno-2-474"></a>go_sched_latencies_seconds_bucket{le=&quot;-5e-324&quot;} 0
+</span><span id="__span-2-475"><a id="__codelineno-2-475" name="__codelineno-2-475" href="#__codelineno-2-475"></a>go_sched_latencies_seconds_bucket{le=&quot;9.999999999999999e-10&quot;} 2.09033415e+08
+</span><span id="__span-2-476"><a id="__codelineno-2-476" name="__codelineno-2-476" href="#__codelineno-2-476"></a>go_sched_latencies_seconds_bucket{le=&quot;9.999999999999999e-09&quot;} 2.09033415e+08
+</span><span id="__span-2-477"><a id="__codelineno-2-477" name="__codelineno-2-477" href="#__codelineno-2-477"></a>go_sched_latencies_seconds_bucket{le=&quot;9.999999999999998e-08&quot;} 2.11586382e+08
+</span><span id="__span-2-478"><a id="__codelineno-2-478" name="__codelineno-2-478" href="#__codelineno-2-478"></a>go_sched_latencies_seconds_bucket{le=&quot;1.0239999999999999e-06&quot;} 5.18157946e+08
+</span><span id="__span-2-479"><a id="__codelineno-2-479" name="__codelineno-2-479" href="#__codelineno-2-479"></a>go_sched_latencies_seconds_bucket{le=&quot;1.0239999999999999e-05&quot;} 5.3220367e+08
+</span><span id="__span-2-480"><a id="__codelineno-2-480" name="__codelineno-2-480" href="#__codelineno-2-480"></a>go_sched_latencies_seconds_bucket{le=&quot;0.00010239999999999998&quot;} 5.47874447e+08
+</span><span id="__span-2-481"><a id="__codelineno-2-481" name="__codelineno-2-481" href="#__codelineno-2-481"></a>go_sched_latencies_seconds_bucket{le=&quot;0.0010485759999999998&quot;} 5.50538585e+08
+</span><span id="__span-2-482"><a id="__codelineno-2-482" name="__codelineno-2-482" href="#__codelineno-2-482"></a>go_sched_latencies_seconds_bucket{le=&quot;0.010485759999999998&quot;} 5.50741317e+08
+</span><span id="__span-2-483"><a id="__codelineno-2-483" name="__codelineno-2-483" href="#__codelineno-2-483"></a>go_sched_latencies_seconds_bucket{le=&quot;0.10485759999999998&quot;} 5.50746078e+08
+</span><span id="__span-2-484"><a id="__codelineno-2-484" name="__codelineno-2-484" href="#__codelineno-2-484"></a>go_sched_latencies_seconds_bucket{le=&quot;+Inf&quot;} 5.50746129e+08
+</span><span id="__span-2-485"><a id="__codelineno-2-485" name="__codelineno-2-485" href="#__codelineno-2-485"></a>go_sched_latencies_seconds_sum NaN
+</span><span id="__span-2-486"><a id="__codelineno-2-486" name="__codelineno-2-486" href="#__codelineno-2-486"></a>go_sched_latencies_seconds_count 5.50746129e+08
+</span><span id="__span-2-487"><a id="__codelineno-2-487" name="__codelineno-2-487" href="#__codelineno-2-487"></a># HELP go_threads Number of OS threads created.
+</span><span id="__span-2-488"><a id="__codelineno-2-488" name="__codelineno-2-488" href="#__codelineno-2-488"></a># TYPE go_threads gauge
+</span><span id="__span-2-489"><a id="__codelineno-2-489" name="__codelineno-2-489" href="#__codelineno-2-489"></a>go_threads 14
+</span><span id="__span-2-490"><a id="__codelineno-2-490" name="__codelineno-2-490" href="#__codelineno-2-490"></a># HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+</span><span id="__span-2-491"><a id="__codelineno-2-491" name="__codelineno-2-491" href="#__codelineno-2-491"></a># TYPE process_cpu_seconds_total counter
+</span><span id="__span-2-492"><a id="__codelineno-2-492" name="__codelineno-2-492" href="#__codelineno-2-492"></a>process_cpu_seconds_total 92942.1
+</span><span id="__span-2-493"><a id="__codelineno-2-493" name="__codelineno-2-493" href="#__codelineno-2-493"></a># HELP process_max_fds Maximum number of open file descriptors.
+</span><span id="__span-2-494"><a id="__codelineno-2-494" name="__codelineno-2-494" href="#__codelineno-2-494"></a># TYPE process_max_fds gauge
+</span><span id="__span-2-495"><a id="__codelineno-2-495" name="__codelineno-2-495" href="#__codelineno-2-495"></a>process_max_fds 1.048576e+06
+</span><span id="__span-2-496"><a id="__codelineno-2-496" name="__codelineno-2-496" href="#__codelineno-2-496"></a># HELP process_open_fds Number of open file descriptors.
+</span><span id="__span-2-497"><a id="__codelineno-2-497" name="__codelineno-2-497" href="#__codelineno-2-497"></a># TYPE process_open_fds gauge
+</span><span id="__span-2-498"><a id="__codelineno-2-498" name="__codelineno-2-498" href="#__codelineno-2-498"></a>process_open_fds 16
+</span><span id="__span-2-499"><a id="__codelineno-2-499" name="__codelineno-2-499" href="#__codelineno-2-499"></a># HELP process_resident_memory_bytes Resident memory size in bytes.
+</span><span id="__span-2-500"><a id="__codelineno-2-500" name="__codelineno-2-500" href="#__codelineno-2-500"></a># TYPE process_resident_memory_bytes gauge
+</span><span id="__span-2-501"><a id="__codelineno-2-501" name="__codelineno-2-501" href="#__codelineno-2-501"></a>process_resident_memory_bytes 9.7079296e+07
+</span><span id="__span-2-502"><a id="__codelineno-2-502" name="__codelineno-2-502" href="#__codelineno-2-502"></a># HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+</span><span id="__span-2-503"><a id="__codelineno-2-503" name="__codelineno-2-503" href="#__codelineno-2-503"></a># TYPE process_start_time_seconds gauge
+</span><span id="__span-2-504"><a id="__codelineno-2-504" name="__codelineno-2-504" href="#__codelineno-2-504"></a>process_start_time_seconds 1.69236739071e+09
+</span><span id="__span-2-505"><a id="__codelineno-2-505" name="__codelineno-2-505" href="#__codelineno-2-505"></a># HELP process_virtual_memory_bytes Virtual memory size in bytes.
+</span><span id="__span-2-506"><a id="__codelineno-2-506" name="__codelineno-2-506" href="#__codelineno-2-506"></a># TYPE process_virtual_memory_bytes gauge
+</span><span id="__span-2-507"><a id="__codelineno-2-507" name="__codelineno-2-507" href="#__codelineno-2-507"></a>process_virtual_memory_bytes 1.767079936e+09
+</span><span id="__span-2-508"><a id="__codelineno-2-508" name="__codelineno-2-508" href="#__codelineno-2-508"></a># HELP process_virtual_memory_max_bytes Maximum amount of virtual memory available in bytes.
+</span><span id="__span-2-509"><a id="__codelineno-2-509" name="__codelineno-2-509" href="#__codelineno-2-509"></a># TYPE process_virtual_memory_max_bytes gauge
+</span><span id="__span-2-510"><a id="__codelineno-2-510" name="__codelineno-2-510" href="#__codelineno-2-510"></a>process_virtual_memory_max_bytes 1.8446744073709552e+19
+</span><span id="__span-2-511"><a id="__codelineno-2-511" name="__codelineno-2-511" href="#__codelineno-2-511"></a># HELP promhttp_metric_handler_requests_in_flight Current number of scrapes being served.
+</span><span id="__span-2-512"><a id="__codelineno-2-512" name="__codelineno-2-512" href="#__codelineno-2-512"></a># TYPE promhttp_metric_handler_requests_in_flight gauge
+</span><span id="__span-2-513"><a id="__codelineno-2-513" name="__codelineno-2-513" href="#__codelineno-2-513"></a>promhttp_metric_handler_requests_in_flight 1
+</span><span id="__span-2-514"><a id="__codelineno-2-514" name="__codelineno-2-514" href="#__codelineno-2-514"></a># HELP promhttp_metric_handler_requests_total Total number of scrapes by HTTP status code.
+</span><span id="__span-2-515"><a id="__codelineno-2-515" name="__codelineno-2-515" href="#__codelineno-2-515"></a># TYPE promhttp_metric_handler_requests_total counter
+</span><span id="__span-2-516"><a id="__codelineno-2-516" name="__codelineno-2-516" href="#__codelineno-2-516"></a>promhttp_metric_handler_requests_total{code=&quot;200&quot;} 588020
+</span><span id="__span-2-517"><a id="__codelineno-2-517" name="__codelineno-2-517" href="#__codelineno-2-517"></a>promhttp_metric_handler_requests_total{code=&quot;500&quot;} 0
+</span><span id="__span-2-518"><a id="__codelineno-2-518" name="__codelineno-2-518" href="#__codelineno-2-518"></a>promhttp_metric_handler_requests_total{code=&quot;503&quot;} 0
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

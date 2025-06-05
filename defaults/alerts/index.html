@@ -1,0 +1,6451 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive monitoring solution for Kubernetes">
+      
+      
+      
+        <link rel="canonical" href="https://denifilatoff.github.io/qubership-monitoring-operator/defaults/alerts/">
+      
+      
+        <link rel="prev" href="../metrics/">
+      
+      
+        <link rel="next" href="../../user-guides/manual-create-crds/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Default Alerts - Qubership Monitoring Operator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#alerts-oob" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Qubership Monitoring Operator" class="md-header__button md-logo" aria-label="Qubership Monitoring Operator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Qubership Monitoring Operator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Default Alerts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="cyan"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/denifilatoff/qubership-monitoring-operator" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    qubership-monitoring-operator
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../installation/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Installation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Architecture & Components
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../configuration/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Configuration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cookbook/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Cookbook
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../integration/integrations/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Integrations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../monitoring-configuration/authentication/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Security
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../troubleshooting/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Qubership Monitoring Operator" class="md-nav__button md-logo" aria-label="Qubership Monitoring Operator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Qubership Monitoring Operator
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/denifilatoff/qubership-monitoring-operator" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    qubership-monitoring-operator
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../installation/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/basic-components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Components Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Storage Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/post-deploy-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post-Deploy Checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../installation/components/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Component Configuration
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Component Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/graphite-remote-adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Graphite Remote Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/promxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Promxy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/pushgateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pushgateway
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/pprof/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Profiling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7_6" id="__nav_2_7_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Exporters
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            Exporters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/exporters/blackbox-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blackbox Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/exporters/cloudwatch-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cloudwatch Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/exporters/promitor-agent-scraper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Promitor Agent Scraper
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/exporters/stackdriver-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Stackdriver Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/exporters/cert-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cert Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/exporters/network-latency-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Network Latency Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/exporters/version-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/exporters/kube-state-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kube State Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/exporters/node-exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Node Exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7_7" id="__nav_2_7_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    VictoriaMetrics Stack
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            VictoriaMetrics Stack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/victoriametrics-stack/victoriametrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/victoriametrics-stack/vmagent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMAgent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/victoriametrics-stack/vmsingle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMSingle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/victoriametrics-stack/vmalert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMAlert
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/victoriametrics-stack/vmalertmanager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMAlertManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/victoriametrics-stack/vmauth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMAUTH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/victoriametrics-stack/vmuser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VMUser
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/victoriametrics-stack/vm-operator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM Operator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7_8" id="__nav_2_7_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Stack
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7_8">
+            <span class="md-nav__icon md-icon"></span>
+            Prometheus Stack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/prometheus-stack/prometheus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/prometheus-stack/prometheus-adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/prometheus-stack/prometheus-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Rules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/prometheus-stack/alertmanager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AlertManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7_9" id="__nav_2_7_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Grafana Stack
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            Grafana Stack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/components/grafana-stack/grafana/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Grafana
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture & Components
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture & Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/platform-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Platform Monitoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/prometheus-adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/custom-scale-metric-rule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Scale Metric Rule
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guides/best-practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Best Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Alert Configuration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Alert Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-configuration/alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alert Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guides/alert-best-practice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alert Best Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metrics Collection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Metrics Collection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metrics-collection/exporters-and-metrics-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-configuration/limits-metric-collection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Limits & Collection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guides/horizontal-autoscaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Horizontal Autoscaling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Default Configurations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Default Configurations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Default Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Default Alerts
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Default Alerts
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring-operator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring-operator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#heartbeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Heartbeat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heartbeat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selfmonitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      SelfMonitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SelfMonitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alertmanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      AlertManager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AlertManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetesalerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      KubernetesAlerts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KubernetesAlerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodeprocesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      NodeProcesses
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NodeProcesses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodeexporters" class="md-nav__link">
+    <span class="md-ellipsis">
+      NodeExporters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NodeExporters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dockercontainers" class="md-nav__link">
+    <span class="md-ellipsis">
+      DockerContainers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DockerContainers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hamode" class="md-nav__link">
+    <span class="md-ellipsis">
+      HAmode
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HAmode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haproxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      HAproxy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HAproxy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Etcd
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Etcd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginxingressalerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      NginxIngressAlerts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NginxIngressAlerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corednsalerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreDnsAlerts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CoreDnsAlerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dralerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      DRAlerts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DRAlerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backupalerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      BackupAlerts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BackupAlerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cert-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cert-exporter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cert-exporter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cert-exporter-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cert-exporter rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cert-exporter rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guides/manual-create-crds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual CRD Creation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_8" id="__nav_4_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_8_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/components/cloudwatch-exporter-config/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Component Configurations
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            Component Configurations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_8_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/custom-resources/alertmanagerconfig/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Custom Resources
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_8_3" id="__nav_4_8_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_8_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8_3">
+            <span class="md-nav__icon md-icon"></span>
+            Custom Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/custom-resources/grafana-dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Grafana Dashboards
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/custom-resources/grafana-datasource/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Grafana DataSources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/custom-resources/pod-monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pod Monitors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/custom-resources/prometheus-rule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Rules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/custom-resources/service-monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Service Monitors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cookbook/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Cookbook
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Cookbook
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Integrations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Integrations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integration/integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cloud Providers
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud Providers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integration/amazon-aws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Amazon AWS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integration/azure-monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integration/google-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Google Cloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Other Systems
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Other Systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integration/ibm-netcool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IBM Netcool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/custom-resources/custom-endpoint/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Integration Examples
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Integration Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Authentication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            Authentication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-configuration/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring Auth
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metrics-collection/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics Collection Auth
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    TLS Configuration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            TLS Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-configuration/tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring TLS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metrics-collection/tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics Collection TLS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-configuration/route-ingress-tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Route/Ingress TLS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/custom-resources/service-with-tls/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Security Examples
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Security Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Operations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resource-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resource Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-configuration/disaster-and-recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Disaster Recovery
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guides/password-change/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Password Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_6" id="__nav_8_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Migration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_6">
+            <span class="md-nav__icon md-icon"></span>
+            Migration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guides/migrate-from-angularjs-grafana-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Grafana Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guides/migrate-from-prometheus-to-victoriametrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus to VictoriaMetrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guides/victoriametrics-data-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VictoriaMetrics Data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/custom-resources/service-with-alarms/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Operations Examples
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8_7" id="__nav_8_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_7">
+            <span class="md-nav__icon md-icon"></span>
+            Operations Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/custom-resources/service-with-dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Service with Dashboard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring-operator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring-operator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#heartbeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Heartbeat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heartbeat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selfmonitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      SelfMonitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SelfMonitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alertmanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      AlertManager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AlertManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetesalerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      KubernetesAlerts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KubernetesAlerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodeprocesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      NodeProcesses
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NodeProcesses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodeexporters" class="md-nav__link">
+    <span class="md-ellipsis">
+      NodeExporters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NodeExporters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dockercontainers" class="md-nav__link">
+    <span class="md-ellipsis">
+      DockerContainers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DockerContainers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hamode" class="md-nav__link">
+    <span class="md-ellipsis">
+      HAmode
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HAmode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haproxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      HAproxy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HAproxy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Etcd
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Etcd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginxingressalerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      NginxIngressAlerts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NginxIngressAlerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corednsalerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreDnsAlerts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CoreDnsAlerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dralerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      DRAlerts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DRAlerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backupalerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      BackupAlerts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BackupAlerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cert-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cert-exporter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cert-exporter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cert-exporter-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cert-exporter rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cert-exporter rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alerting-rules_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alerting rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="alerts-oob">Alerts OOB<a class="headerlink" href="#alerts-oob" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="#alerts-oob">Alerts OOB</a></li>
+<li><a href="#monitoring-operator">Monitoring-operator</a><ul>
+<li><a href="#heartbeat">Heartbeat</a></li>
+<li><a href="#selfmonitoring">SelfMonitoring</a></li>
+<li><a href="#alertmanager">AlertManager</a></li>
+<li><a href="#kubernetesalerts">KubernetesAlerts</a></li>
+<li><a href="#nodeprocesses">NodeProcesses</a></li>
+<li><a href="#nodeexporters">NodeExporters</a></li>
+<li><a href="#dockercontainers">DockerContainers</a></li>
+<li><a href="#hamode">HAmode</a></li>
+<li><a href="#haproxy">HAproxy</a></li>
+<li><a href="#etcd">Etcd</a></li>
+<li><a href="#nginxingressalerts">NginxIngressAlerts</a></li>
+<li><a href="#corednsalerts">CoreDnsAlerts</a></li>
+<li><a href="#dralerts">DRAlerts</a></li>
+<li><a href="#backupalerts">BackupAlerts</a></li>
+</ul>
+</li>
+<li><a href="#cert-exporter">Cert-exporter</a></li>
+</ul>
+<h2 id="monitoring-operator">Monitoring-operator<a class="headerlink" href="#monitoring-operator" title="Permanent link">&para;</a></h2>
+<h3 id="heartbeat">Heartbeat<a class="headerlink" href="#heartbeat" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules">Alerting rules<a class="headerlink" href="#alerting-rules" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeadMansSwitch</td>
+<td>An always-firing Dead Man's Switch alert (instance {{ $labels.instance }})</td>
+<td>3m</td>
+<td>information</td>
+<td>vector(1)</td>
+<td>This is an alert meant to ensure that the entire alerting pipeline is functional. This alert should always be firing.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="selfmonitoring">SelfMonitoring<a class="headerlink" href="#selfmonitoring" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_1">Alerting rules<a class="headerlink" href="#alerting-rules_1" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PrometheusJobMissing</td>
+<td>Prometheus job missing (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>absent(up{job=~".*prometheus-pod-monitor"})</td>
+<td>A Prometheus job has disappeared<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTargetMissing</td>
+<td>Prometheus target missing (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>high</td>
+<td>up == 0</td>
+<td>A Prometheus target has disappeared. An exporter might be crashed.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusAllTargetsMissing</td>
+<td>Prometheus all targets missing (job {{ $labels.job }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>count by(job) (up) == count by(job) (up == 0)</td>
+<td>A Prometheus job does not have living target anymore.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusConfigurationReloadFailure</td>
+<td>Prometheus configuration reload failure (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>prometheus_config_last_reload_successful != 1</td>
+<td>Prometheus configuration reload error<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTooManyRestarts</td>
+<td>Prometheus too many restarts (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>changes(process_start_time_seconds{job=~".*prometheus-pod-monitor"}[15m]) &gt; 2</td>
+<td>Prometheus has restarted more than twice in the last 15 minutes. It might be crashlooping.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusRuleEvaluationFailures</td>
+<td>Prometheus rule evaluation failures (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>increase(prometheus_rule_evaluation_failures_total[3m]) &gt; 0</td>
+<td>Prometheus encountered {{ $value }} rule evaluation failures, leading to potentially ignored alerts.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTemplateTextExpansionFailures</td>
+<td>Prometheus template text expansion failures (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>increase(prometheus_template_text_expansion_failures_total[3m]) &gt; 0</td>
+<td>Prometheus encountered {{ $value }} template text expansion failures<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusRuleEvaluationSlow</td>
+<td>Prometheus rule evaluation slow (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>prometheus_rule_group_last_duration_seconds &gt; prometheus_rule_group_interval_seconds</td>
+<td>Prometheus rule evaluation took more time than the scheduled interval. I indicates a slower storage backend access or too complex query.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusNotificationsBacklog</td>
+<td>Prometheus notifications backlog (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>min_over_time(prometheus_notifications_queue_length[10m]) &gt; 0</td>
+<td>The Prometheus notification queue has not been empty for 10 minutes<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTargetEmpty</td>
+<td>Prometheus target empty (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>prometheus_sd_discovered_targets == 0</td>
+<td>Prometheus has no target in service discovery<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTargetScrapingSlowTwoMinutes</td>
+<td>Prometheus target scraping slow (instance {{ $labels.instance }}) for 2 minutes</td>
+<td>5m</td>
+<td>warning</td>
+<td>(prometheus_target_interval_length_seconds{interval="2m0s", quantile="0.9"}) &gt; 135</td>
+<td>Prometheus is scraping exporters slowly<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTargetScrapingSlowOneMinute</td>
+<td>Prometheus target scraping slow (instance {{ $labels.instance }}) for 1 minute</td>
+<td>5m</td>
+<td>warning</td>
+<td>(prometheus_target_interval_length_seconds{interval="1m0s", quantile="0.9"}) &gt; 70</td>
+<td>Prometheus is scraping exporters slowly<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTargetScrapingSlowThirtySeconds</td>
+<td>Prometheus target scraping slow (instance {{ $labels.instance }}) for 30 seconds</td>
+<td>5m</td>
+<td>warning</td>
+<td>(prometheus_target_interval_length_seconds{interval="30s", quantile="0.9"}) &gt; 35</td>
+<td>Prometheus is scraping exporters slowly<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusLargeScrape</td>
+<td>Prometheus large scrape (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>increase(prometheus_target_scrapes_exceeded_sample_limit_total[10m]) &gt; 10</td>
+<td>Prometheus has many scrapes that exceed the sample limit<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTargetScrapeDuplicate</td>
+<td>Prometheus target scrape duplicate (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>increase(prometheus_target_scrapes_sample_duplicate_timestamp_total[5m]) &gt; 0</td>
+<td>Prometheus has many samples rejected due to duplicate timestamps but different values<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTsdbCheckpointCreationFailures</td>
+<td>Prometheus TSDB checkpoint creation failures (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>increase(prometheus_tsdb_checkpoint_creations_failed_total[3m]) &gt; 0</td>
+<td>Prometheus encountered {{ $value }} checkpoint creation failures<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTsdbCheckpointDeletionFailures</td>
+<td>Prometheus TSDB checkpoint deletion failures (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>increase(prometheus_tsdb_checkpoint_deletions_failed_total[3m]) &gt; 0</td>
+<td>Prometheus encountered {{ $value }} checkpoint deletion failures<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTsdbCompactionsFailed</td>
+<td>Prometheus TSDB compactions failed (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>increase(prometheus_tsdb_compactions_failed_total[3m]) &gt; 0</td>
+<td>Prometheus encountered {{ $value }} TSDB compactions failures<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTsdbHeadTruncationsFailed</td>
+<td>Prometheus TSDB head truncations failed (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>increase(prometheus_tsdb_head_truncations_failed_total[3m]) &gt; 0</td>
+<td>Prometheus encountered {{ $value }} TSDB head truncation failures<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTsdbReloadFailures</td>
+<td>Prometheus TSDB reload failures (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>increase(prometheus_tsdb_reloads_failures_total[3m]) &gt; 0</td>
+<td>Prometheus encountered {{ $value }} TSDB reload failures<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTsdbWalCorruptions</td>
+<td>Prometheus TSDB WAL corruptions (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>increase(prometheus_tsdb_wal_corruptions_total[3m]) &gt; 0</td>
+<td>Prometheus encountered {{ $value }} TSDB WAL corruptions<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusTsdbWalTruncationsFailed</td>
+<td>Prometheus TSDB WAL truncations failed (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>increase(prometheus_tsdb_wal_truncations_failed_total[3m]) &gt; 0</td>
+<td>Prometheus encountered {{ $value }} TSDB WAL truncation failures<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="alertmanager">AlertManager<a class="headerlink" href="#alertmanager" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_2">Alerting rules<a class="headerlink" href="#alerting-rules_2" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PrometheusAlertmanagerConfigurationReloadFailure</td>
+<td>Prometheus AlertManager configuration reload failure (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>alertmanager_config_last_reload_successful != 1</td>
+<td>AlertManager configuration reload error<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusNotConnectedToAlertmanager</td>
+<td>Prometheus not connected to alertmanager (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>prometheus_notifications_alertmanagers_discovered &lt; 1</td>
+<td>Prometheus cannot connect the alertmanager<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>PrometheusAlertmanagerNotificationFailing</td>
+<td>Prometheus AlertManager notification failing (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>high</td>
+<td>rate(alertmanager_notifications_failed_total[2m]) &gt; 0</td>
+<td>Alertmanager is failing sending notifications<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="kubernetesalerts">KubernetesAlerts<a class="headerlink" href="#kubernetesalerts" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_3">Alerting rules<a class="headerlink" href="#alerting-rules_3" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KubernetesNodeReady</td>
+<td>Kubernetes Node ready (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>kube_node_status_condition{condition="Ready",status="true"} == 0</td>
+<td>Node {{ $labels.node }} has been unready for a long time<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesMemoryPressure</td>
+<td>Kubernetes memory pressure (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>kube_node_status_condition{condition="MemoryPressure",status="true"} == 1</td>
+<td>{{ $labels.node }} has MemoryPressure condition<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesDiskPressure</td>
+<td>Kubernetes disk pressure (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>kube_node_status_condition{condition="DiskPressure",status="true"} == 1</td>
+<td>{{ $labels.node }} has DiskPressure condition<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesOutOfDisk</td>
+<td>Kubernetes out of disk (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>kube_node_status_condition{condition="OutOfDisk",status="true"} == 1</td>
+<td>{{ $labels.node }} has OutOfDisk condition<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesJobFailed</td>
+<td>Kubernetes Job failed (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>kube_job_status_failed &gt; 0</td>
+<td>Job {{$labels.namespace}}/{{$labels.exported_job}} failed to complete<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesCronjobSuspended</td>
+<td>Kubernetes CronJob suspended (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>kube_cronjob_spec_suspend != 0</td>
+<td>CronJob {{ $labels.namespace }}/{{ $labels.cronjob }} is suspended<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesPersistentvolumeclaimPending</td>
+<td>Kubernetes PersistentVolumeClaim pending (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>kube_persistentvolumeclaim_status_phase{phase="Pending"} == 1</td>
+<td>PersistentVolumeClaim {{ $labels.namespace }}/{{ $labels.persistentvolumeclaim }} is pending<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesPersistentvolumeError</td>
+<td>Kubernetes PersistentVolume error (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>(kube_persistentvolume_status_phase{phase=~"Failed&#124;Pending",job="kube-state-metrics"}) &gt; 0</td>
+<td>Persistent volume is in bad state<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesVolumeOutOfDiskSpaceWarning</td>
+<td>Kubernetes Volume out of disk space (instance {{ $labels.instance }})</td>
+<td>2m</td>
+<td>warning</td>
+<td>(kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes) * 100 &lt; 25</td>
+<td>Volume is almost full (&lt; 25% left)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesVolumeOutOfDiskSpaceHigh</td>
+<td>Kubernetes Volume out of disk space (instance {{ $labels.instance }})</td>
+<td>2m</td>
+<td>high</td>
+<td>(kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes) * 100 &lt; 10</td>
+<td>Volume is almost full (&lt; 10% left)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesVolumeFullInFourDays</td>
+<td>Kubernetes Volume full in four days (instance {{ $labels.instance }})</td>
+<td>10m</td>
+<td>warning</td>
+<td>predict_linear(kubelet_volume_stats_available_bytes[6h], 345600) &lt; 0</td>
+<td>{{ $labels.namespace }}/{{ $labels.persistentvolumeclaim }} is expected to fill up within four days. Currently {{ $value</td>
+<td>humanize }}% is available.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesStatefulsetDown</td>
+<td>Kubernetes StatefulSet down (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>kube_statefulset_replicas - kube_statefulset_status_replicas_ready != 0</td>
+<td>A StatefulSet went down<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesPodNotHealthy</td>
+<td>Kubernetes Pod not healthy (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>min_over_time(sum by (exported_namespace, exported_pod) (kube_pod_status_phase{phase=~"Pending&#124;Unknown&#124;Failed"})[1h:1m]) &gt; 0</td>
+<td>Pod has been in a non-ready state for longer than an hour.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesPodCrashLooping</td>
+<td>Kubernetes pod crash looping (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>(rate(kube_pod_container_status_restarts_total[15m]) * 60) * 5 &gt; 5</td>
+<td>Pod {{ $labels.pod }} is crash looping<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesReplicassetMismatch</td>
+<td>Kubernetes ReplicasSet mismatch (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>kube_replicaset_spec_replicas - kube_replicaset_status_ready_replicas != 0</td>
+<td>Deployment Replicas mismatch<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesDeploymentReplicasMismatch</td>
+<td>Kubernetes Deployment replicas mismatch (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>kube_deployment_spec_replicas - kube_deployment_status_replicas_available != 0</td>
+<td>Deployment Replicas mismatch<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesStatefulsetReplicasMismatch</td>
+<td>Kubernetes StatefulSet replicas mismatch (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>kube_statefulset_status_replicas_ready - kube_statefulset_status_replicas != 0</td>
+<td>A StatefulSet has not matched the expected number of replicas for longer than 15 minutes.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesDeploymentGenerationMismatch</td>
+<td>Kubernetes Deployment generation mismatch (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>kube_deployment_status_observed_generation - kube_deployment_metadata_generation != 0</td>
+<td>A Deployment has failed but has not been rolled back.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesStatefulsetGenerationMismatch</td>
+<td>Kubernetes StatefulSet generation mismatch (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>kube_statefulset_status_observed_generation - kube_statefulset_metadata_generation != 0</td>
+<td>A StatefulSet has failed but has not been rolled back.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesStatefulsetUpdateNotRolledOut</td>
+<td>Kubernetes StatefulSet update not rolled out (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>max without (revision) (kube_statefulset_status_current_revision unless kube_statefulset_status_update_revision) * (kube_statefulset_replicas != kube_statefulset_status_replicas_updated)</td>
+<td>StatefulSet update has not been rolled out.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesDaemonsetRolloutStuck</td>
+<td>Kubernetes DaemonSet rollout stuck (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>(((kube_daemonset_status_number_ready / kube_daemonset_status_desired_number_scheduled) * 100) &lt; 100) or (kube_daemonset_status_desired_number_scheduled - kube_daemonset_status_current_number_scheduled &gt; 0)</td>
+<td>Some Pods of DaemonSet are not scheduled or not ready<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesDaemonsetMisscheduled</td>
+<td>Kubernetes DaemonSet misscheduled (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>kube_daemonset_status_number_misscheduled &gt; 0</td>
+<td>Some DaemonSet Pods are running where they are not supposed to run<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesCronjobTooLong</td>
+<td>Kubernetes CronJob too long (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>time() - kube_cronjob_next_schedule_time &gt; 3600</td>
+<td>CronJob {{ $labels.namespace }}/{{ $labels.cronjob }} is taking more than 1h to complete.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesJobCompletion</td>
+<td>Kubernetes job completion (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>(kube_job_spec_completions - kube_job_status_succeeded &gt; 0) or (kube_job_status_failed &gt; 0)</td>
+<td>Kubernetes Job failed to complete<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesApiServerErrors</td>
+<td>Kubernetes API server errors (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>(sum(rate(apiserver_request_count{job="kube-apiserver",code=~"(?:5..)$"}[2m])) / sum(rate(apiserver_request_count{job="kube-apiserver"}[2m]))) * 100 &gt; 3</td>
+<td>Kubernetes API server is experiencing high error rate<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>ApiServerRequestsSlow</td>
+<td>API Server requests are slow(instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>histogram_quantile(0.99, rate(apiserver_request_duration_seconds_bucket{verb!="WATCH"}[5m])) &gt; 0.2</td>
+<td>HTTP requests slowing down, 99<sup>th</sup> quantile is over 0.2s for 5 minutes\n  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>ControllerWorkQueueDepth</td>
+<td>Controller work queue depth is more than 10 (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>sum(workqueue_depth) &gt; 10</td>
+<td>Controller work queue depth is more than 10<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesApiClientErrors</td>
+<td>Kubernetes API client errors (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>(sum(rate(rest_client_requests_total{code=~"(4&#124;5).."}[2m])) by (instance, job) / sum(rate(rest_client_requests_total[2m])) by (instance, job)) * 100 &gt; 5</td>
+<td>Kubernetes API client is experiencing high error rate<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesClientCertificateExpiresNextWeek</td>
+<td>Kubernetes client certificate expires next week (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>(apiserver_client_certificate_expiration_seconds_count{job="kubelet"}) &gt; 0 and histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="kubelet"}[5m]))) &lt; 604800</td>
+<td>A client certificate used to authenticate to the apiserver is expiring next week.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubernetesClientCertificateExpiresSoon</td>
+<td>Kubernetes client certificate expires soon (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>(apiserver_client_certificate_expiration_seconds_count{job="kubelet"}) &gt; 0 and histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="kubelet"}[5m]))) &lt; 86400</td>
+<td>A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="nodeprocesses">NodeProcesses<a class="headerlink" href="#nodeprocesses" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_4">Alerting rules<a class="headerlink" href="#alerting-rules_4" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CountPidsAndThreadOutOfLimit</td>
+<td>Host high PIDs and Threads usage (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>high</td>
+<td>(sum(container_processes) by (node) +  on (node) label_replace(node_processes_threads * on(instance) group_left(nodename) (node_uname_info), "node", "$1", "nodename", "(.+)")) / on (node) label_replace(node_processes_max_processes * on(instance) group_left(nodename) (node_uname_info), "node", "$1", "nodename", "(.+)") * 100 &gt; 80</td>
+<td>Sum of node's pids and threads is filling up (&lt; 20% left)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="nodeexporters">NodeExporters<a class="headerlink" href="#nodeexporters" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_5">Alerting rules<a class="headerlink" href="#alerting-rules_5" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodeDiskUsageIsMoreThanThreshold</td>
+<td>Disk usage on node &gt; 70% (instance {{ $labels.node }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>(node_filesystem_size_bytes{fstype=~"ext.*&#124;xfs", mountpoint !~".*pod.*"} - node_filesystem_free_bytes{fstype=~"ext.*&#124;xfs", mountpoint !~".*pod.*"}) * 100 / (node_filesystem_avail_bytes{fstype=~"ext.*&#124;xfs", mountpoint !~".*pod.*"} + (node_filesystem_size_bytes{fstype=~"ext.*&#124;xfs", mountpoint !~".*pod.*"} - node_filesystem_free_bytes{fstype=~"ext.*&#124;xfs", mountpoint !~".*pod.*"})) &gt; 70</td>
+<td>Node {{ $labels.node }} disk usage of {{ $labels.mountpoint }} is<br/>  VALUE = {{ $value }}%</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>NodeDiskUsageIsMoreThanThreshold</td>
+<td>Disk usage on node &gt; 90% (instance {{ $labels.node }})</td>
+<td>5m</td>
+<td>high</td>
+<td>(node_filesystem_size_bytes{fstype=~"ext.*&#124;xfs", mountpoint !~".*pod.*"} - node_filesystem_free_bytes{fstype=~"ext.*&#124;xfs", mountpoint !~".*pod.*"}) * 100 / (node_filesystem_avail_bytes{fstype=~"ext.*&#124;xfs", mountpoint !~".*pod.*"} + (node_filesystem_size_bytes{fstype=~"ext.*&#124;xfs", mountpoint !~".*pod.*"} - node_filesystem_free_bytes{fstype=~"ext.*&#124;xfs", mountpoint !~".*pod.*"})) &gt; 90</td>
+<td>Node {{ $labels.node }} disk usage of {{ $labels.mountpoint }} is<br/> VALUE = {{ $value }}%</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostOutOfMemory</td>
+<td>Host out of memory (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>((node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100) * on(instance) group_left(nodename) node_uname_info &lt; 10</td>
+<td>Node memory is filling up (&lt; 10% left)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostMemoryUnderMemoryPressure</td>
+<td>Host memory under memory pressure (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>rate(node_vmstat_pgmajfault[2m]) * on(instance) group_left(nodename) node_uname_info &gt; 1000</td>
+<td>The node is under heavy memory pressure. High rate of major page faults<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostUnusualNetworkThroughputIn</td>
+<td>Host unusual network throughput in (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>((sum by (instance) (irate(node_network_receive_bytes_total[2m])) * on(instance) group_left(nodename) node_uname_info) / 1024) / 1024 &gt; 100</td>
+<td>Host network interfaces are probably receiving too much data (&gt; 100 MB/s)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostUnusualNetworkThroughputOut</td>
+<td>Host unusual network throughput out (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>((sum by (instance) (irate(node_network_transmit_bytes_total[2m])) * on(instance) group_left(nodename) node_uname_info) / 1024) / 1024 &gt; 100</td>
+<td>Host network interfaces are probably sending too much data (&gt; 100 MB/s)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostUnusualDiskReadRate</td>
+<td>Host unusual disk read rate (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>(sum by (instance) (irate(node_disk_read_bytes_total[2m])) * on(instance) group_left(nodename) node_uname_info) / 1024 / 1024 &gt; 50</td>
+<td>Disk is probably reading too much data (&gt; 50 MB/s)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostUnusualDiskWriteRate</td>
+<td>Host unusual disk write rate (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>((sum by (instance) (irate(node_disk_written_bytes_total[2m])) * on(instance) group_left(nodename) node_uname_info) / 1024) / 1024 &gt; 50</td>
+<td>Disk is probably writing too much data (&gt; 50 MB/s)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostOutOfDiskSpace</td>
+<td>Host out of disk space (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>((node_filesystem_avail_bytes{mountpoint="/"}  * 100) / node_filesystem_size_bytes{mountpoint="/"}) * on(instance) group_left(nodename) node_uname_info &lt; 10</td>
+<td>Disk is almost full (&lt; 10% left)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostDiskWillFillIn4Hours</td>
+<td>Host disk will fill in 4 hours (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>predict_linear(node_filesystem_free_bytes{fstype!~"tmpfs"}[1h], 14400) * on(instance) group_left(nodename) node_uname_info &lt; 0</td>
+<td>Disk will fill in 4 hours at current write rate<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostOutOfInodes</td>
+<td>Host out of inodes (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>((node_filesystem_files_free{mountpoint ="/"} / node_filesystem_files{mountpoint ="/"}) * 100) * on(instance) group_left(nodename) node_uname_info &lt; 10</td>
+<td>Disk is almost running out of available inodes (&lt; 10% left)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostUnusualDiskReadLatency</td>
+<td>Host unusual disk read latency (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>(rate(node_disk_read_time_seconds_total[2m]) / rate(node_disk_reads_completed_total[2m])) * on(instance) group_left(nodename) node_uname_info &gt; 100</td>
+<td>Disk latency is growing (read operations &gt; 100ms)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostUnusualDiskWriteLatency</td>
+<td>Host unusual disk write latency (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>(rate(node_disk_write_time_seconds_total[2m]) / rate(node_disk_writes_completed_total[2m])) * on(instance) group_left(nodename) node_uname_info &gt; 100</td>
+<td>Disk latency is growing (write operations &gt; 100ms)<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HostHighCpuLoad</td>
+<td>Host high CPU load (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>100 - ((avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) by (instance) * 100) * on (instance) group_left (nodename) node_uname_info) &gt; 80</td>
+<td>CPU load is &gt; 80%<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="dockercontainers">DockerContainers<a class="headerlink" href="#dockercontainers" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_6">Alerting rules<a class="headerlink" href="#alerting-rules_6" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ContainerKilled</td>
+<td>Container killed (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>time() - container_last_seen &gt; 60</td>
+<td>A container has disappeared<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>ContainerVolumeUsage</td>
+<td>Container Volume usage (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>(1 - (sum(container_fs_inodes_free) BY (node) / sum(container_fs_inodes_total) BY (node))) * 100 &gt; 80</td>
+<td>Container Volume usage is above 80%<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>ContainerVolumeIoUsage</td>
+<td>Container Volume IO usage (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>(sum(container_fs_io_current) BY (node, name) * 100) &gt; 80</td>
+<td>Container Volume IO usage is above 80%<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>ContainerHighThrottleRate</td>
+<td>Container high throttle rate (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>rate(container_cpu_cfs_throttled_seconds_total[3m]) &gt; 1</td>
+<td>Container is being throttled<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="hamode">HAmode<a class="headerlink" href="#hamode" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_7">Alerting rules<a class="headerlink" href="#alerting-rules_7" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NotHAKubernetesDeploymentAvailableReplicas</td>
+<td>Not HA mode: Deployment Available Replicas &lt; 2 (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td><code>kube_deployment_status_replicas_available &lt; 2</code></td>
+<td>Not HA mode: Kubernetes Deployment has less than 2 available replicas<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>NotHAKubernetesStatefulSetAvailableReplicas</td>
+<td>Not HA mode: StatefulSet Available Replicas &lt; 2 (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td><code>kube_statefulset_status_replicas_available &lt; 2</code></td>
+<td>Not HA mode: Kubernetes StatefulSet has less than 2 available replicas<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>NotHAKubernetesDeploymentDesiredReplicas</td>
+<td>Not HA mode: Deployment Desired Replicas &lt; 2 (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td><code>kube_deployment_status_replicas &lt; 2</code></td>
+<td>Not HA mode: Kubernetes Deployment has less than 2 desired replicas<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>NotHAKubernetesStatefulSetDesiredReplicas</td>
+<td>Not HA mode: StatefulSet Desired Replicas &lt; 2 (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td><code>kube_statefulset_status_replicas &lt; 2</code></td>
+<td>Not HA mode: Kubernetes StatefulSet has less than 2 desired replicas<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>NotHAKubernetesDeploymentMultiplePodsPerNode</td>
+<td>Not HA mode: Deployment Has Multiple Pods per Node (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td><code>count(sum(kube_pod_info{node=\~".\+", created_by_kind="ReplicaSet"}) by (namespace, node, created_by_name) \&gt; 1) \&gt; 0</code></td>
+<td>Not HA mode: Kubernetes Deployment has 2 or more replicas on the same node<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>NotHAKubernetesStatefulSetMultiplePodsPerNode</td>
+<td>Not HA mode: StatefulSet Has Multiple Pods per Node (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td><code>count(sum(kube_pod_info{node=\~".\+", created_by_kind="StatefulSet"}) by (namespace, node, created_by_name) \&gt; 1) \&gt; 0</code></td>
+<td>Not HA mode: Kubernetes StatefulSet has 2 or more replicas on the same node<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="haproxy">HAproxy<a class="headerlink" href="#haproxy" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_8">Alerting rules<a class="headerlink" href="#alerting-rules_8" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HaproxyDown</td>
+<td>HAProxy down (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>haproxy_up == 0</td>
+<td>HAProxy down<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HaproxyBackendConnectionErrors</td>
+<td>HAProxy backend connection errors (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>sum by (backend) (rate(haproxy_backend_connection_errors_total[2m])) &gt; 10</td>
+<td>Too many connection errors to {{ $labels.fqdn }}/{{ $labels.backend }} backend (&gt; 10 req/s). Request throughput may be to high.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HaproxyServerResponseErrors</td>
+<td>HAProxy server response errors (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>sum by (server) (rate(haproxy_server_response_errors_total[2m])) &gt; 5</td>
+<td>Too many response errors to {{ $labels.server }} server (&gt; 5 req/s).<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HaproxyServerConnectionErrors</td>
+<td>HAProxy server connection errors (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>sum by (server) (rate(haproxy_server_connection_errors_total[2m])) &gt; 10</td>
+<td>Too many connection errors to {{ $labels.server }} server (&gt; 10 req/s). Request throughput may be to high.<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HaproxyPendingRequests</td>
+<td>HAProxy pending requests (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>sum by (backend) (haproxy_backend_current_queue) &gt; 0</td>
+<td>Some HAProxy requests are pending on {{ $labels.fqdn }}/{{ $labels.backend }} backend<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HaproxyHttpSlowingDown</td>
+<td>HAProxy HTTP slowing down (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>avg by (backend) (haproxy_backend_http_total_time_average_seconds) &gt; 2</td>
+<td>Average request time is increasing<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HaproxyRetryHigh</td>
+<td>HAProxy retry high (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>sum by (backend) (rate(haproxy_backend_retry_warnings_total[5m])) &gt; 10</td>
+<td>High rate of retry on {{ $labels.fqdn }}/{{ $labels.backend }} backend<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HaproxyBackendDown</td>
+<td>HAProxy backend down (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>haproxy_backend_up == 0</td>
+<td>HAProxy backend is down<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HaproxyServerDown</td>
+<td>HAProxy server down (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>haproxy_server_up == 0</td>
+<td>HAProxy server is down<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HaproxyFrontendSecurityBlockedRequests</td>
+<td>HAProxy frontend security blocked requests (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>sum by (frontend) (rate(haproxy_frontend_requests_denied_total[5m])) &gt; 10</td>
+<td>HAProxy is blocking requests for security reason<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HaproxyServerHealthcheckFailure</td>
+<td>HAProxy server healthcheck failure (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>increase(haproxy_server_check_failures_total[5m]) &gt; 0</td>
+<td>Some server healthcheck are failing on {{ $labels.server }}<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="etcd">Etcd<a class="headerlink" href="#etcd" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_9">Alerting rules<a class="headerlink" href="#alerting-rules_9" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EtcdInsufficientMembers</td>
+<td>Etcd insufficient Members (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>count(etcd_server_id{job="etcd"}) % 2 == 0</td>
+<td>Etcd cluster should have an odd number of members<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>EtcdNoLeader</td>
+<td>Etcd no Leader (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>etcd_server_has_leader == 0</td>
+<td>Etcd cluster have no leader<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>EtcdHighNumberOfLeaderChanges</td>
+<td>Etcd high number of leader changes (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>increase(etcd_server_leader_changes_seen_total[1h]) &gt; 3</td>
+<td>Etcd leader changed more than 3 times during last hour<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>EtcdHighNumberOfFailedGrpcRequests</td>
+<td>Etcd high number of failed GRPC requests (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>sum(rate(grpc_server_handled_total{job="etcd",grpc_code!="OK"}[5m])) BY (grpc_service, grpc_method) / sum(rate(grpc_server_handled_total{job="etcd"}[5m])) BY (grpc_service, grpc_method) &gt; 0.01</td>
+<td>More than 1% GRPC request failure detected in Etcd for 5 minutes<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>EtcdHighNumberOfFailedGrpcRequests</td>
+<td>Etcd high number of failed GRPC requests (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>sum(rate(grpc_server_handled_total{job="etcd",grpc_code!="OK"}[5m])) BY (grpc_service, grpc_method) / sum(rate(grpc_server_handled_total{job="etcd"}[5m])) BY (grpc_service, grpc_method) &gt; 0.05</td>
+<td>More than 5% GRPC request failure detected in Etcd for 5 minutes<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>EtcdGrpcRequestsSlow</td>
+<td>Etcd GRPC requests slow (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>histogram_quantile(0.99, sum(rate(grpc_server_handling_seconds_bucket{job="etcd",grpc_type="unary"}[5m])) by (grpc_service, grpc_method, le)) &gt; 0.15</td>
+<td>GRPC requests slowing down, 99<sup>th</sup> percentil is over 0.15s for 5 minutes<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>EtcdMemberCommunicationSlow</td>
+<td>Etcd member communication slow (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>histogram_quantile(0.99, rate(etcd_network_peer_round_trip_time_seconds_bucket{job="etcd"}[5m])) &gt; 0.15</td>
+<td>Etcd member communication slowing down, 99<sup>th</sup> percentil is over 0.15s for 5 minutes<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>EtcdHighNumberOfFailedProposals</td>
+<td>Etcd high number of failed proposals (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>increase(etcd_server_proposals_failed_total[1h]) &gt; 5</td>
+<td>Etcd server got more than 5 failed proposals past hour<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>EtcdHighFsyncDurations</td>
+<td>Etcd high fsync durations (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket[5m])) &gt; 0.5</td>
+<td>Etcd WAL fsync duration increasing, 99<sup>th</sup> percentil is over 0.5s for 5 minutes<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>EtcdHighCommitDurations</td>
+<td>Etcd high commit durations (instance {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>histogram_quantile(0.99, rate(etcd_disk_backend_commit_duration_seconds_bucket[5m])) &gt; 0.25</td>
+<td>Etcd commit duration increasing, 99<sup>th</sup> percentil is over 0.25s for 5 minutes<br/>  VALUE = {{ $value }}<br/>  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="nginxingressalerts">NginxIngressAlerts<a class="headerlink" href="#nginxingressalerts" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_10">Alerting rules<a class="headerlink" href="#alerting-rules_10" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NginxHighHttp4xxErrorRate</td>
+<td>Nginx high HTTP 4xx error rate (node: {{ $labels.node }}, namespace: {{ $labels.exported_namespace }}, ingress: {{ $labels.ingress }})</td>
+<td>1m</td>
+<td>high</td>
+<td>sum by (ingress, exported_namespace, node) (rate(nginx_ingress_controller_requests{status=~"^4.."}[2m])) / sum by (ingress, exported_namespace, node)(rate(nginx_ingress_controller_requests[2m])) * 100 &gt; 5</td>
+<td>Too many HTTP requests with status 4xx (&gt; 5%)<br/>  VALUE = {{ $value }}<br/>  LABELS = {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>NginxHighHttp5xxErrorRate</td>
+<td>Nginx high HTTP 5xx error rate (node: {{ $labels.node }}, namespace: {{ $labels.exported_namespace }}, ingress: {{ $labels.ingress }})</td>
+<td>1m</td>
+<td>high</td>
+<td>sum by (ingress, exported_namespace, node) (rate(nginx_ingress_controller_requests{status=~"^5.."}[2m])) / sum by (ingress, exported_namespace, node) (rate(nginx_ingress_controller_requests[2m])) * 100 &gt; 5</td>
+<td>Too many HTTP requests with status 5xx (&gt; 5%)<br/>  VALUE = {{ $value }}<br/>  LABELS = {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>NginxLatencyHigh</td>
+<td>Nginx latency high (node: {{ $labels.node }}, host: {{ $labels.host }})</td>
+<td>2m</td>
+<td>warning</td>
+<td>histogram_quantile(0.99, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket[2m])) by (host, node, le)) &gt; 3</td>
+<td>Nginx p99 latency is higher than 3 seconds<br/>  VALUE = {{ $value }}<br/>  LABELS = {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="corednsalerts">CoreDnsAlerts<a class="headerlink" href="#corednsalerts" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_11">Alerting rules<a class="headerlink" href="#alerting-rules_11" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CorednsPanicCount</td>
+<td>CoreDNS Panic Count (instance {{ $labels.instance }})</td>
+<td>0m</td>
+<td>critical</td>
+<td>increase(coredns_panics_total[1m]) &gt; 0</td>
+<td>Number of CoreDNS panics encountered<br/>  VALUE = {{ $value }}<br/>  LABELS = {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>CoreDNSLatencyHigh</td>
+<td>CoreDNS have High Latency</td>
+<td>5m</td>
+<td>critical</td>
+<td>histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket[2m])) by(server, zone, le)) &gt; 3</td>
+<td>CoreDNS has 99<sup>th</sup> percentile latency of {{ $value }} seconds for server {{ $labels.server }} zone {{ $labels.zone }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>CoreDNSForwardHealthcheckFailureCount</td>
+<td>CoreDNS health checks have failed to upstream server</td>
+<td>5m</td>
+<td>warning</td>
+<td>sum(rate(coredns_forward_healthcheck_broken_total[2m])) &gt; 0</td>
+<td>CoreDNS health checks have failed to upstream server {{ $labels.to }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>CoreDNSForwardHealthcheckBrokenCount</td>
+<td>CoreDNS health checks have failed for all upstream servers</td>
+<td>5m</td>
+<td>warning</td>
+<td>sum(rate(coredns_forward_healthcheck_broken_total[2m])) &gt; 0</td>
+<td>CoreDNS health checks failed for all upstream servers LABELS = {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>CoreDNSErrorsHigh</td>
+<td>CoreDNS is returning SERVFAIL</td>
+<td>5m</td>
+<td>critical</td>
+<td>sum(rate(coredns_dns_responses_total{rcode="SERVFAIL"}[2m])) / sum(rate(coredns_dns_responses_total[2m])) &gt; 0.03</td>
+<td>CoreDNS is returning SERVFAIL for {{ $value</td>
+<td>humanizePercentage }} of requests</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>CoreDNSErrorsHigh</td>
+<td>CoreDNS is returning SERVFAIL</td>
+<td>5m</td>
+<td>warning</td>
+<td>sum(rate(coredns_dns_responses_total{rcode="SERVFAIL"}[2m])) / sum(rate(coredns_dns_responses_total[2m])) &gt; 0.01</td>
+<td>CoreDNS is returning SERVFAIL for {{ $value</td>
+<td>humanizePercentage }} of requests</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>CoreDNSForwardLatencyHigh</td>
+<td>CoreDNS has 99<sup>th</sup> percentile latency for forwarding requests</td>
+<td>5m</td>
+<td>critical</td>
+<td>histogram_quantile(0.99, sum(rate(coredns_forward_request_duration_seconds_bucket[2m])) by(to, le)) &gt; 3</td>
+<td>CoreDNS has 99<sup>th</sup> percentile latency of {{ $value }} seconds forwarding requests to {{ $labels.to }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>CoreDNSForwardErrorsHigh</td>
+<td>CoreDNS is returning SERVFAIL for forward requests</td>
+<td>5m</td>
+<td>critical</td>
+<td>sum(rate(coredns_forward_responses_total{rcode="SERVFAIL"}[2m])) / sum(rate(coredns_forward_responses_total[2m])) &gt; 0.03</td>
+<td>CoreDNS is returning SERVFAIL for {{ $value</td>
+<td>humanizePercentage }} of forward requests to {{ $labels.to }}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>CoreDNSForwardErrorsHigh</td>
+<td>CoreDNS is returning SERVFAIL for forward requests</td>
+<td>5m</td>
+<td>warning</td>
+<td>sum(rate(coredns_forward_responses_total{rcode="SERVFAIL"}[2m])) / sum(rate(coredns_forward_responses_total[2m])) &gt; 0.01</td>
+<td>CoreDNS is returning SERVFAIL for {{ $value</td>
+<td>humanizePercentage }} of forward requests to {{ $labels.to }}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="dralerts">DRAlerts<a class="headerlink" href="#dralerts" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_12">Alerting rules<a class="headerlink" href="#alerting-rules_12" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ProbeFailed</td>
+<td>Probe failed (instance: {{ $labels.instance }})</td>
+<td>5m</td>
+<td>critical</td>
+<td>probe_success == 0</td>
+<td>Probe failed\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>SlowProbe</td>
+<td>Slow probe (instance: {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>avg_over_time(probe_duration_seconds[1m]) &gt; 1</td>
+<td>Blackbox probe took more than 1s to complete\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HttpStatusCode</td>
+<td>HTTP Status Code (instance: {{ $labels.instance }})</td>
+<td>5m</td>
+<td>high</td>
+<td>probe_http_status_code &lt;= 199 OR probe_http_status_code &gt;= 400</td>
+<td>HTTP status code is not 200-399\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>HttpSlowRequests</td>
+<td>HTTP slow requests (instance: {{ $labels.instance }})</td>
+<td>5m</td>
+<td>warning</td>
+<td>avg_over_time(probe_http_duration_seconds[1m]) &gt; 1</td>
+<td>HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h3 id="backupalerts">BackupAlerts<a class="headerlink" href="#backupalerts" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_13">Alerting rules<a class="headerlink" href="#alerting-rules_13" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Last Backup Failed</td>
+<td>Last backup made by pod {{ $labels.pod }} in namespace {{ $labels.namespace }} failed.</td>
+<td>1m</td>
+<td>warning</td>
+<td>backup_storage_last_failed != 0</td>
+<td>Last backup made by pod {{ $labels.pod }} in namespace {{ $labels.namespace }} failed.\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+<h2 id="cert-exporter">Cert-exporter<a class="headerlink" href="#cert-exporter" title="Permanent link">&para;</a></h2>
+<h3 id="cert-exporter-rules">Cert-exporter rules<a class="headerlink" href="#cert-exporter-rules" title="Permanent link">&para;</a></h3>
+<h4 id="alerting-rules_14">Alerting rules<a class="headerlink" href="#alerting-rules_14" title="Permanent link">&para;</a></h4>
+<!-- markdownlint-disable line-length -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+<th>For</th>
+<th>Severity</th>
+<th>Expression</th>
+<th>Description</th>
+<th>Other labels</th>
+<th>Other annotations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FileCerts30DaysRemaining</td>
+<td>Certificates from files expire within 30 days</td>
+<td>10m</td>
+<td>warning</td>
+<td>count(86400 * 7 &lt; cert_exporter_cert_expires_in_seconds &lt;= 86400 * 30) &gt; 0</td>
+<td>Some certificates from files expire within 30 days.</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>FileCerts7DaysRemaining</td>
+<td>Certificates from files expire within 7 days</td>
+<td>10m</td>
+<td>high</td>
+<td>count(0 &lt; cert_exporter_cert_expires_in_seconds &lt;= 86400 * 7) &gt; 0</td>
+<td>Some certificates from files expire within 7 days.</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>FileCertsExpired</td>
+<td>Certificates from files expired</td>
+<td>10m</td>
+<td>critical</td>
+<td>count(cert_exporter_cert_expires_in_seconds &lt;= 0) &gt; 0</td>
+<td>Some certificates from files already expired.</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubeconfigCerts30DaysRemaining</td>
+<td>Certificates from kubeconfig expire within 30 days</td>
+<td>10m</td>
+<td>warning</td>
+<td>count(86400 * 7 &lt; cert_exporter_kubeconfig_expires_in_seconds &lt;= 86400 * 30) &gt; 0</td>
+<td>Some certificates from kubeconfig expire within 30 days.</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubeconfigCerts7DaysRemaining</td>
+<td>Certificates from kubeconfig expire within 7 days</td>
+<td>10m</td>
+<td>high</td>
+<td>count(0 &lt; cert_exporter_kubeconfig_expires_in_seconds &lt;= 86400 * 7) &gt; 0</td>
+<td>Some certificates from kubeconfig expire within 7 days.</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>KubeconfigCertsExpired</td>
+<td>Certificates from kubeconfig expired</td>
+<td>10m</td>
+<td>critical</td>
+<td>count(cert_exporter_kubeconfig_expires_in_seconds &lt;= 0) &gt; 0</td>
+<td>Some certificates from kubeconfig already expired.</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>SecretCerts30DaysRemaining</td>
+<td>Certificates from secrets expire within 30 days</td>
+<td>10m</td>
+<td>warning</td>
+<td>count(86400 * 7 &lt; cert_exporter_secret_expires_in_seconds &lt;= 86400 * 30) &gt; 0</td>
+<td>Some certificates from secrets expire within 30 days.</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>SecretCerts7DaysRemaining</td>
+<td>Certificates from secrets expire within 7 days</td>
+<td>10m</td>
+<td>high</td>
+<td>count(0 &lt; cert_exporter_secret_expires_in_seconds &lt;= 86400 * 7) &gt; 0</td>
+<td>Some certificates from secrets expire within 7 days.</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>SecretCertsExpired</td>
+<td>Certificates from secrets expired</td>
+<td>10m</td>
+<td>critical</td>
+<td>count(cert_exporter_secret_expires_in_seconds &lt;= 0) &gt; 0</td>
+<td>Some certificates from secrets already expired.</td>
+<td>{}</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable line-length -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
