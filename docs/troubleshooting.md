@@ -537,7 +537,7 @@ For more information about AlertmanagerConfig, refer to the [Configuration docum
 
 ### Grafana Data Source not found
 
-The `grafana-operator v4.x` has a problem ([https://github.com/grafana-operator/grafana-operator/issues/652](https://github.com/grafana-operator/grafana-operator/issues/652))
+The `grafana-operator v4.x` has a problem ([https://github.com/grafana/grafana-operator/issues/652](https://github.com/grafana/grafana-operator/issues/652))
 when the Prometheus datasource is not imported until the controller-manager
 is restarted. The problem is that both resources are created at the same time and the Grafana pod is started before
 the operator updates the config map for data sources.
