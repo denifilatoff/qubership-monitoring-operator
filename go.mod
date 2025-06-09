@@ -1,12 +1,13 @@
 module github.com/Netcracker/qubership-monitoring-operator
 
-go 1.23
+go 1.23.0
+
 toolchain go1.24.1
 
 require (
 	github.com/VictoriaMetrics/operator/api v0.0.0-20241014161824-90a26652481b
 	github.com/distribution/reference v0.6.0
-	github.com/go-logr/logr v1.4.2
+	github.com/go-logr/logr v1.4.3
 	github.com/go-logr/zapr v1.3.0
 	github.com/go-task/slim-sprig v2.20.0+incompatible
 	github.com/grafana-operator/grafana-operator/v4 v4.10.1
