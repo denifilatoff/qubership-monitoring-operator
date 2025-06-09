@@ -1,5 +1,5 @@
 # Build the manager binary
-FROM golang:1.24.2-alpine3.21 as builder
+FROM golang:1.24.3-alpine3.21 AS builder
 
 WORKDIR /workspace
 
@@ -20,7 +20,7 @@ COPY controllers/ controllers/
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on go build -a -o manager main.go
 
 # Use alpine base container
-FROM alpine:3.21.3
+FROM alpine:3.22.0
 
 ENV USER_UID=2001 \
     USER_NAME=monitoring-operator \
