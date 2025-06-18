@@ -165,28 +165,25 @@ kubectl port-forward -n monitoring svc/monitoring-grafana 3000:3000
 ## Documentation
 
 ### Quick Guides
-- **[Installation Guide](docs/installation/README.md)** - Detailed installation instructions
-- **[Configuration Guide](docs/monitoring-configuration/)** - Complete configuration options
-- **[Troubleshooting](docs/troubleshooting.md)** - Common issues and solutions
+- **[Installation Guide](https://netcracker.github.io/qubership-monitoring-operator/installation/)** - Detailed installation instructions
+- **[Configuration Guide](https://netcracker.github.io/qubership-monitoring-operator/configuration/)** - Complete configuration options
+- **[Troubleshooting](https://netcracker.github.io/qubership-monitoring-operator/troubleshooting/)** - Common issues and solutions
 
 ### API Reference
-- **[PlatformMonitoring](docs/api/platform-monitoring.md)** - Main custom resource reference
-- **[PrometheusAdapter](docs/api/prometheus-adapter.md)** - HPA metrics adapter configuration
-- **[CustomScaleMetricRule](docs/api/custom-scale-metric-rule.md)** - Custom autoscaling metrics
+- **[PlatformMonitoring](https://netcracker.github.io/qubership-monitoring-operator/api/platform-monitoring/)** - Main custom resource reference
+- **[PrometheusAdapter](https://netcracker.github.io/qubership-monitoring-operator/api/prometheus-adapter/)** - HPA metrics adapter configuration
 
 ### Default Monitoring
-- **[Metrics](docs/defaults/metrics.md)** - Out-of-the-box metrics collection
-- **[Alerts](docs/defaults/alerts.md)** - Pre-configured alerting rules
-- **[Dashboards](docs/defaults/dashboards/)** - Built-in Grafana dashboards
+- **[Metrics](https://netcracker.github.io/qubership-monitoring-operator/defaults/metrics/)** - Out-of-the-box metrics collection
+- **[Alerts](https://netcracker.github.io/qubership-monitoring-operator/defaults/alerts/)** - Pre-configured alerting rules
+- **[Dashboards](https://netcracker.github.io/qubership-monitoring-operator/defaults/dashboards/overall-platform-health/)** - Built-in Grafana dashboards
 
 ### Examples
-- **[Service Monitoring](docs/examples/custom-resources/)** - Monitor your applications
-- **[Full Service Setup](docs/examples/full-service/)** - Complete monitoring setup examples
-- **[Cloud Integration](docs/examples/components/)** - Cloud provider integrations
+- **[Service Monitoring](https://netcracker.github.io/qubership-monitoring-operator/examples/)** - Monitor your applications
+- **[Cloud Watch Integration](https://netcracker.github.io/qubership-monitoring-operator/examples/components/cloudwatch-exporter-config/)** - Cloud provider integrations
 
 ### Architecture
-- **[Architecture Overview](docs/architecture.md)** - Detailed system architecture
-- **[Component Guide](docs/cookbook/overview.md)** - Understanding the monitoring stack
+- **[Architecture Overview](https://netcracker.github.io/qubership-monitoring-operator/architecture/)** - Detailed system architecture
 
 ## Contributing
 
@@ -215,7 +212,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Support
 
-- **Documentation**: [Full Documentation](docs/)
+- **Documentation**: [Full Documentation](https://netcracker.github.io/qubership-monitoring-operator)
 - **Issues**: [GitHub Issues](https://github.com/Netcracker/qubership-monitoring-operator/issues)
 
 ## Star History
