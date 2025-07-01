@@ -13,6 +13,7 @@ updates:
     k8s.io:
       patterns:
       - "k8s.io/*"
+      - "github.com/prometheus-operator/prometheus-operator/*"
     go.opentelemetry.io:
       patterns:
       - "go.opentelemetry.io/*"
@@ -30,3 +31,4 @@ updates:
   - "/test/robot-tests"
   schedule:
     interval: "monthly"
+
