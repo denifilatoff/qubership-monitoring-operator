@@ -23,6 +23,8 @@ This section contains detailed configuration documentation for all monitoring co
 * **[Kube State Metrics](exporters/kube-state-metrics.md)** - Kubernetes object state metrics
 * **[Blackbox Exporter](exporters/blackbox-exporter.md)** - External endpoint probing
 * **[Cert Exporter](exporters/cert-exporter.md)** - TLS certificate monitoring
+* **[Cloud Events Exporter](exporters/cloud-events-exporter.md)** - Kubernetes events monitoring
+* **[JSON Exporter](exporters/json-exporter.md)** - JSON endpoint monitoring
 * **[Version Exporter](exporters/version-exporter.md)** - Version tracking
 * **[Network Latency Exporter](exporters/network-latency-exporter.md)** - Network latency measurements
 
