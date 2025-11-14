@@ -400,7 +400,7 @@ spec:
       {{- if .Values.victoriametrics.vmOperator.priorityClassName }}
       priorityClassName: {{ .Values.victoriametrics.vmOperator.priorityClassName }}
       {{- end }}
-    # Replace below if condition when vmCluster is actualized 
+    # Replace below if condition when vmCluster is actualized
     # if and .Values.victoriametrics.vmSingle.install (not .Values.victoriametrics.vmCluster.install)
     {{- if .Values.victoriametrics.vmSingle.install }}
     vmSingle:
@@ -944,9 +944,9 @@ spec:
         {{- end }}
     {{- end }}
     {{- if .Values.victoriametrics.vmAuth.install }}
-    {{- if .Values.victoriametrics.vmUser.install }}
+    {{- if or .Values.victoriametrics.vmUser.install (hasKey .Values.victoriametrics.vmUser "install") }}
     vmUser:
-      install: {{ .Values.victoriametrics.vmUser.install }}
+      install: {{ if hasKey .Values.victoriametrics.vmUser "install" }}{{ .Values.victoriametrics.vmUser.install }}{{ else }}true{{ end }}
       paused: {{ .Values.victoriametrics.vmUser.paused | default false }}
       {{- if .Values.victoriametrics.vmUser.username }}
       username: {{ .Values.victoriametrics.vmUser.username }}
@@ -956,7 +956,7 @@ spec:
         {{- toYaml .Values.victoriametrics.vmUser.passwordRef | nindent 8 }}
       {{- end }}
       {{- if .Values.victoriametrics.vmUser.tokenRef }}
-      passwordRef:
+      tokenRef:
         {{- toYaml .Values.victoriametrics.vmUser.tokenRef | nindent 8 }}
       {{- end }}
       generatePassword: {{ .Values.victoriametrics.vmUser.generatePassword | default false }}
