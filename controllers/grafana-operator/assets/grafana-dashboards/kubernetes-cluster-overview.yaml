@@ -3742,7 +3742,7 @@ spec:
                     "uid": "$datasource"
                   },
                   "editorMode": "code",
-                  "expr": "sum(sum by (namespace, pod, container) (rate(container_cpu_usage_seconds_total{cluster=\"$cluster\", image!=\"\", container!~\"^(.*POD.*|)$\"}[2m]))) by (namespace)",
+                  "expr": "sum(sum by (namespace, pod, container) (rate(container_cpu_usage_seconds_total{cluster=\"$cluster\", container!~\"^(.*POD.*|)$\"}[2m]))) by (namespace)",
                   "format": "table",
                   "instant": true,
                   "interval": "$interval",
@@ -3769,7 +3769,7 @@ spec:
                     "uid": "$datasource"
                   },
                   "editorMode": "code",
-                  "expr": "sum( sum by (namespace, pod, container) (rate(container_cpu_usage_seconds_total{cluster=\"$cluster\", image!=\"\", container!~\"^(.*POD.*|)$\"}[2m]))) by (namespace) / sum(label_replace(kube_pod_container_resource_requests{cluster=\"$cluster\", resource=\"cpu\"},\"namespace\",\"$1\",\"exported_namespace\",\"(.*)\")) by (namespace)",
+                  "expr": "sum( sum by (namespace, pod, container) (rate(container_cpu_usage_seconds_total{cluster=\"$cluster\", container!~\"^(.*POD.*|)$\"}[2m]))) by (namespace) / sum(label_replace(kube_pod_container_resource_requests{cluster=\"$cluster\", resource=\"cpu\"},\"namespace\",\"$1\",\"exported_namespace\",\"(.*)\")) by (namespace)",
                   "format": "table",
                   "instant": true,
                   "interval": "$interval",
@@ -3796,7 +3796,7 @@ spec:
                     "uid": "$datasource"
                   },
                   "editorMode": "code",
-                  "expr": "sum( sum by (namespace, pod, container) (rate(container_cpu_usage_seconds_total{cluster=\"$cluster\", image!=\"\", container!~\"^(.*POD.*|)$\"}[2m]))) by (namespace) / sum(label_replace(kube_pod_container_resource_limits{resource=\"cpu\", cluster=\"$cluster\"},\"namespace\",\"$1\",\"exported_namespace\",\"(.*)\")) by (namespace)",
+                  "expr": "sum( sum by (namespace, pod, container) (rate(container_cpu_usage_seconds_total{cluster=\"$cluster\", container!~\"^(.*POD.*|)$\"}[2m]))) by (namespace) / sum(label_replace(kube_pod_container_resource_limits{resource=\"cpu\", cluster=\"$cluster\"},\"namespace\",\"$1\",\"exported_namespace\",\"(.*)\")) by (namespace)",
                   "format": "table",
                   "instant": true,
                   "interval": "$interval",
